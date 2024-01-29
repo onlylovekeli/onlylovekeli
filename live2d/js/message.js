@@ -19,45 +19,9 @@ function renderTip(template, context) {
 String.prototype.renderTip = function (context) {
     return renderTip(this, context);
 };
-
-var re = /x/;
-console.log(re);
-re.toString = function() {
-    showMessage('哈哈，你打开了控制台，是想要看看我的秘密吗？', 5000);
-    return '';
-};
-
 $(document).on('copy', function (){
     showMessage('你都复制了些什么呀，转载要记得加上出处哦~~', 5000);
 });
-
-function initTips(){
-    $.ajax({
-        cache: true,
-        url: `${message_Path}/message.json`,
-        dataType: "json",
-        success: function (result){
-            $.each(result.mouseover, function (index, tips){
-                $(tips.selector).mouseover(function (){
-                    var text = tips.text;
-                    if(Array.isArray(tips.text)) text = tips.text[Math.floor(Math.random() * tips.text.length + 1)-1];
-                    text = text.renderTip({text: $(this).text()});
-                    showMessage(text, 3000);
-                });
-            });
-            $.each(result.click, function (index, tips){
-                $(tips.selector).click(function (){
-                    var text = tips.text;
-                    if(Array.isArray(tips.text)) text = tips.text[Math.floor(Math.random() * tips.text.length + 1)-1];
-                    text = text.renderTip({text: $(this).text()});
-                    showMessage(text, 3000);
-                });
-            });
-        }
-    });
-}
-initTips();
-
 (function (){
     var text;
     if(document.referrer !== ''){
@@ -111,7 +75,6 @@ function showHitokoto(){
 
 function showMessage(text, timeout){
     if(Array.isArray(text)) text = text[Math.floor(Math.random() * text.length + 1)-1];
-    //console.log('showMessage', text);
     $('.message').stop();
     $('.message').html(text).fadeTo(200, 1);
     if (timeout === null) timeout = 5000;
@@ -123,16 +86,3 @@ function hideMessage(timeout){
     if (timeout === null) timeout = 5000;
     $('.message').delay(timeout).fadeTo(200, 0);
 }
-
-function initLive2d (){
-    // $('.hide-button').fadeOut(0).on('click', () => {
-    //     $('#landlord').css('display', 'none')
-    // })
-    // $('#landlord').hover(() => {
-    //     $('.hide-button').fadeIn(600)
-    // }, () => {
-    //     $('.hide-button').fadeOut(600)
-    // })
-    $('#landlord').hover(()=>{},()=>{})
-}
-initLive2d ();
