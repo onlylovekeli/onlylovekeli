@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search> 
+  
+  
+    
+    <entry>
+      <title>如何使微信小游戏突破8M以上的限制</title>
+      <link href="/2024/01/28/%E5%A6%82%E4%BD%95%E4%BD%BF%E5%BE%AE%E4%BF%A1%E5%B0%8F%E6%B8%B8%E6%88%8F%E7%AA%81%E7%A0%B48M%E4%BB%A5%E4%B8%8A%E7%9A%84%E9%99%90%E5%88%B6/"/>
+      <url>/2024/01/28/%E5%A6%82%E4%BD%95%E4%BD%BF%E5%BE%AE%E4%BF%A1%E5%B0%8F%E6%B8%B8%E6%88%8F%E7%AA%81%E7%A0%B48M%E4%BB%A5%E4%B8%8A%E7%9A%84%E9%99%90%E5%88%B6/</url>
+      
+        <content type="html"><![CDATA[<p>使用本地存储做一个类似版本更新</p><span id="more"></span><p>使用场景:</p><p>微信小游戏分包最高8M，大于8M的话只能放服务器进行远程加载，但是为了提高加载速度和减轻服务器压力。我们可以将资源从服务器上下载下来存到</p><p>本地。只有当游戏有更新时再去从服务器上下载资源(类似游戏的更新).</p><p>实现步骤:</p><p>1.将所需要的资源打成压缩包放到服务器</p><p>2.使用微信小游戏提供的api进行下载资源并解压保存到本地.将保存后的路径写入本地的永久缓存中供后面使用。</p><p>3.游戏内加载本地资源</p><p>主要方法有以下:</p><p>wx.downloadFile 文件下载</p><p><a href="https://developers.weixin.qq.com/minigame/dev/api/network/download/wx.downloadFile.html">https://developers.weixin.qq.com/minigame/dev/api/network/download/wx.downloadFile.html</a></p><pre><code class="javascript">fMgr=wx.getFileSystemManager() 获取文件管理器fMgr.unzip(zipFilePath,targetPath,success,fail,complete) 文件解压 文件建议解压到 wx.env.USER_DATA_PATH</code></pre>]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>图文混排</title>
+      <link href="/2024/01/28/%E5%9B%BE%E6%96%87%E6%B7%B7%E6%8E%92/"/>
+      <url>/2024/01/28/%E5%9B%BE%E6%96%87%E6%B7%B7%E6%8E%92/</url>
+      
+        <content type="html"><![CDATA[<p>图文混排</p><span id="more"></span><pre><code class="typescript">class TextImage extends eui.Group &#123;       public templet: egret.TextField       constructor(protected _TextImageData: Array&lt;any&gt; = []) &#123;           super();           this.init()       &#125;       set TextImageData(val: Array&lt;any&gt;) &#123; this._TextImageData = val; this.init(); &#125;       get TextImageData() &#123; return this._TextImageData &#125;       _size = 36       /**设置文字字体大小 */       set size(val: number) &#123;           this._size = val       &#125;       get size(): number &#123;           return this._size       &#125;       private _width: number;       /**设置宽度 */       set width(val) &#123; this._width = val; this.invalidate(); &#125;       get width() &#123; return this._width &#125;;       private _verticalAlign = egret.VerticalAlign.MIDDLE;       /**设置vercatical */       set verticalAlign(val) &#123; this._verticalAlign = val; this.invalidate(); &#125;       get verticalAlign() &#123; return this._verticalAlign &#125;;       _maxWidth: number       /**设置组件的最大宽度 */       set maxWidth(val: number) &#123;           this._maxWidth = val           if (this.templet.width &gt; val) &#123;               this.width = val               this.invalidate()           &#125;       &#125;       get maxWidth(): number &#123;           return this._maxWidth       &#125;       private _lineSpacing = 0       /**设置组件的行间距 */       set lineSpacing(val: number) &#123;           if (this._lineSpacing === val) return           this._lineSpacing = val           this.invalidate()       &#125;       get lineSpacing(): number &#123;           return this._lineSpacing       &#125;       /**立即计算布局 */       validateNow() &#123;           this.init()           this.invalidate_Flag = false       &#125;       /**组件的每行高度 */       lineHeightArray: Array&lt;number&gt; = []       components: any[] = []       protected init() &#123;           this.removeChildren()           if (this._TextImageData.length == 0) &#123;               this.width = this.height = 0               return           &#125;           // 保存组件,清除事件绑定           this.components = []           this._TextImageData.forEach(component =&gt; &#123;               if (typeof component == &#39;object&#39;) &#123;                   this.components.push(component)                   if (!component[&#39;watch&#39;]) &#123;                       egret.is(component, &#39;eui.Image&#39;) &amp;&amp; component.once(egret.Event.COMPLETE, this.invalidate, this)                       eui.Watcher.watch(component, [&#39;width&#39;], this.invalidate, this)                       eui.Watcher.watch(component, [&#39;height&#39;], this.invalidate, this)                       component[&#39;watch&#39;] = true                   &#125;               &#125;           &#125;)           let textFlow = this._TextImageData.map(text =&gt;               typeof text === &quot;string&quot; || egret.is(text, &#39;eui.Label&#39;)                   ? &#123; text: egret.is(text, &#39;eui.Label&#39;) ? text.text : text &#125;                   : &#123; text: &#39;樂&#39;, style: &#123; size: text.width &#125; &#125;           )           let TextField: egret.TextField = this.templet = new egret.TextField();           TextField.size = this.size;           TextField.lineSpacing = 0;           TextField.width = this.width           TextField.textFlow = textFlow           TextField.height = TextField.height           this.height = 0           this.lineHeightArray = []           let componentTestIndex = 0 //测量高度的组件序号           let componentIndex = 0 //布局的组件序号           TextField[&#39;linesArr&#39;].forEach((item,lines) =&gt; &#123;               console.log(&#39;item=&gt;&#39;, item)               //获取最大高度               let maxheight = this.size               //组件序号               item.elements.forEach((element) =&gt; &#123;                   if (element.text == &#39;樂&#39;) &#123;                       let c = this.components[componentTestIndex++]                       maxheight = Math.max(maxheight, c.height)                   &#125;               &#125;)               maxheight = this._lineSpacing + maxheight               this.lineHeightArray.push(maxheight)               //开始布局               let x = 0               item.elements.forEach(element =&gt; &#123;                   let component                   if (element.text !== &#39;樂&#39;) &#123;                       component = new egret.TextField()                       component.x = x                       component.size = this.size                       component.text = element.text                       component.width = element.width                       component.textColor = this._textColor                       component.height = maxheight                       component.y = this.height                       component.verticalAlign = this._verticalAlign;                   &#125; else &#123;                       component = this.components[componentIndex++]                       component.x = x                       component.y = this.height + (maxheight - component.height) / 2                   &#125;                   x += component.width                   this.addChild(component)               &#125;)               this.height += maxheight           &#125;)           this._width = this.templet.width       &#125;       _textColor: number = 0x000000       set textColor(val) &#123;           this._textColor = val           this.invalidate()       &#125;       get textColor() &#123;           return this._textColor       &#125;       /**失效验证 */       private invalidate_Flag: boolean = false       private invalidate(e?: egret.Event): void &#123;           if (this.invalidate_Flag) &#123;               return           &#125;           this.invalidate_Flag = true           this.once(egret.Event.ENTER_FRAME, () =&gt; &#123;               this.init()               this.invalidate_Flag = false           &#125;, this);       &#125;   &#125;</code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> egret </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Json解析</title>
+      <link href="/2024/01/28/Json%E8%A7%A3%E6%9E%90/"/>
+      <url>/2024/01/28/Json%E8%A7%A3%E6%9E%90/</url>
+      
+        <content type="html"><![CDATA[<p>Json解析</p><span id="more"></span><pre><code class="csharp">JObject obj=(JObject)JsonConvert.DeserializeObject(jsonstr); //解析string jsonstr=JsonConvert.SerializeObject(obj); //序列化</code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> csharp </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>自定义网页下载ipa包</title>
+      <link href="/2024/01/28/%E8%87%AA%E5%AE%9A%E4%B9%89%E7%BD%91%E9%A1%B5%E4%B8%8B%E8%BD%BDipa%E5%8C%85/"/>
+      <url>/2024/01/28/%E8%87%AA%E5%AE%9A%E4%B9%89%E7%BD%91%E9%A1%B5%E4%B8%8B%E8%BD%BDipa%E5%8C%85/</url>
+      
+        <content type="html"><![CDATA[<p>自定义网页下载ipa包</p><span id="more"></span><p>1.打包项目，生成ipa包</p><p>2.将ipa包放在服务器上，提供一个下载链接</p><p>3.配置plist文件。模板如下：（保存的名字为：ipa文件名+”.plist”）</p><pre><code class="javascript">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;!DOCTYPE plist PUBLIC &quot;-//Apple//DTD PLIST 1.0//EN&quot; &quot;http://www.apple.com/DTDs/PropertyList-1.0.dtd&quot;&gt;&lt;plist version=&quot;1.0&quot;&gt;&lt;dict&gt;    &lt;key&gt;items&lt;/key&gt;    &lt;array&gt;        &lt;dict&gt;            &lt;key&gt;assets&lt;/key&gt;            &lt;array&gt;                &lt;dict&gt;                    &lt;key&gt;kind&lt;/key&gt;                    &lt;string&gt;software-package&lt;/string&gt;                    &lt;key&gt;url&lt;/key&gt;                    &lt;string&gt;http://h5.9shadow.com/ly/test/xx.ipa&lt;/string&gt;                &lt;/dict&gt;            &lt;/array&gt;            &lt;key&gt;metadata&lt;/key&gt;            &lt;dict&gt;                &lt;key&gt;bundle-identifier&lt;/key&gt;                &lt;string&gt;com.jiuying.xyzl&lt;/string&gt;                &lt;key&gt;bundle-version&lt;/key&gt;                &lt;string&gt;1.0&lt;/string&gt;                &lt;key&gt;kind&lt;/key&gt;                &lt;string&gt;software&lt;/string&gt;                &lt;key&gt;title&lt;/key&gt;                &lt;string&gt;zhongleapp&lt;/string&gt;            &lt;/dict&gt;        &lt;/dict&gt;    &lt;/array&gt;&lt;/dict&gt;&lt;/plist&gt;</code></pre><p>3.1 代码的配置说明:</p><pre><code class="javascript">&lt;string&gt;./xx.ipa&lt;/string&gt; 用来配置ipa文件路径&lt;string&gt;com.app.com&lt;/string&gt;   用来配置包名&lt;string&gt;zhongleapp&lt;/string&gt; 随意</code></pre><p>下载时访问路径为: “itms-services:&#x2F;&#x2F;?action&#x3D;download-manifest&amp;url&#x3D;”+plist文件路径</p><p>4.将plist文件放到服务器，有ssl证书，链接必须是https。plist文件名和ipa名要一致</p><p>5.生成html页面，点击下载到下载plist文件的链接</p><pre><code class="javascript">&lt;a href=&quot;itms-services://?action=download-manifest&amp;url=http://www.114390.com/ceshi/info2.plist&quot;&gt;点这儿一键安装iOS应用&lt;/a&gt;</code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> other </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>自定义头像</title>
+      <link href="/2024/01/28/%E8%87%AA%E5%AE%9A%E4%B9%89%E5%A4%B4%E5%83%8F/"/>
+      <url>/2024/01/28/%E8%87%AA%E5%AE%9A%E4%B9%89%E5%A4%B4%E5%83%8F/</url>
+      
+        <content type="html"><![CDATA[<p>unity自定义头像</p><span id="more"></span><pre><code class="csharp">public class CustomHeadImage : Image&#123;   [SerializeField]    private float showPercent = 1f;   [SerializeField]    private int segments = 100;   protected override void OnPopulateMesh(VertexHelper vh)   &#123;        vh.Clear();              float width = rectTransform.rect.width;       float height = rectTransform.rect.height;       Vector2 uv = GetUV(overrideSprite);       Vector2 convertRatio = GetConvetRatio(uv.x, uv.y, width, height);       Vector2 uvCenter = GetUvCenter(uv.x, uv.y);       Vector2 originPos = GetOriginPos(width, height);       UIVertex origin = new UIVertex();       //设置原点颜色渐变       byte c = (byte)(showPercent * 255);        origin.color = new Color32(c, c, c, 255);        origin.position = originPos;        origin.uv0 = new Vector2(Vector2.zero.x * convertRatio.x + uvCenter.x, Vector2.zero.y * convertRatio.y + uvCenter.y);        vh.AddVert(origin);       float radian = Mathf.PI * 2 / segments;       float curRadian = 0;       float radius = width * 0.5f;       int realSegment = (int)(showPercent * segments);       for (int i = 0; i &lt; segments + 1; i++)       &#123;           float x = Mathf.Cos(curRadian) * radius;           float y = Mathf.Sin(curRadian) * radius;            curRadian += radian;           Vector2 xy = new Vector2(x, y);           UIVertex uvTemp = new UIVertex();           if (i &lt; realSegment)           &#123;                uvTemp.color = color;           &#125;           else           &#123;               if (realSegment == segments)               &#123;                    uvTemp.color = color;               &#125;               else               &#123;                    uvTemp.color = new Color32(60, 60, 60, 255);               &#125;           &#125;            uvTemp.position = xy + originPos;            uvTemp.uv0 = new Vector2(xy.x * convertRatio.x + uvCenter.x, xy.y * convertRatio.y + uvCenter.y);            vh.AddVert(uvTemp);       &#125;       int id = 1;       for (int i = 0; i &lt; segments; i++)       &#123;            vh.AddTriangle(id, 0, id + 1);            id++;       &#125;   &#125;   private Vector2 GetConvetRatio(float uvWidth, float uvHeight, float width, float height)   &#123;       Vector2 convertRatio = new Vector2(uvWidth / width, uvHeight / height);       return convertRatio;   &#125;   private Vector2 GetUvCenter(float uvWidth, float uvHeight)   &#123;       Vector2 center = new Vector2(uvWidth * 0.5f, uvHeight * 0.5f);       return center;   &#125;   private Vector2 GetOriginPos(float width, float height)   &#123;       Vector2 originPos = new Vector2((0.5f - rectTransform.pivot.x) * width, ((0.5f - rectTransform.pivot.y) * height));       return originPos;   &#125;   private Vector2 GetUV(Sprite sprite)   &#123;       Vector4 temp = sprite != null ? DataUtility.GetOuterUV(sprite) : Vector4.zero;       float uvHeight = temp.w - temp.y;       float uvWidth = temp.z - temp.x;       Vector2 uv = new Vector2(uvWidth, uvHeight);       return uv;   &#125;&#125;</code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> unity </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Unity中的输入事件总结与数字电视遥控器键值映射</title>
+      <link href="/2024/01/28/Unity%E4%B8%AD%E7%9A%84%E8%BE%93%E5%85%A5%E4%BA%8B%E4%BB%B6%E6%80%BB%E7%BB%93%E4%B8%8E%E6%95%B0%E5%AD%97%E7%94%B5%E8%A7%86%E9%81%A5%E6%8E%A7%E5%99%A8%E9%94%AE%E5%80%BC%E6%98%A0%E5%B0%84/"/>
+      <url>/2024/01/28/Unity%E4%B8%AD%E7%9A%84%E8%BE%93%E5%85%A5%E4%BA%8B%E4%BB%B6%E6%80%BB%E7%BB%93%E4%B8%8E%E6%95%B0%E5%AD%97%E7%94%B5%E8%A7%86%E9%81%A5%E6%8E%A7%E5%99%A8%E9%94%AE%E5%80%BC%E6%98%A0%E5%B0%84/</url>
+      
+        <content type="html"><![CDATA[<p>Unity中的输入事件总结与数字电视遥控器键值映射</p><span id="more"></span><p>一、Unity的基本输入事件（最常用）：<br>鼠标键盘事件靠在Update事件周期中不断检测触发：<br>鼠标点击：</p><ul><li><p>Input.GetMouseButtonDown(0) &#x2F;&#x2F;鼠标左键按下</p></li><li><p>Input.GetMouseButtonDown(1) &#x2F;&#x2F;鼠标右键按下</p></li><li><p>Input.GetMouseButtonUp(0) &#x2F;&#x2F;鼠标左键抬起</p></li><li><p>Input.GetMouseButtonUp(1) &#x2F;&#x2F;鼠标右键抬起</p></li></ul><p>键盘事件：</p><ul><li><p>Input.GetKeyDown(KeyCode.键值) &#x2F;&#x2F;键盘按下</p></li><li><p>Input.GetKeyUp(KeyCode.键值) &#x2F;&#x2F;键盘抬起</p></li></ul><p>常用的键值：</p><ul><li><p>KeyCode.大写字母 &#x2F;&#x2F;字母键</p></li><li><p>KeyCode.UpArrow</p></li><li><p>KeyCode.DownArrow</p></li><li><p>KeyCode.LeftArrow</p></li><li><p>KeyCode.RightArrow</p></li><li><p>KeyCode.Return &#x2F;&#x2F;回车</p></li><li><p>KeyCode.Escape &#x2F;&#x2F;Esc返回</p></li><li><p>KeyCode.Space &#x2F;&#x2F;空格</p></li><li><p>KeyCode.LeftControl</p></li><li><p>KeyCode.RightControl</p></li><li><p>KeyCode.LeftShift</p></li><li><p>KeyCode.RightShift</p></li><li><p>KeyCode.Tab</p></li><li><p>KeyCode.Delete</p></li><li><p>KeyCode.Backspace</p></li></ul><p>文章末尾有详细键值表！</p><p>二、数字电视遥控器输入事件的映射：<br>小米盒子遥控器的按键除了OK确认选定键其他基本跟unity的键盘相对应（数字电视中小米盒子比较特殊，跟其他数字电视不一样，键值映射要特殊考虑）：</p><p>上下左右对应箭头，KeyCode.Escape是返回键（对应键盘的Esc），KeyCode.Menu是遥控器的菜单键（对应键盘的右contrl）<br>其中的确认键官方给出了说明方法是定义： KeyCode DPAD_CENTER &#x3D; (KeyCode)10; 然后跟其他KeyCode一样检测DPAD_CENTER就可以了；</p><p>&#x2F;&#x2F;测试获得数字电视的键值映射：</p><p>方向键：</p><p>上：      KeyCode.UpArrow</p><p>下：      KeyCode.DownArrow</p><p>左：      KeyCode.LeftArrow</p><p>右：      KeyCode.RightArrow</p><p>功能键：</p><p>OK键：    KeyCode.JoystickButton0(小米盒子比较特殊，键值为：KeyCode MIOkKeyCode &#x3D; (KeyCode)10;)</p><p>返回键：  KeyCode.Escape</p><p>菜单键：  KeyCode.Menu</p><p>三、NGUI中的冲突问题：<br>关于KeyCode的回车键有一个注意问题：在NGUI中回车键会自动触发，（可以到NGUI脚本序列化面板设置关掉），因此可能出现检测KeyCode的回车键，用户点击回车键会触发两次回车键事件，最好换成其他键代替回车避免冲突；</p><p>四、乐视39按键键值对照表：<br>图片来源：<a href="http://bbs.le.com/thread-187950-1.html">http://bbs.le.com/thread-187950-1.html</a></p><p>五、Unity键值表：</p><p>&#x2F;** 鼠标键值 **&#x2F;</p><p>Mouse0  鼠标左键</p><p>Mouse1  鼠标右键</p><p>Mouse2  鼠标中键</p><p>Mouse3  鼠标第3个按键</p><p>Mouse4  鼠标第4个按键</p><p>Mouse5  鼠标第5个按键</p><p>Mouse6  鼠标第6个按键</p><p>&#x2F;** 键盘键值 **&#x2F;</p><p>&#x2F;&#x2F;方向键</p><p>UpArrow    方向键上</p><p>DownArrow  方向键下</p><p>RightArrow  方向键右</p><p>LeftArrow  方向键左</p><p>&#x2F;&#x2F;F功能键</p><p>F1  功能键F1</p><p>F2  功能键F2</p><p>F3  功能键F3</p><p>F4  功能键F4</p><p>F5  功能键F5</p><p>F6  功能键F6</p><p>F7  功能键F7</p><p>F8  功能键F8</p><p>F9  功能键F9</p><p>F10  功能键F10</p><p>F11  功能键F11</p><p>F12  功能键F12</p><p>F13  功能键F13</p><p>F14  功能键F14</p><p>F15  功能键F15</p><p>&#x2F;&#x2F;数字键</p><p>Alpha0 按键0</p><p>Alpha1 按键1</p><p>Alpha2 按键2</p><p>Alpha3 按键3</p><p>Alpha4 按键4</p><p>Alpha5 按键5</p><p>Alpha6 按键6</p><p>Alpha7 按键7</p><p>Alpha8 按键7</p><p>Alpha9 按键9</p><p>&#x2F;&#x2F;字母键</p><p>A  ‘a’键</p><p>B  ‘b’键</p><p>C  ‘c’键</p><p>D  ‘d’键</p><p>E  ‘e’键</p><p>F  ‘f’键</p><p>G  ‘g’键</p><p>H  ‘h’键</p><p>I  ‘i’键</p><p>J  ‘j’键</p><p>K  ‘k’键</p><p>L  ‘l’键</p><p>M  ‘m’键</p><p>N  ‘n’键</p><p>O  ‘o’键</p><p>P  ‘p’键</p><p>Q  ‘q’键</p><p>R  ‘r’键</p><p>S  ‘s’键</p><p>T  ‘t’键</p><p>U  ‘u’键</p><p>V  ‘v’键</p><p>W  ‘w’键</p><p>X  ‘x’键</p><p>Y  ‘y’键</p><p>Z  ‘z’键</p><p>&#x2F;&#x2F;功能键</p><p>Backspace        退格键</p><p>Delete          Delete键</p><p>Tab              Tab键</p><p>Clear            Clear键</p><p>Return          回车键</p><p>Pause            暂停键</p><p>Escape          ESC键</p><p>Space            空格键</p><p>Numlock          Numlock键</p><p>Capslock        大小写锁定键</p><p>ScrollLockScroll Lock键</p><p>RightShift      右上档键</p><p>LeftShift        左上档键</p><p>RightControl    右Ctrl键</p><p>LeftControl      左Ctrl键</p><p>RightAlt        右Alt键</p><p>LeftAlt          左Alt键</p><p>LeftApple        左Apple键</p><p>LeftWindows      左Windows键</p><p>RightApple      右Apple键</p><p>RightWindows    右Windows键</p><p>AltGr            Alt Gr键</p><p>Help            Help键</p><p>Print            Print键</p><p>SysReq          Sys Req键</p><p>Break            Break键</p><p>Insert          Insert键</p><p>Home            Home键</p><p>End              End键</p><p>PageUp          PageUp键</p><p>PageDown        PageDown键</p><p>&#x2F;&#x2F;符号键</p><p>Exclaim        ‘!’键</p><p>DoubleQuote      双引号键</p><p>Hash            Hash键</p><p>Dollar          ‘$’键</p><p>Ampersand        Ampersand键</p><p>Quote            单引号键</p><p>LeftParen        左括号键</p><p>RightParen      右括号键</p><p>Asterisk        ‘ * ’键</p><p>Plus            ‘ + ’键</p><p>Comma          ‘ , ’键</p><p>Minus          ‘ - ’键</p><p>Period          ‘ . ’键</p><p>Slash          ‘ &#x2F; ’键</p><p>Colon          ‘ : ’键</p><p>Semicolon      ‘ ; ’键</p><p>Less            ‘ &lt; ‘键</p><p>Equals          ‘ &#x3D; ‘键</p><p>Greater        ‘ &gt; ‘键</p><p>Question        ‘ ? ’键</p><p>At              ‘@’键</p><p>LeftBracket    ‘ [ ‘键</p><p>Backslash      ‘ \ ’键</p><p>RightBracket    ‘ ] ’键</p><p>Caret          ‘ ^ ’键</p><p>Underscore      ‘ _ ’键</p><p>BackQuote      ‘ &#96; ’键</p><p>&#x2F;&#x2F;小键盘</p><p>Keypad0  小键盘0</p><p>Keypad1  小键盘1</p><p>Keypad2  小键盘2</p><p>Keypad3  小键盘3</p><p>Keypad4  小键盘4</p><p>Keypad5  小键盘5</p><p>Keypad6  小键盘6</p><p>Keypad7  小键盘7</p><p>Keypad8  小键盘8</p><p>Keypad9  小键盘9</p><p>KeypadPeriod      小键盘“.”</p><p>KeypadDivide      小键盘“&#x2F;”</p><p>KeypadMultiply    小键盘“*”</p><p>KeypadMinus      小键盘“-”</p><p>KeypadPlus        小键盘“+”</p><p>KeypadEnter      小键盘“Enter”</p><p>KeypadEquals      小键盘“&#x3D;”</p><p>&#x2F;** 游戏手柄键值 **&#x2F;</p><p>JoystickButton0    手柄按键0</p><p>JoystickButton1    手柄按键1</p><p>JoystickButton2    手柄按键2</p><p>JoystickButton3    手柄按键3</p><p>JoystickButton4    手柄按键4</p><p>JoystickButton5    手柄按键5</p><p>JoystickButton6    手柄按键6</p><p>JoystickButton7    手柄按键7</p><p>JoystickButton8    手柄按键8</p><p>JoystickButton9    手柄按键9</p><p>JoystickButton10    手柄按键10</p><p>JoystickButton11    手柄按键11</p><p>JoystickButton12    手柄按键12</p><p>JoystickButton13    手柄按键13</p><p>JoystickButton14    手柄按键14</p><p>JoystickButton15    手柄按键15</p><p>JoystickButton16    手柄按键16</p><p>JoystickButton17    手柄按键17</p><p>JoystickButton18    手柄按键18</p><p>JoystickButton19    手柄按键19</p><p>Joystick1Button0    第一个手柄按键0</p><p>Joystick1Button1    第一个手柄按键1</p><p>Joystick1Button2    第一个手柄按键2</p><p>Joystick1Button3    第一个手柄按键3</p><p>Joystick1Button4    第一个手柄按键4</p><p>Joystick1Button5    第一个手柄按键5</p><p>Joystick1Button6    第一个手柄按键6</p><p>Joystick1Button7    第一个手柄按键7</p><p>Joystick1Button8    第一个手柄按键8</p><p>Joystick1Button9    第一个手柄按键9 </p><p>Joystick1Button10    第一个手柄按键10</p><p>Joystick1Button11    第一个手柄按键11</p><p>Joystick1Button12    第一个手柄按键12</p><p>Joystick1Button13    第一个手柄按键13</p><p>Joystick1Button14    第一个手柄按键14</p><p>Joystick1Button15    第一个手柄按键15</p><p>Joystick1Button16    第一个手柄按键16</p><p>Joystick1Button17    第一个手柄按键17</p><p>Joystick1Button18    第一个手柄按键18</p><p>Joystick1Button19    第一个手柄按键19</p><p>Joystick2Button0    第二个手柄按键0</p><p>Joystick2Button1    第二个手柄按键1</p><p>Joystick2Button2    第二个手柄按键2</p><p>Joystick2Button3    第二个手柄按键3</p><p>Joystick2Button4    第二个手柄按键4</p><p>Joystick2Button5    第二个手柄按键5</p><p>Joystick2Button6    第二个手柄按键6</p><p>Joystick2Button7    第二个手柄按键7</p><p>Joystick2Button8    第二个手柄按键8</p><p>Joystick2Button9    第二个手柄按键9</p><p>Joystick2Button10    第二个手柄按键10</p><p>Joystick2Button11    第二个手柄按键11</p><p>Joystick2Button12    第二个手柄按键12</p><p>Joystick2Button13    第二个手柄按键13</p><p>Joystick2Button14    第二个手柄按键14</p><p>Joystick2Button15    第二个手柄按键15</p><p>Joystick2Button16    第二个手柄按键16</p><p>Joystick2Button17    第二个手柄按键17</p><p>Joystick2Button18    第二个手柄按键18</p><p>Joystick2Button19    第二个手柄按键19</p><p>Joystick3Button0    第三个手柄按键0</p><p>Joystick3Button1    第三个手柄按键1</p><p>Joystick3Button2    第三个手柄按键2</p><p>Joystick3Button3    第三个手柄按键3</p><p>Joystick3Button4    第三个手柄按键4</p><p>Joystick3Button5    第三个手柄按键5</p><p>Joystick3Button6    第三个手柄按键6</p><p>Joystick3Button7    第三个手柄按键7</p><p>Joystick3Button8    第三个手柄按键8</p><p>Joystick3Button9    第三个手柄按键9</p><p>Joystick3Button10    第三个手柄按键10</p><p>Joystick3Button11    第三个手柄按键11</p><p>Joystick3Button12    第三个手柄按键12</p><p>Joystick3Button13    第三个手柄按键13</p><p>Joystick3Button14    第三个手柄按键14</p><p>Joystick3Button15    第三个手柄按键15</p><p>Joystick3Button16    第三个手柄按键16</p><p>Joystick3Button17    第三个手柄按键17</p><p>Joystick3Button18    第三个手柄按键18</p><p>Joystick3Button19    第三个手柄按键19</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> unity </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>生成随机数</title>
+      <link href="/2024/01/28/%E7%94%9F%E6%88%90%E9%9A%8F%E6%9C%BA%E6%95%B0/"/>
+      <url>/2024/01/28/%E7%94%9F%E6%88%90%E9%9A%8F%E6%9C%BA%E6%95%B0/</url>
+      
+        <content type="html"><![CDATA[<p>C# 生成随机数</p><span id="more"></span><p>拿到全局Guid生成一个获取它的hash值 作为随机种子</p><pre><code class="csharp">var Seed = Guid.NewGuid().GetHashCode();var value = new Random(Seed);i =value.Next(1,100);</code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> csharp </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>微信小游戏实时语音</title>
+      <link href="/2024/01/28/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E6%B8%B8%E6%88%8F%E5%AE%9E%E6%97%B6%E8%AF%AD%E9%9F%B3/"/>
+      <url>/2024/01/28/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E6%B8%B8%E6%88%8F%E5%AE%9E%E6%97%B6%E8%AF%AD%E9%9F%B3/</url>
+      
+        <content type="html"><![CDATA[<p>微信小游戏实时语音</p><span id="more"></span><p>1.开通实时语音服务。(开通条件:注册用户大于 1000)</p><p>打开微信小游戏后台(微信公众平台)，依次打开设置-&gt;游戏设置→开通语音服务</p><p>2.关于里面的几个重要api:</p><p>创建&#x2F;加入房间：wx.joinVoIPChat</p><p>离开房间：wx.exitVoIPChat</p><p>更新房间麦克风&#x2F;耳机静音设置：wx.updateVoIPChatMuteConfig</p><p>监听房间成员变化：wx.onVoIPChatMembersChanged</p><p>监听房间成员通话状态变化：wx.onVoIPChatSpeakersChanged</p><p>监听通话中断：wx.onVoIPChatInterrupted</p><p>3.下面是要用到的一些方法:</p><p>1)获取code：</p><p>调用wx.login</p><p>2)获取session_key、openid</p><pre><code class="javascript"> wx.request(&#123;            url: &#39;https://api.weixin.qq.com/sns/jscode2session?appid=&#39; + APPID + &#39;&amp;secret=&#39; + SECRET + &#39;&amp;js_code=&#39; + res.code,            method: &#39;GET&#39;,            success: (res) =&gt; &#123;              let session_key = res.data[&#39;session_key&#39;].toString();              let openid = res.data[&#39;openid&#39;].toString();            &#125;&#125;</code></pre><p>3)语音房间加密算法Has256:</p><pre><code class="javascript">/*CryptoJScode.google.com/p/crypto-js(c) 2009-2012 by Jeff Mott. All rights reserved.code.google.com/p/crypto-js/wiki/License*/var CryptoJS=CryptoJS||function(h,i)&#123;var e=&#123;&#125;,f=e.lib=&#123;&#125;,l=f.Base=function()&#123;function a()&#123;&#125;return&#123;extend:function(j)&#123;a.prototype=this;var d=new a;j&amp;&amp;d.mixIn(j);d.$super=this;return d&#125;,create:function()&#123;var a=this.extend();a.init.apply(a,arguments);return a&#125;,init:function()&#123;&#125;,mixIn:function(a)&#123;for(var d in a)a.hasOwnProperty(d)&amp;&amp;(this[d]=a[d]);a.hasOwnProperty(&quot;toString&quot;)&amp;&amp;(this.toString=a.toString)&#125;,clone:function()&#123;return this.$super.extend(this)&#125;&#125;&#125;(),k=f.WordArray=l.extend(&#123;init:function(a,j)&#123;a=  this.words=a||[];this.sigBytes=j!=i?j:4*a.length&#125;,toString:function(a)&#123;return(a||m).stringify(this)&#125;,concat:function(a)&#123;var j=this.words,d=a.words,c=this.sigBytes,a=a.sigBytes;this.clamp();if(c%4)for(var b=0;b&lt;a;b++)j[c+b&gt;&gt;&gt;2]|=(d[b&gt;&gt;&gt;2]&gt;&gt;&gt;24-8*(b%4)&amp;255)&lt;&lt;24-8*((c+b)%4);else if(65535&lt;d.length)for(b=0;b&lt;a;b+=4)j[c+b&gt;&gt;&gt;2]=d[b&gt;&gt;&gt;2];else j.push.apply(j,d);this.sigBytes+=a;return this&#125;,clamp:function()&#123;var a=this.words,b=this.sigBytes;a[b&gt;&gt;&gt;2]&amp;=4294967295&lt;&lt;32-8*(b%4);a.length=h.ceil(b/4)&#125;,clone:function()&#123;var a=  l.clone.call(this);a.words=this.words.slice(0);return a&#125;,random:function(a)&#123;for(var b=[],d=0;d&lt;a;d+=4)b.push(4294967296*h.random()|0);return k.create(b,a)&#125;&#125;),o=e.enc=&#123;&#125;,m=o.Hex=&#123;stringify:function(a)&#123;for(var b=a.words,a=a.sigBytes,d=[],c=0;c&lt;a;c++)&#123;var e=b[c&gt;&gt;&gt;2]&gt;&gt;&gt;24-8*(c%4)&amp;255;d.push((e&gt;&gt;&gt;4).toString(16));d.push((e&amp;15).toString(16))&#125;return d.join(&quot;&quot;)&#125;,parse:function(a)&#123;for(var b=a.length,d=[],c=0;c&lt;b;c+=2)d[c&gt;&gt;&gt;3]|=parseInt(a.substr(c,2),16)&lt;&lt;24-4*(c%8);return k.create(d,b/2)&#125;&#125;,q=o.Latin1=&#123;stringify:function(a)&#123;for(var b=  a.words,a=a.sigBytes,d=[],c=0;c&lt;a;c++)d.push(String.fromCharCode(b[c&gt;&gt;&gt;2]&gt;&gt;&gt;24-8*(c%4)&amp;255));return d.join(&quot;&quot;)&#125;,parse:function(a)&#123;for(var b=a.length,d=[],c=0;c&lt;b;c++)d[c&gt;&gt;&gt;2]|=(a.charCodeAt(c)&amp;255)&lt;&lt;24-8*(c%4);return k.create(d,b)&#125;&#125;,r=o.Utf8=&#123;stringify:function(a)&#123;try&#123;return decodeURIComponent(escape(q.stringify(a)))&#125;catch(b)&#123;throw Error(&quot;Malformed UTF-8 data&quot;);&#125;&#125;,parse:function(a)&#123;return q.parse(unescape(encodeURIComponent(a)))&#125;&#125;,b=f.BufferedBlockAlgorithm=l.extend(&#123;reset:function()&#123;this._data=k.create();  this._nDataBytes=0&#125;,_append:function(a)&#123;&quot;string&quot;==typeof a&amp;&amp;(a=r.parse(a));this._data.concat(a);this._nDataBytes+=a.sigBytes&#125;,_process:function(a)&#123;var b=this._data,d=b.words,c=b.sigBytes,e=this.blockSize,g=c/(4*e),g=a?h.ceil(g):h.max((g|0)-this._minBufferSize,0),a=g*e,c=h.min(4*a,c);if(a)&#123;for(var f=0;f&lt;a;f+=e)this._doProcessBlock(d,f);f=d.splice(0,a);b.sigBytes-=c&#125;return k.create(f,c)&#125;,clone:function()&#123;var a=l.clone.call(this);a._data=this._data.clone();return a&#125;,_minBufferSize:0&#125;);f.Hasher=b.extend(&#123;init:function()&#123;this.reset()&#125;,  reset:function()&#123;b.reset.call(this);this._doReset()&#125;,update:function(a)&#123;this._append(a);this._process();return this&#125;,finalize:function(a)&#123;a&amp;&amp;this._append(a);this._doFinalize();return this._hash&#125;,clone:function()&#123;var a=b.clone.call(this);a._hash=this._hash.clone();return a&#125;,blockSize:16,_createHelper:function(a)&#123;return function(b,d)&#123;return a.create(d).finalize(b)&#125;&#125;,_createHmacHelper:function(a)&#123;return function(b,d)&#123;return g.HMAC.create(a,d).finalize(b)&#125;&#125;&#125;);var g=e.algo=&#123;&#125;;return e&#125;(Math);  (function(h)&#123;var i=CryptoJS,e=i.lib,f=e.WordArray,e=e.Hasher,l=i.algo,k=[],o=[];(function()&#123;function e(a)&#123;for(var b=h.sqrt(a),d=2;d&lt;=b;d++)if(!(a%d))return!1;return!0&#125;function f(a)&#123;return 4294967296*(a-(a|0))|0&#125;for(var b=2,g=0;64&gt;g;)e(b)&amp;&amp;(8&gt;g&amp;&amp;(k[g]=f(h.pow(b,0.5))),o[g]=f(h.pow(b,1/3)),g++),b++&#125;)();var m=[],l=l.SHA256=e.extend(&#123;_doReset:function()&#123;this._hash=f.create(k.slice(0))&#125;,_doProcessBlock:function(e,f)&#123;for(var b=this._hash.words,g=b[0],a=b[1],j=b[2],d=b[3],c=b[4],h=b[5],l=b[6],k=b[7],n=0;64&gt;  n;n++)&#123;if(16&gt;n)m[n]=e[f+n]|0;else&#123;var i=m[n-15],p=m[n-2];m[n]=((i&lt;&lt;25|i&gt;&gt;&gt;7)^(i&lt;&lt;14|i&gt;&gt;&gt;18)^i&gt;&gt;&gt;3)+m[n-7]+((p&lt;&lt;15|p&gt;&gt;&gt;17)^(p&lt;&lt;13|p&gt;&gt;&gt;19)^p&gt;&gt;&gt;10)+m[n-16]&#125;i=k+((c&lt;&lt;26|c&gt;&gt;&gt;6)^(c&lt;&lt;21|c&gt;&gt;&gt;11)^(c&lt;&lt;7|c&gt;&gt;&gt;25))+(c&amp;h^~c&amp;l)+o[n]+m[n];p=((g&lt;&lt;30|g&gt;&gt;&gt;2)^(g&lt;&lt;19|g&gt;&gt;&gt;13)^(g&lt;&lt;10|g&gt;&gt;&gt;22))+(g&amp;a^g&amp;j^a&amp;j);k=l;l=h;h=c;c=d+i|0;d=j;j=a;a=g;g=i+p|0&#125;b[0]=b[0]+g|0;b[1]=b[1]+a|0;b[2]=b[2]+j|0;b[3]=b[3]+d|0;b[4]=b[4]+c|0;b[5]=b[5]+h|0;b[6]=b[6]+l|0;b[7]=b[7]+k|0&#125;,_doFinalize:function()&#123;var e=this._data,f=e.words,b=8*this._nDataBytes,  g=8*e.sigBytes;f[g&gt;&gt;&gt;5]|=128&lt;&lt;24-g%32;f[(g+64&gt;&gt;&gt;9&lt;&lt;4)+15]=b;e.sigBytes=4*f.length;this._process()&#125;&#125;);i.SHA256=e._createHelper(l);i.HmacSHA256=e._createHmacHelper(l)&#125;)(Math);  (function()&#123;var h=CryptoJS,i=h.enc.Utf8;h.algo.HMAC=h.lib.Base.extend(&#123;init:function(e,f)&#123;e=this._hasher=e.create();&quot;string&quot;==typeof f&amp;&amp;(f=i.parse(f));var h=e.blockSize,k=4*h;f.sigBytes&gt;k&amp;&amp;(f=e.finalize(f));for(var o=this._oKey=f.clone(),m=this._iKey=f.clone(),q=o.words,r=m.words,b=0;b&lt;h;b++)q[b]^=1549556828,r[b]^=909522486;o.sigBytes=m.sigBytes=k;this.reset()&#125;,reset:function()&#123;var e=this._hasher;e.reset();e.update(this._iKey)&#125;,update:function(e)&#123;this._hasher.update(e);return this&#125;,finalize:function(e)&#123;var f=  this._hasher,e=f.finalize(e);f.reset();return f.finalize(this._oKey.clone().concat(e))&#125;&#125;)&#125;)(); module.exports = CryptoJS</code></pre><p>使用时创建CryptoJS.js 复制上面代码，在game.js中引用。</p><pre><code class="javascript">let str = [APPID, groupId, nonceStr, timeStamp.toString()].sort().join(&#39;&#39;);signature = CryptoJS.HmacSHA256(str, session_key).toString() 微信小游戏签名算法调用</code></pre><p>随机字符串方法:</p><pre><code class="javascript">createNonceStr() &#123;    return Math.random().toString(36).substr(2, 15)&#125;</code></pre><p>时间戳获取:</p><pre><code class="javascript">createTimeStamp() &#123;    return parseInt(new Date().getTime() / 1000)&#125;</code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> wxgame </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>novnc搭建(傻瓜式)</title>
+      <link href="/2024/01/28/novnc%E6%90%AD%E5%BB%BA-%E5%82%BB%E7%93%9C%E5%BC%8F/"/>
+      <url>/2024/01/28/novnc%E6%90%AD%E5%BB%BA-%E5%82%BB%E7%93%9C%E5%BC%8F/</url>
+      
+        <content type="html"><![CDATA[<p>novnc搭建</p><span id="more"></span><p>1.下载nodejs git<br>2.下载整合压缩包<br>novnc<br>3.解压后运行start.bat或者在解压后文件夹内运行下面命令：</p><p>node “\node_modules\websockify-js\websockify\websockify.js” –web “\node_modules\noVNC” 10000 localhost:5900</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> other </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+  
+  
+</search>
