@@ -34,7 +34,7 @@ $(document).on('copy', function (){
 function initTips(){
     $.ajax({
         cache: true,
-        url: `${message_Path}live2d/message.json`,
+        url: `${message_Path}/message.json`,
         dataType: "json",
         success: function (result){
             $.each(result.mouseover, function (index, tips){
@@ -125,13 +125,14 @@ function hideMessage(timeout){
 }
 
 function initLive2d (){
-    $('.hide-button').fadeOut(0).on('click', () => {
-        $('#landlord').css('display', 'none')
-    })
-    $('#landlord').hover(() => {
-        $('.hide-button').fadeIn(600)
-    }, () => {
-        $('.hide-button').fadeOut(600)
-    })
+    // $('.hide-button').fadeOut(0).on('click', () => {
+    //     $('#landlord').css('display', 'none')
+    // })
+    // $('#landlord').hover(() => {
+    //     $('.hide-button').fadeIn(600)
+    // }, () => {
+    //     $('.hide-button').fadeOut(600)
+    // })
+    $('#landlord').hover(()=>{},()=>{})
 }
 initLive2d ();
