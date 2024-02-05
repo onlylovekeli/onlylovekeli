@@ -4,6 +4,44 @@
   
     
     <entry>
+      <title>游戏下载器使用说明</title>
+      <link href="/2024/02/06/%E6%B8%B8%E6%88%8F%E4%B8%8B%E8%BD%BD%E5%99%A8%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E/"/>
+      <url>/2024/02/06/%E6%B8%B8%E6%88%8F%E4%B8%8B%E8%BD%BD%E5%99%A8%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E/</url>
+      
+        <content type="html"><![CDATA[<p>游戏下载器使用说明</p><span id="more"></span>]]></content>
+      
+      
+      <categories>
+          
+          <category> other </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>csharp好用的开源项目</title>
+      <link href="/2024/02/05/csharp%E5%A5%BD%E7%94%A8%E7%9A%84%E5%BC%80%E6%BA%90%E9%A1%B9%E7%9B%AE/"/>
+      <url>/2024/02/05/csharp%E5%A5%BD%E7%94%A8%E7%9A%84%E5%BC%80%E6%BA%90%E9%A1%B9%E7%9B%AE/</url>
+      
+        <content type="html"><![CDATA[<p>好用的项目</p><span id="more"></span><p>1.Masuit.Tools<br><a href="https://github.com/ldqk/Masuit.Tools">下载</a><br>全龄段友好的C#.NET万能工具库，不管你是菜鸟新手还是骨灰级玩家都能轻松上手，这个库包含一些常用的操作类，大都是静态类，加密解密，反射操作，权重随机筛选算法，分布式短id，表达式树，linq扩展，文件压缩，多线程下载，硬件信息，字符串扩展方法，日期时间扩展操作，中国农历，大文件拷贝，图像裁剪，验证码，断点续传，集合扩展、Excel导出等常用封装。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> other </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>csharp解析excel</title>
       <link href="/2024/02/05/csharp%E8%A7%A3%E6%9E%90excel/"/>
       <url>/2024/02/05/csharp%E8%A7%A3%E6%9E%90excel/</url>
@@ -49,6 +87,12 @@
       
         <content type="html"><![CDATA[<p>使用本地存储做一个类似版本更新</p><span id="more"></span><p>使用场景:</p><p>微信小游戏分包最高8M，大于8M的话只能放服务器进行远程加载，但是为了提高加载速度和减轻服务器压力。我们可以将资源从服务器上下载下来存到</p><p>本地。只有当游戏有更新时再去从服务器上下载资源(类似游戏的更新).</p><p>实现步骤:</p><p>1.将所需要的资源打成压缩包放到服务器</p><p>2.使用微信小游戏提供的api进行下载资源并解压保存到本地.将保存后的路径写入本地的永久缓存中供后面使用。</p><p>3.游戏内加载本地资源</p><p>主要方法有以下:</p><p>wx.downloadFile 文件下载</p><p><a href="https://developers.weixin.qq.com/minigame/dev/api/network/download/wx.downloadFile.html">https://developers.weixin.qq.com/minigame/dev/api/network/download/wx.downloadFile.html</a></p><pre><code class="javascript">fMgr=wx.getFileSystemManager() 获取文件管理器fMgr.unzip(zipFilePath,targetPath,success,fail,complete) 文件解压 文件建议解压到 wx.env.USER_DATA_PATH</code></pre>]]></content>
       
+      
+      <categories>
+          
+          <category> wxgame </category>
+          
+      </categories>
       
       
     </entry>
@@ -126,12 +170,6 @@
           
       </categories>
       
-      
-        <tags>
-            
-            <tag> unity </tag>
-            
-        </tags>
       
     </entry>
     
