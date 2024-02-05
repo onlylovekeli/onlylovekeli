@@ -4,6 +4,32 @@
   
     
     <entry>
+      <title>csharp解析excel</title>
+      <link href="/2024/02/05/csharp%E8%A7%A3%E6%9E%90excel/"/>
+      <url>/2024/02/05/csharp%E8%A7%A3%E6%9E%90excel/</url>
+      
+        <content type="html"><![CDATA[<p>csharp解析excel</p><span id="more"></span><p>1.安装EPPlus包<br>2.</p><pre><code class="csharp"> public void ReadExcel(string filePath) &#123;     ExcelPackage.LicenseContext = LicenseContext.Commercial;     ExcelPackage.LicenseContext = LicenseContext.NonCommercial;     using (ExcelPackage package = new ExcelPackage(new FileInfo(filePath)))     &#123;         ExcelWorksheet worksheet = package.Workbook.Worksheets[0];         for (int row = worksheet.Dimension.Start.Row; row &lt;= worksheet.Dimension.End.Row; row++)         &#123;             for (int col = worksheet.Dimension.Start.Column; col &lt;= worksheet.Dimension.End.Column; col++)             &#123;                object cellValue = worksheet.Cells[row, col].Value;                if (cellValue != null)                &#123;                    Console.WriteLine(&quot;第&#123;0&#125;行第&#123;1&#125;列的值：&#123;2&#125;&quot;, row, col, cellValue.ToString());                &#125;             &#125;         &#125;     &#125; &#125;</code></pre>]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>nodejs爬虫</title>
+      <link href="/2024/02/05/nodejs%E7%88%AC%E8%99%AB/"/>
+      <url>/2024/02/05/nodejs%E7%88%AC%E8%99%AB/</url>
+      
+        <content type="html"><![CDATA[<p>nodejs爬虫</p><span id="more"></span><p>1.安装cheerio<br>npm install cheerio</p><p>2.加载网页源码</p><pre><code class="javascript">function LoadHtml(url,callback)&#123;    https.get(url, (res) =&gt; &#123;        var chunks = [];        var size = 0;        res.on(&#39;data&#39;, (chunk) =&gt; &#123;            chunks.push(chunk);            size += chunk.length;        &#125;);        res.on(&#39;end&#39;, () =&gt; &#123;            var data = Buffer.concat(chunks, size);            var html = data.toString();            if(callback)            &#123;                callback(html);            &#125;        &#125;);        res.on(&#39;error&#39;, () =&gt; &#123;            callback(&#39;&#39;);        &#125;);    &#125;);&#125;</code></pre><p>3.开始获取节点数据<br>let $ &#x3D; cheerio.load(html);<br>let node&#x3D; $(‘标签名.类名’);</p>]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>hexo可莉主题安装</title>
       <link href="/2024/01/29/hexo%E5%8F%AF%E8%8E%89%E4%B8%BB%E9%A2%98%E5%AE%89%E8%A3%85/"/>
       <url>/2024/01/29/hexo%E5%8F%AF%E8%8E%89%E4%B8%BB%E9%A2%98%E5%AE%89%E8%A3%85/</url>
