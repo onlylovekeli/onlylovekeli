@@ -4,6 +4,25 @@
   
     
     <entry>
+      <title>linux更换清华源</title>
+      <link href="/2024/02/09/centos%E6%9B%B4%E6%8D%A2%E6%B8%85%E5%8D%8E%E6%BA%90/"/>
+      <url>/2024/02/09/centos%E6%9B%B4%E6%8D%A2%E6%B8%85%E5%8D%8E%E6%BA%90/</url>
+      
+        <content type="html"><![CDATA[<p>Centos更换清华源</p><span id="more"></span><p>下载对应系统的源：</p><iframe src="http://keli.shenzhuo.vip:24066/home/linuxrepo/" style="width:100%;height:500px"></iframe><p>centos把文件替换掉对应的库文件：</p><pre><code>cp /下载的文件 /etc/yum.repos.d/CentOS-Linux-BaseOS.repo</code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> other </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>游戏下载器使用说明</title>
       <link href="/2024/02/06/%E6%B8%B8%E6%88%8F%E4%B8%8B%E8%BD%BD%E5%99%A8%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E/"/>
       <url>/2024/02/06/%E6%B8%B8%E6%88%8F%E4%B8%8B%E8%BD%BD%E5%99%A8%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E/</url>
