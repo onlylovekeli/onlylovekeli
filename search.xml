@@ -4,6 +4,44 @@
   
     
     <entry>
+      <title>linux挂载webdav到本地</title>
+      <link href="/2024/02/22/linux%E6%8C%82%E8%BD%BDwebdav%E5%88%B0%E6%9C%AC%E5%9C%B0/"/>
+      <url>/2024/02/22/linux%E6%8C%82%E8%BD%BDwebdav%E5%88%B0%E6%9C%AC%E5%9C%B0/</url>
+      
+        <content type="html"><![CDATA[<p>linux挂载webdav到本地</p><span id="more"></span><h1 id="1-安装所需程序："><a href="#1-安装所需程序：" class="headerlink" title="1.安装所需程序："></a>1.安装所需程序：</h1><p>Ubuntu：</p><pre><code class="bash">sudo apt-get install davfs2 -y</code></pre><p>CentOS：</p><pre><code class="bash">sudo yum install davfs2 -y</code></pre><h1 id="2-创建挂载目录："><a href="#2-创建挂载目录：" class="headerlink" title="2.创建挂载目录："></a>2.创建挂载目录：</h1><pre><code class="bash">sudo mkdir /mnt/WebDAV</code></pre><h1 id="3-挂载WebDAV服务到本地目录"><a href="#3-挂载WebDAV服务到本地目录" class="headerlink" title="3.挂载WebDAV服务到本地目录"></a>3.挂载WebDAV服务到本地目录</h1><pre><code class="bash">sudo mount -t davfs -o noexec https://example.com/webdav/ /mnt/WebDAV/</code></pre><p>之后会要求输入账户和密码登信息。挂载成功后，即可当正常磁盘一样访问WebDAV服务了。速度快慢取决于你自身和服务商的网速。</p><h1 id="4-解除挂载方法："><a href="#4-解除挂载方法：" class="headerlink" title="4.解除挂载方法："></a>4.解除挂载方法：</h1><pre><code class="bash">sudo umount /mnt/WebDAV</code></pre><h1 id="5-使用fstab挂载WebDAV："><a href="#5-使用fstab挂载WebDAV：" class="headerlink" title="5.使用fstab挂载WebDAV："></a>5.使用fstab挂载WebDAV：</h1><pre><code class="bash">$ cat &lt;&lt; EOF | sudo tee -a /etc/fstab# personal webdavhttps://example.com/webdav/ /mnt/WebDAV  davfs _netdev,noauto,user,uid=nobody,gid=nobody 0 0EOF</code></pre><h1 id="6-保存账户密码："><a href="#6-保存账户密码：" class="headerlink" title="6.保存账户密码："></a>6.保存账户密码：</h1><pre><code class="bash">cat &lt;&lt; EOF | sudo tee -a /etc/davfs2/secrets/mnt/dav account passwordEOF</code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> other </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>windows虚拟硬盘的高级用法</title>
+      <link href="/2024/02/22/windows%E8%99%9A%E6%8B%9F%E7%A1%AC%E7%9B%98%E7%9A%84%E9%AB%98%E7%BA%A7%E7%94%A8%E6%B3%95/"/>
+      <url>/2024/02/22/windows%E8%99%9A%E6%8B%9F%E7%A1%AC%E7%9B%98%E7%9A%84%E9%AB%98%E7%BA%A7%E7%94%A8%E6%B3%95/</url>
+      
+        <content type="html"><![CDATA[<p>windows虚拟硬盘的高级用法</p><span id="more"></span><p>在磁盘管理中创建vhd或vhdx虚拟磁盘</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> other </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>linux更换清华源</title>
       <link href="/2024/02/09/centos%E6%9B%B4%E6%8D%A2%E6%B8%85%E5%8D%8E%E6%BA%90/"/>
       <url>/2024/02/09/centos%E6%9B%B4%E6%8D%A2%E6%B8%85%E5%8D%8E%E6%BA%90/</url>
