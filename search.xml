@@ -4,6 +4,25 @@
   
     
     <entry>
+      <title>Egret白鹭安卓IOS原生发布步骤及配置</title>
+      <link href="/2024/02/24/Egret%E7%99%BD%E9%B9%AD%E5%AE%89%E5%8D%93IOS%E5%8E%9F%E7%94%9F%E5%8F%91%E5%B8%83%E6%AD%A5%E9%AA%A4%E5%8F%8A%E9%85%8D%E7%BD%AE/"/>
+      <url>/2024/02/24/Egret%E7%99%BD%E9%B9%AD%E5%AE%89%E5%8D%93IOS%E5%8E%9F%E7%94%9F%E5%8F%91%E5%B8%83%E6%AD%A5%E9%AA%A4%E5%8F%8A%E9%85%8D%E7%BD%AE/</url>
+      
+        <content type="html"><![CDATA[<p>Egret白鹭安卓IOS原生发布步骤及配置</p><span id="more"></span><p>egret全部资源下载：<a href="https://pan.baidu.com/s/1wW0Jb0QKVf9OUz-PqUJj7g?pwd=egre">百度网盘</a></p><p>在Egret 发布Android和IOS时会提示“Error: 打包失败，无法下载原生支持包，请检查您的网络是否正常”是因为Egret官网服务不在提供下载，所以需要再本地配置一个提供下载的服务</p><p>一,先解决EgretLauncher登录问题 （如果已经配置了可以跳过这一步）<br>需要修改的subpage.js文件路径</p><p>windows:</p><pre><code>C:\Program Files (x86)\Egret\EgretLauncher\resources\app\out\app\electron-browser\subpage.jsJSON</code></pre><p>macos :</p><pre><code>/Applications/EgretLauncher.app/Contents/Resources/app/out/app/electron-browser/subpage.js</code></pre><p>JSON<br>可以使用HBuilderX格式化代码,用vscode效果不佳</p><p>修改subpage.js大概 4564 行的 get isLogin()函数，直接return true<br><img src=https://blog-1256223694.cos.ap-shanghai.myqcloud.com/post/Egret%E7%99%BD%E9%B9%AD%E5%AE%89%E5%8D%93IOS%E5%8E%9F%E7%94%9F%E5%8F%91%E5%B8%83%E6%AD%A5%E9%AA%A4%E5%8F%8A%E9%85%8D%E7%BD%AE/1.webp><br>如果是Mac版本可以直接从小游戏支持包下载的 Mac版本的_subpage.js&#x2F;subpage.js，替换前请将 subpage.js 中 &#x2F;Users&#x2F;rontian 批量搜索替换成你本机的账户</p><p>二,配置原生(native)发布环境<br>1.根据系统找到EgretLauncher在本地的缓存目录位置<br>windows:</p><pre><code>C:\Users\当前用户\AppData\Roaming\EgretLauncher\download</code></pre><p>macos :</p><pre><code>/Users/当前用户/Library/Application Support/EgretLauncher/download</code></pre><p>安卓支持包(小游戏支持包)下载地址：<a href="https://www.egret.uk/download/">https://www.egret.uk/download/</a> </p><p>将下载的supports_download.zip解压内容到 download 目录 下即可</p><img src=https://blog-1256223694.cos.ap-shanghai.myqcloud.com/post/Egret%E7%99%BD%E9%B9%AD%E5%AE%89%E5%8D%93IOS%E5%8E%9F%E7%94%9F%E5%8F%91%E5%B8%83%E6%AD%A5%E9%AA%A4%E5%8F%8A%E9%85%8D%E7%BD%AE/2.webp><p>2.添加target.json文件</p><pre><code>C:\Users\Administrator\AppData\Roaming\EgretLauncher\tools</code></pre><p>该目录目录添加target.json文件，从下载的小游戏支持包中的tools文件中拷贝进来</p><img src=https://blog-1256223694.cos.ap-shanghai.myqcloud.com/post/Egret%E7%99%BD%E9%B9%AD%E5%AE%89%E5%8D%93IOS%E5%8E%9F%E7%94%9F%E5%8F%91%E5%B8%83%E6%AD%A5%E9%AA%A4%E5%8F%8A%E9%85%8D%E7%BD%AE/3.webp>并且打开target.json修改target.json文件android地址<p>windows:</p><pre><code>  &quot;android&quot;: &#123;    &quot;path&quot;: &quot;C:\\Users\\Administrator\\AppData\\Roaming\\EgretLauncher\\download\\EgretNativeSupport\\native\\android&quot;  &#125;,</code></pre><p>macos :</p><pre><code>  &quot;android&quot;: &#123;    &quot;path&quot;: &quot;/Users/当前用户/AppData/Roaming/EgretLauncher/download/EgretNativeSupport/1.1.2/android&quot;  &#125;,</code></pre><p>3.搭建Web服务器提供Egret发布原生支持包下载<br>由于Egret官网服务已经不提供下载，所以需要本地配置一个web服务器来提供下载，也可以使用云服务器自行搭建。</p><p>推荐本地搭建方式，教程在另一篇帖子：</p><p>在 <a href="https://www.egret.uk/download/">https://www.egret.uk/download/</a> 中下载小游戏支持包后，解压后把</p><p>native.json </p><p>android_1443523c87b1552163490a89d901451d.zip</p><p>ios_4a449a853ff59e2b3c8cd2bc5d474a13.zip</p><p> 三个文件拷贝进去配置的Web服务器静态资源存放目录</p><p>并配置native.json，Web服务器提供Egret发布原生支持包地址；<a href="http://localhost:8869/">http://localhost:8869/</a> 为我的本地web服务地址 修改你的配置地址即可</p><pre><code>&#123;    &quot;engines&quot;: &#123;        &quot;5.2.33&quot;: &#123;            &quot;supports&quot;: [                &quot;native&quot;            ]        &#125;    &#125;,    &quot;supports&quot;: &#123;        &quot;native&quot;: &#123;            &quot;android&quot;: &quot;http://localhost:8869/android_1443523c87b1552163490a89d901451d.zip&quot;,            &quot;ios&quot;: &quot;http://localhost:8869/ios_4a449a853ff59e2b3c8cd2bc5d474a13.zip&quot;        &#125;    &#125;&#125;</code></pre><p>4.原生游戏发布包配置<br>本地或者云服务搭建好了原生支持包下载环境</p><p>需要在subpage.js文件中的 const It  修改成自己搭建好的native.json配置地址如图：</p><img src=https://blog-1256223694.cos.ap-shanghai.myqcloud.com/post/Egret%E7%99%BD%E9%B9%AD%E5%AE%89%E5%8D%93IOS%E5%8E%9F%E7%94%9F%E5%8F%91%E5%B8%83%E6%AD%A5%E9%AA%A4%E5%8F%8A%E9%85%8D%E7%BD%AE/4.webp>至此就配置好了Egret白鹭安卓(Android)&IOS,Native 发布问题<p>二,总结<br>*** 在配置完后需要重启 Egret Launcher</p><p>*** 配置完第一次发布会提示 “没有登录，发布失败” 重新再发布一次就行了</p><p>文章转自： <a href="https://bbs.egret.uk/9.html">https://bbs.egret.uk/9.html</a></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> egret </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>站点项目</title>
       <link href="/2024/02/24/%E7%AB%99%E7%82%B9%E9%A1%B9%E7%9B%AE/"/>
       <url>/2024/02/24/%E7%AB%99%E7%82%B9%E9%A1%B9%E7%9B%AE/</url>
@@ -186,6 +205,25 @@
       <categories>
           
           <category> wxgame </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>解决Egret白鹭Native平台发布无法下载原生支持包问题</title>
+      <link href="/2024/01/28/%E8%A7%A3%E5%86%B3Egret%E7%99%BD%E9%B9%ADNative%E5%B9%B3%E5%8F%B0%E5%8F%91%E5%B8%83%E6%97%A0%E6%B3%95%E4%B8%8B%E8%BD%BD%E5%8E%9F%E7%94%9F%E6%94%AF%E6%8C%81%E5%8C%85%E9%97%AE%E9%A2%98/"/>
+      <url>/2024/01/28/%E8%A7%A3%E5%86%B3Egret%E7%99%BD%E9%B9%ADNative%E5%B9%B3%E5%8F%B0%E5%8F%91%E5%B8%83%E6%97%A0%E6%B3%95%E4%B8%8B%E8%BD%BD%E5%8E%9F%E7%94%9F%E6%94%AF%E6%8C%81%E5%8C%85%E9%97%AE%E9%A2%98/</url>
+      
+        <content type="html"><![CDATA[<p>windows本地搭建Nginx和Tomcat服务器给Egret白鹭Native平台发布无法下载原生支持包问题</p><span id="more"></span><p>egret全部资源下载：<a href="https://pan.baidu.com/s/1wW0Jb0QKVf9OUz-PqUJj7g?pwd=egre">百度网盘</a></p><h1 id="一-本地搭建Nginx提供Egret发布原生支持包下载"><a href="#一-本地搭建Nginx提供Egret发布原生支持包下载" class="headerlink" title="一 本地搭建Nginx提供Egret发布原生支持包下载"></a>一 本地搭建Nginx提供Egret发布原生支持包下载</h1><p>1.下载Nginx<br>下载地址：<a href="https://nginx.org/en/download.html">https://nginx.org/en/download.html</a>  </p><p>选择 Stable version 稳定版本<br><img src="https://blog-1256223694.cos.ap-shanghai.myqcloud.com/post/%E8%A7%A3%E5%86%B3Egret%E7%99%BD%E9%B9%ADNative%E5%B9%B3%E5%8F%B0%E5%8F%91%E5%B8%83%E6%97%A0%E6%B3%95%E4%B8%8B%E8%BD%BD%E5%8E%9F%E7%94%9F%E6%94%AF%E6%8C%81%E5%8C%85%E9%97%AE%E9%A2%98/1.webp"><br>2.配置Nginx环境<br><img src="https://blog-1256223694.cos.ap-shanghai.myqcloud.com/post/%E8%A7%A3%E5%86%B3Egret%E7%99%BD%E9%B9%ADNative%E5%B9%B3%E5%8F%B0%E5%8F%91%E5%B8%83%E6%97%A0%E6%B3%95%E4%B8%8B%E8%BD%BD%E5%8E%9F%E7%94%9F%E6%94%AF%E6%8C%81%E5%8C%85%E9%97%AE%E9%A2%98/2.webp"><br>3.修改nginx.conf 配置端口 和存放静态资源目录<br>nginx.comf 文件在</p><pre><code>D:\nginx-1.24.0\conf</code></pre><p>把80端口修改成8869防止端口和其他进程冲突，也可以把静态资源目录改成static<br><img src="https://blog-1256223694.cos.ap-shanghai.myqcloud.com/post/%E8%A7%A3%E5%86%B3Egret%E7%99%BD%E9%B9%ADNative%E5%B9%B3%E5%8F%B0%E5%8F%91%E5%B8%83%E6%97%A0%E6%B3%95%E4%B8%8B%E8%BD%BD%E5%8E%9F%E7%94%9F%E6%94%AF%E6%8C%81%E5%8C%85%E9%97%AE%E9%A2%98/3.webp"></p><p>4.启动Nginx 服务 </p><pre><code>##  进入CDM再cd到安装目录 cd D:\nginx-1.24.0## 启动nginx服务 也可以双击nginx.exestart nginx## 关闭nginx服务nginx -s stop## 强制关闭所有nginx服务taskkill /f /t /im nginx.exe</code></pre><p>启动服务后 在浏览器运行 <a href="http://localhost:8869/">http://localhost:8869/</a>  进行验证是否正常使用<br><img src="https://blog-1256223694.cos.ap-shanghai.myqcloud.com/post/%E8%A7%A3%E5%86%B3Egret%E7%99%BD%E9%B9%ADNative%E5%B9%B3%E5%8F%B0%E5%8F%91%E5%B8%83%E6%97%A0%E6%B3%95%E4%B8%8B%E8%BD%BD%E5%8E%9F%E7%94%9F%E6%94%AF%E6%8C%81%E5%8C%85%E9%97%AE%E9%A2%98/4.webp"><br>5.配置Egret白鹭原生包下载资源<br>在 <a href="https://www.egret.uk/download/">https://www.egret.uk/download/</a> 中下载小游戏支持包</p><p>解压后把</p><p>native.json </p><p>android_1443523c87b1552163490a89d901451d.zip</p><p>ios_4a449a853ff59e2b3c8cd2bc5d474a13.zip</p><p> 三个文件拷贝进去D:\nginx-1.24.0\html 目录<br><img src="https://blog-1256223694.cos.ap-shanghai.myqcloud.com/post/%E8%A7%A3%E5%86%B3Egret%E7%99%BD%E9%B9%ADNative%E5%B9%B3%E5%8F%B0%E5%8F%91%E5%B8%83%E6%97%A0%E6%B3%95%E4%B8%8B%E8%BD%BD%E5%8E%9F%E7%94%9F%E6%94%AF%E6%8C%81%E5%8C%85%E9%97%AE%E9%A2%98/5.webp"><br>配置native.json</p><pre><code>&#123;    &quot;engines&quot;: &#123;        &quot;5.2.33&quot;: &#123;            &quot;supports&quot;: [                &quot;native&quot;            ]        &#125;    &#125;,    &quot;supports&quot;: &#123;        &quot;native&quot;: &#123;            &quot;android&quot;: &quot;http://localhost:8869/android_1443523c87b1552163490a89d901451d.zip&quot;,            &quot;ios&quot;: &quot;http://localhost:8869/ios_4a449a853ff59e2b3c8cd2bc5d474a13.zip&quot;        &#125;    &#125;&#125;</code></pre><p>本地搭建Nginx提供Egret发布原生支持包下载问题就解决了</p><h1 id="二-本地搭建Tomcat提供Egret发布原生支持包下载"><a href="#二-本地搭建Tomcat提供Egret发布原生支持包下载" class="headerlink" title="二 本地搭建Tomcat提供Egret发布原生支持包下载"></a>二 本地搭建Tomcat提供Egret发布原生支持包下载</h1><p>Tomcat 配置环境虽然相对复杂些，但是提供下载原理是一样的，这里就不详细说明了。</p><p>首先下载JDK，国内镜像下载地址：<a href="https://repo.huaweicloud.com/java/jdk/">https://repo.huaweicloud.com/java/jdk/</a></p><p>然后配置JDK环境也可以所示JAVA环境：可以参考菜鸟教程：<a href="https://www.runoob.com/java/java-environment-setup.html">https://www.runoob.com/java/java-environment-setup.html</a></p><p>配置完最后是下载Tomcat，为了方便大家配置和下载，这里提供配置好了的Tomcat，已经配置了跨域和静态资源还有Egret原生支持包，直接下载就可以用。</p><p>下载地址：<a href="https://pan.baidu.com/s/1BjVMDgsRdvvk3b27Bu8v2w?pwd=6690">https://pan.baidu.com/s/1BjVMDgsRdvvk3b27Bu8v2w?pwd=6690</a><br><img src="https://blog-1256223694.cos.ap-shanghai.myqcloud.com/post/%E8%A7%A3%E5%86%B3Egret%E7%99%BD%E9%B9%ADNative%E5%B9%B3%E5%8F%B0%E5%8F%91%E5%B8%83%E6%97%A0%E6%B3%95%E4%B8%8B%E8%BD%BD%E5%8E%9F%E7%94%9F%E6%94%AF%E6%8C%81%E5%8C%85%E9%97%AE%E9%A2%98/6.webp"></p><p>启动和关闭Tomcat</p><p>进入 D:\apache-tomcat-9.0.83\bin</p><p>启动：双击startup.bat</p><p>关闭：双击shutdown.bat</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> egret </category>
           
       </categories>
       
