@@ -1,0 +1,21 @@
+安装步骤：
+chmod +x StackScript
+./l2tp
+
+1）修改用户名
+vim /etc/ppp/chap-secrets
+1
+（2）先修改PSK，将PSK后面的字符替换掉
+vim /etc/ipsec.secrets
+1
+（3）重启IPsec和xl2tpd服务
+systemctl restart ipsec xl2tpd
+
+多用户设置
+在 /etc/ppp/chap-secrets 中添加第二个用户，格式为： “username” l2tpd “password” *
+
+执行 openssl passwd -1 “password” 得到一串MD5加密的字符串，如： $15 N w p n e O 7 5NwpneO75NwpneO7YD82DhVJxCQpQ4zahB1N01
+
+复制这一段字符串到 /etc/ipsec.d/passwd 中，新行如下： username:$15 N w p n e O 7 5NwpneO75NwpneO7YD82DhVJxCQpQ4zahB1N01:xauth-psk ，红色是手工添加的。
+
+systemctl restart ipsec xl2tpd

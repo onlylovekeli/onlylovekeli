@@ -1,0 +1,17 @@
+[epel-archive]
+name=Extra Packages for Enterprise Linux 8 - $basearch
+baseurl=http://mirrors.aliyun.com/epel-archive/8/Everything/$basearch
+enabled=1
+gpgcheck=0
+
+[epel-archive-debuginfo]
+name=Extra Packages for Enterprise Linux 8 - $basearch - Debug
+baseurl=http://mirrors.aliyun.com/epel-archive/8/Everything/$basearch/debug
+enabled=0
+gpgcheck=0
+
+[epel-archive-source]
+name=Extra Packages for Enterprise Linux 8 - $basearch - Source
+baseurl=http://mirrors.aliyun.com/epel-archive/8/Everything/SRPMS
+enabled=0
+gpgcheck=0

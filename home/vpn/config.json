@@ -1,0 +1,32 @@
+{
+    "folders":[
+        {
+            "id":1,
+            "name":"Centos7",
+            "parent":-1
+        }
+    ],
+    "files":[
+        {
+             "folderid":1,
+            "name":"ssr搭建脚本",
+            "url":"./download/centos7/ssr.sh.txt"
+        },{
+             "folderid":1,
+            "name":"OpenVpn搭建脚本",
+            "url":"./download/centos7/openvpn.sh"
+        },{
+             "folderid":1,
+            "name":"l2tp搭建脚本",
+            "url":"./download/centos7/l2tp.sh"
+        },{
+             "folderid":1,
+            "name":"l2tp使用说明",
+            "url":"./download/centos7/l2tp使用说明.txt"
+        },{
+             "folderid":1,
+            "name":"pptp搭建脚本",
+            "url":"./download/centos7/pptp.sh"
+        }
+    ]
+}

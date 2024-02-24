@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<title>目录</title>
+
+<head>
+    <meta content="text/html; charset=utf-8" http-equiv="content-type">
+</head>
+
+<body>
+    <script type="text/javascript">
+        function copyToClip(content, message) {
+            var aux = document.createElement("input");
+            aux.setAttribute("value", content);
+            document.body.appendChild(aux);
+            aux.select();
+            document.execCommand("copy");
+            document.body.removeChild(aux);
+            if (message == null) {
+                alert("复制成功");
+            } else {
+                alert(message);
+            }
+    </script>
+    <table border="1" bordercolor="#000000">
+        <thead>
+            <tr>
+                <th>站点</th>
+                <th>类型</th>
+                <th>说明</th>
+                <th>链接</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>rsshub.com</td>
+                <td>链接</td>
+                <td>rss订阅文档</td>
+                <td>
+                    <a href="./rsshub.com/index.html">rsshub.com</a>
+                </td>
+            </tr>
+            <tr>
+                <td>musicfreeplugin.com</td>
+                <td>链接</td>
+                <td>开源音乐播放器插件</td>
+                <td>
+                    <button
+                        onclick="copyToClip('http://luoxiaohei.shenzhuo.vip:44204/musicfreeplugin.com/plugins.json','复制失败')">复制插件地址</button>
+                </td>
+            </tr>
+            <tr>
+                <td>smiley-sans-v1.1.1.zip</td>
+                <td>文件</td>
+                <td>得意黑字体(开源)</td>
+                <td>
+                    <a href="./开源字体/得意黑/smiley-sans-v1.1.1.zip">下载</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+
+</html>

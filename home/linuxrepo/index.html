@@ -1,0 +1,218 @@
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>linux国内源更换</title>
+    <link href="./font-awesome.min.css" rel="stylesheet" />
+    <script src="./jquery3.2.1.min.js"></script>
+    <style>
+        .main {
+            width: 100%;
+            height: 100%;
+            opacity: 0.9;      
+        }
+
+        .contentBox {
+            position: absolute;
+            margin: auto;
+            width: 100%;
+            height: 100%;
+            border: 2px solid black;
+            border-radius: 10px;
+            overflow: auto;
+        }
+
+        #hierarchy {
+            font-family: FontAwesome;
+            width: 600px;
+            padding-top: 20px;
+        }
+
+        .foldercontainer,
+        .file,
+        .noitems {
+            display: block;
+            padding: 5px 5px 5px 50px;
+        }
+
+        .folder {
+            color: red;
+        }
+
+        .file {
+            color: green;
+        }
+
+        .folder,
+        .file {
+            cursor: pointer;
+            width: auto;
+        }
+
+        .noitems {
+            display: none;
+            pointer-events: none;
+        }
+
+        .folder:hover,
+        .file:hover {
+            background: yellow;
+        }
+
+        .folder:before,
+        .file:before {
+            padding-right: 10px;
+        }
+    </style>
+
+</head>
+
+<body>
+    <div class="main">
+        <div class="contentBox">
+            <div
+                style="padding-left: 50px;padding-top: 30px;display: flex;justify-content: center;align-items: center;">
+                <label style="font-size: 25px;">搜索：</label>
+                <input style="height: 30px;width: 40%;border: 1px solid black;" placeholder="搜索的文件名(支持模糊搜索)" id="searchfile" />
+                <button style="margin-left: 20px;width: auto;height: 30px;" onclick="Search()">搜索</button>
+                <button style="margin-left: 8px;width: auto;height: 30px;" onclick="ResetPage()">显示所有文件</button>
+            </div>
+            <div id="hierarchy">
+
+            </div>
+        </div>
+    </div>
+</body>
+<script>
+    RangeBG();
+    function RangeBG(){
+        let bgArr=['bg.jpg','bg1.jpg','bg2.jpg','bg3.jpg','bg4.jpg','bg5.jpeg'];
+        let main=document.getElementsByClassName('main')[0];
+        main.style.background="url('./image/"+bgArr[Math.floor(Math.random()*bgArr.length)]+"')";
+    }
+    let cfg = null;
+    InitPage();
+
+    function InitPage() {
+        $.getJSON("./config.json", (data) => {
+            cfg = data;
+            UpdatePage(cfg);
+        });
+    }
+    function UpdatePage(data, isHide = true) {
+        let folders = data['folders'];
+        for (let i = 0; i < folders.length; i++) {
+            let folder = folders[i];
+            if (folder['parent'] == -1) {
+                let node = document.getElementById('hierarchy');
+                let docStr = '<div class="foldercontainer" id=folder' + folder['id'] + '> <span class="folder fa-folder-o" data-isexpanded="false">' + folder['name'] + '</span> </div>';
+                node.insertAdjacentHTML('beforeend', docStr);
+            } else {
+                let node = document.getElementById('folder' + folder['parent']);
+                let docStr = '<div class="foldercontainer" id=folder' + folder['id'] + '><span class="folder fa-folder" data-isexpanded="false">' + folder['name'] + '</span></div>';
+                node.insertAdjacentHTML('beforeend', docStr);
+            }
+
+        }
+        let files = data['files'];
+        if (files.length > 0) {
+            for (let i = 0; i < files.length; i++) {
+                let file = files[i];
+                let docStr = '<span class="file fa-file-tool" href="' + file['url'] + '">' + file['name'] + '</span>';
+                let node = document.getElementById('folder' + file['folderid']);
+                node.insertAdjacentHTML('beforeend', docStr);
+            }
+        } else {
+            let folders = document.getElementsByClassName('foldercontainer');
+            let node = folders[folders.length - 1];
+            node.insertAdjacentHTML('beforeend', '<span class="noitems">暂无文件</span>');
+        }
+        if (isHide) {
+            //只显示第一层文件夹
+            var allFolder = document.getElementsByClassName('foldercontainer');
+            for (let m = 0; m < allFolder.length; m++) {
+                for (let n = 1; n < allFolder[m].children.length; n++) {
+                    allFolder[m].children[n].style.display = "none";
+                }
+            }
+        } else {
+            //只显示第一层文件夹
+            var allFolder = document.getElementsByClassName('foldercontainer');
+            for (let m = 0; m < allFolder.length; m++) {
+                for (let n = 1; n < allFolder[m].children.length; n++) {
+                    allFolder[m].children[n].style.display = "block";
+                }
+            }
+        }
+
+        AddEvent();
+    }
+    function AddEvent() {
+        var hierarchy = document.getElementById("hierarchy");
+        hierarchy.addEventListener("click", function (event) {
+            var elem = event.target;
+            if (elem.tagName.toLowerCase() == "span" && elem !== event.currentTarget) {
+                var type = elem.classList.contains("folder") ? "folder" : "file";
+                if (type == "file") {
+                    window.open(elem.attributes['href'].value);
+                }
+                if (type == "folder") {
+                    var isexpanded = elem.dataset.isexpanded == "true";
+                    if (isexpanded) {
+                        elem.classList.remove("fa-folder-o");
+                        elem.classList.add("fa-folder");
+                    }
+                    else {
+                        elem.classList.remove("fa-folder");
+                        elem.classList.add("fa-folder-o");
+                    }
+                    elem.dataset.isexpanded = !isexpanded;
+
+                    var toggleelems = [].slice.call(elem.parentElement.children);
+                    var classnames = "file,foldercontainer,noitems".split(",");
+
+                    toggleelems.forEach(function (element) {
+                        if (classnames.some(function (val) { return element.classList.contains(val); }))
+                            element.style.display = isexpanded ? "none" : "block";
+                    });
+                }
+            }
+        });
+    }
+    function ResetPage() {
+        ClearFloders();
+        UpdatePage(cfg);
+    }
+    function ClearFloders() {
+        let node = document.getElementById('hierarchy');
+        for (let i = node.childNodes.length - 1; i > 0; i--) {
+            node.removeChild(node.childNodes[i]);
+        }
+    }
+    function Search() {
+        ClearFloders();
+        let result = {};
+        result['folders'] = [];
+        result['files'] = [];
+        let folder = {};
+        folder['id'] = 0;
+        folder['name'] = '搜索结果';
+        folder['parent'] = -1;
+        result['folders'].push(folder);
+        let name = document.getElementById('searchfile');
+        let files = cfg['files'];
+        for (let i = 0; i < files.length; i++) {
+            let fileName = files[i]['name'];
+            if (fileName.indexOf(name.value) != -1) {
+                let temp = {};
+                temp['folderid'] = 0;
+                temp['name'] = files[i]['name'];
+                temp['url'] = files[i]['url'];
+                result['files'].push(temp);
+            }
+        }
+        UpdatePage(result, false);
+    }
+</script>
+
+</html>

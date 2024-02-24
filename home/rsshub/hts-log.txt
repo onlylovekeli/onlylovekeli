@@ -1,0 +1,39 @@
+HTTrack3.49-2+htsswf+htsjava launched on Thu, 07 Sep 2023 13:13:49 at https://rsshub-docs.moeyy.cn/ +*.png +*.gif +*.jpg +*.jpeg +*.css +*.js -ad.doubleclick.net/* -mime:application/foobar
+(winhttrack -qwC2%Ps2u1%s%uN0%I0p3DaK0H0%kf2A25000%f#f -F "Mozilla/4.5 (compatible; HTTrack 3.0x; Windows 98)" -%F "<!-- Mirrored from %s%s by HTTrack Website Copier/3.x [XR&CO'2014], %s -->" -%l "zh, en, *" https://rsshub-docs.moeyy.cn/ -O1 "C:\Users\15409\Desktop\rsshub\rsshub" +*.png +*.gif +*.jpg +*.jpeg +*.css +*.js -ad.doubleclick.net/* -mime:application/foobar )
+
+Information, Warnings and Errors reported for this mirror:
+note:	the hts-log.txt file, and hts-cache folder, may contain sensitive information,
+	such as username/password authentication for websites mirrored in this project
+	do not share these files/folders if you want these information to remain private
+
+13:14:19	Warning: 	Retry after error -4 (Connect Error) at link https://docs.rsshub.app/img/logo.png (from https://rsshub-docs.moeyy.cn/)
+13:16:04	Warning: 	Retry after error -4 (Connect Error) at link https://docs.rsshub.app/img/logo.png (from https://rsshub-docs.moeyy.cn/)
+13:16:30	Warning: 	Retry after error -5 (error:00000005:lib(0):func(0):DH lib) at link https://storage.googleapis.com/web-dev-uploads/image/WlD8wC6g8khYWPJUsQceQkhXSlv1/UV4C4ybeBTsZt43U4xis.png (from https://rsshub-docs.moeyy.cn/joinus/quick-start)
+13:16:30	Warning: 	Retry after error -4 (Connect Error) at link https://docs.rsshub.app/zh/img/logo.png (from https://rsshub-docs.moeyy.cn/zh/)
+13:16:57	Warning: 	Retry after error 502 (Bad Gateway) at link https://rsshub.moeyy.cn/github/file/DIYgod/RSSHub/master/lib/router.js (from https://rsshub-docs.moeyy.cn/routes/programming)
+13:16:57	Warning: 	Retry after error 502 (Bad Gateway) at link https://rsshub.moeyy.cn/codeceo/tag/node.js (from https://rsshub-docs.moeyy.cn/routes/programming)
+13:16:57	Warning: 	Retry after error -5 (Unable to get server's address: 请求的名称有效，但是找不到请求的类型的数据。 ) at link https://raw.githubusercontent.com/play-with-docker/stacks/master/assets/images/button.png (from https://rsshub-docs.moeyy.cn/install)
+13:16:57	Warning: 	Retry after error -4 (Connect Error) at link https://archive.diygod.me/images/wx.jpg (from https://rsshub-docs.moeyy.cn/support)
+13:16:57	Warning: 	Retry after error -4 (Connect Error) at link https://archive.diygod.me/images/zfb.jpg (from https://rsshub-docs.moeyy.cn/support)
+13:16:57	Error: 	"Connect Error" (-4) after 2 retries at link https://docs.rsshub.app/img/logo.png (from https://rsshub-docs.moeyy.cn/)
+13:19:15	Warning: 	Retry after error -5 (error:00000005:lib(0):func(0):DH lib) at link https://storage.googleapis.com/web-dev-uploads/image/WlD8wC6g8khYWPJUsQceQkhXSlv1/UV4C4ybeBTsZt43U4xis.png (from https://rsshub-docs.moeyy.cn/joinus/quick-start)
+13:19:16	Warning: 	Retry after error -4 (Connect Error) at link https://docs.rsshub.app/zh/img/logo.png (from https://rsshub-docs.moeyy.cn/zh/)
+13:19:41	Warning: 	Retry after error 502 () at link https://rsshub.moeyy.cn/github/file/DIYgod/RSSHub/master/lib/router.js (from https://rsshub-docs.moeyy.cn/routes/programming)
+13:19:41	Error: 	"Not Found" (404) at link https://rsshub.moeyy.cn/codeceo/tag/node.js (from https://rsshub-docs.moeyy.cn/routes/programming)
+13:19:41	Warning: 	Retry after error -5 (Unable to get server's address: unknown error) at link https://raw.githubusercontent.com/play-with-docker/stacks/master/assets/images/button.png (from https://rsshub-docs.moeyy.cn/install)
+13:19:41	Warning: 	Retry after error -4 (Connect Error) at link https://archive.diygod.me/images/wx.jpg (from https://rsshub-docs.moeyy.cn/support)
+13:19:41	Warning: 	Retry after error -4 (Connect Error) at link https://archive.diygod.me/images/zfb.jpg (from https://rsshub-docs.moeyy.cn/support)
+13:20:40	Error: 	"Connect Error" (-4) after 2 retries at link https://docs.rsshub.app/zh/img/logo.png (from https://rsshub-docs.moeyy.cn/zh/)
+13:20:42	Error: 	"Not Found" (404) at link https://github.com/DIYgod/RSSHub/blob/master/assets/forumdisplay.php (from https://github.com/DIYgod/RSSHub/blob/master/assets/radar-rules.js)
+13:20:42	Error: 	"Not Found" (404) at link https://github.com/DIYgod/RSSHub/blob/master/assets/channel_7721.html (from https://github.com/DIYgod/RSSHub/blob/master/assets/radar-rules.js)
+13:20:42	Error: 	"Not Found" (404) at link https://github.com/DIYgod/RSSHub/blob/master/assets/channel_7722.html (from https://github.com/DIYgod/RSSHub/blob/master/assets/radar-rules.js)
+13:20:42	Error: 	"" (502) after 2 retries at link https://rsshub.moeyy.cn/github/file/DIYgod/RSSHub/master/lib/router.js (from https://rsshub-docs.moeyy.cn/routes/programming)
+13:20:42	Error: 	"Unable to get server's address: unknown error" (-5) after 2 retries at link https://raw.githubusercontent.com/play-with-docker/stacks/master/assets/images/button.png (from https://rsshub-docs.moeyy.cn/install)
+13:20:42	Error: 	"Connect Error" (-4) after 2 retries at link https://archive.diygod.me/images/wx.jpg (from https://rsshub-docs.moeyy.cn/support)
+13:20:42	Error: 	"Connect Error" (-4) after 2 retries at link https://archive.diygod.me/images/zfb.jpg (from https://rsshub-docs.moeyy.cn/support)
+13:22:37	Error: 	"Not Found" (404) at link https://github.com/email_validity_checks (from https://github.com/signup?return_to=https%3A%2F%2Fgithub.com%2FDIYgod%2FRSSHub%2Fblob%2Fmaster%2Flib%2Fmiddleware%2Ftemplate.js&source=login)
+13:22:37	Error: 	"Not Found" (404) at link https://github.com/password_validity_checks (from https://github.com/signup?return_to=https%3A%2F%2Fgithub.com%2FDIYgod%2FRSSHub%2Fblob%2Fmaster%2Flib%2Fmiddleware%2Ftemplate.js&source=login)
+13:22:37	Error: 	"Not Found" (404) at link https://github.com/signup_check/username (from https://github.com/signup?return_to=https%3A%2F%2Fgithub.com%2FDIYgod%2FRSSHub%2Fblob%2Fmaster%2Flib%2Fmiddleware%2Ftemplate.js&source=login)
+
+HTTrack Website Copier/3.49-2 mirror complete in 8 minutes 50 seconds : 286 links scanned, 256 files written (22263865 bytes overall) [6806310 bytes received at 12842 bytes/sec], 20881591 bytes transferred using HTTP compression in 228 files, ratio 19%, 2.9 requests per connection
+(13 errors, 15 warnings, 0 messages)
