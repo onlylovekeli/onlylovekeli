@@ -24,7 +24,7 @@
 <meta property="og:description" content="Unity插件UniRx使用方法(比较常见的用法)">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2024-03-04T03:05:41.000Z">
-<meta property="article:modified_time" content="2024-03-04T04:45:03.128Z">
+<meta property="article:modified_time" content="2024-03-04T06:20:15.917Z">
 <meta property="article:author" content="罗小黑">
 <meta name="twitter:card" content="summary">
   <link rel="stylesheet" href="https://lib.baomitu.com/highlight.js/9.15.8/styles/atom-one-dark.min.css" crossorigin>
@@ -35,7 +35,7 @@
   
     <link rel="stylesheet" href="//at.alicdn.com/t/font_2421060_8z08qcz5sq3.css">
   
-  <link rel="stylesheet" href="/css/style.css?v=1709530219652">
+  <link rel="stylesheet" href="/css/style.css?v=1709534273985">
 
   <link rel="stylesheet" href="/live2d/css/live2d.css" />
 <meta name="generator" content="Hexo 6.3.0"></head>
@@ -231,7 +231,7 @@
 
         <div class="nexmoe-post-meta nexmoe-rainbow" style="margin:10px 0!important;">
     <a><i class="nexmoefont icon-calendar-fill"></i>2024年03月04日</a>
-    <a><i class="nexmoefont icon-areachart"></i>244 字</a>
+    <a><i class="nexmoefont icon-areachart"></i>362 字</a>
     <a><i class="nexmoefont icon-time-circle-fill"></i>大概 1 分钟</a>
 </div>
         <!--
@@ -311,6 +311,27 @@ ObservableWWW.GetWWW(url)
          .Where(xs =&gt; xs.Count &gt;= 2)
          .Subscribe(xs =&gt; Debug.Log(&quot;DoubleClick Detected! Count:&quot; + xs.Count));
  &#125;
+</code></pre>
+<p>6.Toggle改变控制面板显示隐藏。</p>
+<pre><code class="csharp">MyToggle.OnValueChangedAsObservable().SubscribeToInteractable(MyPanel);
+</code></pre>
+<p>7.输入框输入文字，另一个标签延时变化显示</p>
+<pre><code class="csharp">MyInput.OnValueChangedAsObservable()
+    .Where(x =&gt; x != null)
+    .Delay(TimeSpan.FromSeconds(1))
+    .SubscribeToText(MyText);
+</code></pre>
+<p>8.文本显示滑动条的值。</p>
+<pre><code class="csharp"> MySlider.OnValueChangedAsObservable()
+     .SubscribeToText(MyText, x =&gt; Math.Round(x, 2).ToString());
+</code></pre>
+<p>9.按键合并。例如：搜索框点击搜索按钮和在搜索栏按下回车等效。</p>
+<pre><code class="csharp">Observable.Merge(
+    SearchButton.OnClickAsObservable().Select(_ =&gt; SearchInput.text),
+    SearchInput.OnEndEditAsObservable().Where(_ =&gt; Input.GetKeyDown(KeyCode.Return)));
+</code></pre>
+<p>10.UniRx集合ReactiveCollection</p>
+<pre><code class="csharp">
 </code></pre>
 
         </article>
@@ -1054,7 +1075,7 @@ ObservableWWW.GetWWW(url)
 <script src="/lib/fancybox/js/jquery.fancybox.min.js"></script>
 
 
-<script src="/js/app.js?v=1709530219653"></script>
+<script src="/js/app.js?v=1709534273986"></script>
 
 <script src="https://lib.baomitu.com/justifiedGallery/3.8.1/js/jquery.justifiedGallery.min.js"></script>
 <script>
