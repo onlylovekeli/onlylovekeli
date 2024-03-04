@@ -1,0 +1,540 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search> 
+  
+  
+    
+    <entry>
+      <title>Unity插件UniRx使用方法</title>
+      <link href="/2024/03/04/Unity%E6%8F%92%E4%BB%B6UniRx%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95/"/>
+      <url>/2024/03/04/Unity%E6%8F%92%E4%BB%B6UniRx%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95/</url>
+      
+        <content type="html"><![CDATA[<p>Unity插件UniRx使用方法(比较常见的用法)</p><span id="more"></span><p>1.加载网页源码</p><pre><code class="csharp">string url = &quot;https://www.baidu.com/&quot;;ObservableWWW.GetWWW(url)    .Subscribe(x =&gt;    &#123;        htmlDoc.text = x.text;    &#125;,    ex =&gt; &#123; Debug.Log(ex); &#125;);</code></pre><p>2.加载网络图片</p><pre><code class="csharp"> string url = &quot;https://pic3.zhimg.com/v2-de5ac4b1ea7bc50f0372e9453e66aed4_180x120.jpg&quot;; ObservableWWW.GetWWW(url)     .Subscribe(x =&gt;     &#123;         img.sprite =Sprite.Create(x.texture,new Rect(0,0, x.texture.width, x.texture.height),Vector2.zero);     &#125;,     ex =&gt; &#123; Debug.Log(ex); &#125;);</code></pre><p>3.计时器</p><pre><code class="csharp">    int idx = 5;    Observable.Timer(TimeSpan.FromSeconds(1.0f))        .RepeatUntilDestroy(labTimer)        .Subscribe(        x =&gt;        &#123;                       if (idx &gt;0)            &#123;                idx--;                labTimer.text = idx.ToString();            &#125;        &#125;);</code></pre><p>4.将协程转成可观察对象</p><pre><code class="csharp"> IEnumerator AsyncA() &#123;     Debug.Log(&quot;a start&quot;);     yield return new WaitForSeconds(3);     Debug.Log(&quot;a end&quot;); &#125; IEnumerator AsyncB() &#123;    Debug.Log(&quot;b start&quot;);    yield return new WaitForEndOfFrame();    Debug.Log(&quot;b end&quot;); &#125; Observable.FromCoroutine(AsyncA) .SelectMany(AsyncB) .Subscribe(); //如果想要停止，调用Dispose方法</code></pre><p>5.鼠标双击</p><pre><code class="csharp"> void DoubleClick() &#123;     var clickStream = Observable.EveryUpdate()            .Where(_ =&gt; Input.GetMouseButtonDown(0));     clickStream.Buffer(clickStream.Throttle(TimeSpan.FromMilliseconds(250)))         .Where(xs =&gt; xs.Count &gt;= 2)         .Subscribe(xs =&gt; Debug.Log(&quot;DoubleClick Detected! Count:&quot; + xs.Count)); &#125;</code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> unity </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>项目展示</title>
+      <link href="/2024/03/02/%E9%A1%B9%E7%9B%AE%E5%B1%95%E7%A4%BA/"/>
+      <url>/2024/03/02/%E9%A1%B9%E7%9B%AE%E5%B1%95%E7%A4%BA/</url>
+      
+        <content type="html"><![CDATA[<p>项目展示</p><span id="more"></span><details> <summary>嘿you卧底</summary><h2 id="标签："><a href="#标签：" class="headerlink" title="标签："></a>标签：</h2><pre><code>微信小游戏、安卓、IOS、狼人杀、交友</code></pre><h2 id="游戏介绍"><a href="#游戏介绍" class="headerlink" title="游戏介绍"></a>游戏介绍</h2><pre><code>一款在线交流类策略游戏，类似于狼人杀。</code></pre><h2 id="游戏功能"><a href="#游戏功能" class="headerlink" title="游戏功能"></a>游戏功能</h2><p>聊天、排行榜、群聊、支付、礼物、家族、好友、商店</p><h2 id="游戏截图"><a href="#游戏截图" class="headerlink" title="游戏截图"></a>游戏截图</h2><center style="display: flex;width:60%;flex-wrap: warp;"><img alt="" style="width: 120px;height: 250px;" src="https://mygame-1256223694.cos.ap-beijing.myqcloud.com/%E5%98%BFyou%E5%8D%A7%E5%BA%95/1.jpg"/><img alt="" style="width: 120px;height: 250px;" src="https://mygame-1256223694.cos.ap-beijing.myqcloud.com/%E5%98%BFyou%E5%8D%A7%E5%BA%95/2.jpg"/><img alt="" style="width: 120px;height: 250px;" src="https://mygame-1256223694.cos.ap-beijing.myqcloud.com/%E5%98%BFyou%E5%8D%A7%E5%BA%95/3.jpg"/></center><center style="display: flex;width:60%;flex-wrap: warp;"><img alt="" style="width: 120px;height: 250px;" src="https://mygame-1256223694.cos.ap-beijing.myqcloud.com/%E5%98%BFyou%E5%8D%A7%E5%BA%95/4.jpg"/><img alt="" style="width: 120px;height: 250px;" src="https://mygame-1256223694.cos.ap-beijing.myqcloud.com/%E5%98%BFyou%E5%8D%A7%E5%BA%95/5.jpg"/></center><h2 id="视频展示"><a href="#视频展示" class="headerlink" title="视频展示"></a>视频展示</h2><video width="800" height="600" controls>  <source src="https://mygame-1256223694.cos.ap-beijing.myqcloud.com/%E5%98%BFyou%E5%8D%A7%E5%BA%95/video.mp4" type="video/mp4"></video></details><details> <summary>小猪冲刺</summary><h2 id="标签"><a href="#标签" class="headerlink" title="标签"></a>标签</h2><p>微信小游戏、休闲、跑酷、收集</p><h2 id="游戏介绍-1"><a href="#游戏介绍-1" class="headerlink" title="游戏介绍"></a>游戏介绍</h2><pre><code>  一款跑酷休闲闯关类游戏，拥有海量的关卡让你来挑战，玩家在这里需要脚踩着方块在赛道上滑行，收集各种道具你能够跑得更快，并且想办法将小猪越堆越高，玩法简单轻松，超考验你的反应哦！</code></pre><h2 id="游戏功能-1"><a href="#游戏功能-1" class="headerlink" title="游戏功能"></a>游戏功能</h2><p>游戏商店、道具</p><h2 id="游戏截图-1"><a href="#游戏截图-1" class="headerlink" title="游戏截图"></a>游戏截图</h2><center style="display: flex;width:60%;flex-wrap: warp;"><img alt="" style="width: 120px;height: 250px;" src="https://mygame-1256223694.cos.ap-beijing.myqcloud.com/%E5%B0%8F%E7%8C%AA%E5%86%B2%E5%88%BA/1.jpg"/><img alt="" style="width: 120px;height: 250px;" src="https://mygame-1256223694.cos.ap-beijing.myqcloud.com/%E5%B0%8F%E7%8C%AA%E5%86%B2%E5%88%BA/2.jpg"/><img alt="" style="width: 120px;height: 250px;" src="https://mygame-1256223694.cos.ap-beijing.myqcloud.com/%E5%B0%8F%E7%8C%AA%E5%86%B2%E5%88%BA/3.jpg"/></center><center style="display: flex;width:60%;flex-wrap: warp;"><img alt="" style="width: 120px;height: 250px;" src="https://mygame-1256223694.cos.ap-beijing.myqcloud.com/%E5%B0%8F%E7%8C%AA%E5%86%B2%E5%88%BA/4.jpg"/><img alt="" style="width: 120px;height: 250px;" src="https://mygame-1256223694.cos.ap-beijing.myqcloud.com/%E5%B0%8F%E7%8C%AA%E5%86%B2%E5%88%BA/5.jpg"/><img alt="" style="width: 120px;height: 250px;" src="https://mygame-1256223694.cos.ap-beijing.myqcloud.com/%E5%B0%8F%E7%8C%AA%E5%86%B2%E5%88%BA/6.jpg"/></center><h2 id="游戏展示"><a href="#游戏展示" class="headerlink" title="游戏展示"></a>游戏展示</h2><video width="800" height="600" controls>  <source src="https://mygame-1256223694.cos.ap-beijing.myqcloud.com/%E5%B0%8F%E7%8C%AA%E5%86%B2%E5%88%BA.mp4" type="video/mp4"></video></details><details> <summary>国医少年</summary><h2 id="标签-1"><a href="#标签-1" class="headerlink" title="标签"></a>标签</h2><p>医学教育、安卓、IOS、</p><h2 id="游戏介绍-2"><a href="#游戏介绍-2" class="headerlink" title="游戏介绍"></a>游戏介绍</h2><pre><code>《国医少年》是一款寓教于乐的医学教育教学游戏。在闯关过程中，你需要用超强大脑优选中药本草的种植时间，掌握经典中医药方的配伍秘密；协调平衡各任务，为患者辩证施治；更需要每日积极学习，“修身养性”，逐步登临医学巅峰。《国医少年》游戏将中草药知识与闯关游戏相结合，在玩乐中进步，在游戏中掌握更多医学卫生知识。</code></pre><h2 id="游戏功能-2"><a href="#游戏功能-2" class="headerlink" title="游戏功能"></a>游戏功能</h2><pre><code>农场种植、积分商店、签到、QQ微登录分享、病情诊断、药物合成、龙骨动画</code></pre><h2 id="游戏截图-2"><a href="#游戏截图-2" class="headerlink" title="游戏截图"></a>游戏截图</h2><center style="display: flex;width:60%;flex-wrap: warp;"><img alt="" style="width: 300px;height: 160px;" src="https://mygame-1256223694.cos.ap-beijing.myqcloud.com/%E5%9B%BD%E5%8C%BB%E5%B0%91%E5%B9%B4/1.jpg"/><img alt="" style="width: 300px;height: 160px;" src="https://mygame-1256223694.cos.ap-beijing.myqcloud.com/%E5%9B%BD%E5%8C%BB%E5%B0%91%E5%B9%B4/2.jpg"/><img alt="" style="width: 300px;height: 160px;" src="https://mygame-1256223694.cos.ap-beijing.myqcloud.com/%E5%9B%BD%E5%8C%BB%E5%B0%91%E5%B9%B4/3.jpg"/></center><center style="display: flex;width:60%;flex-wrap: warp;"><img alt="" style="width: 300px;height: 160px;" src="https://mygame-1256223694.cos.ap-beijing.myqcloud.com/%E5%9B%BD%E5%8C%BB%E5%B0%91%E5%B9%B4/4.jpg"/><img alt="" style="width: 300px;height: 160px;" src="https://mygame-1256223694.cos.ap-beijing.myqcloud.com/%E5%9B%BD%E5%8C%BB%E5%B0%91%E5%B9%B4/5.png"/><img alt="" style="width: 300px;height: 160px;" src="https://mygame-1256223694.cos.ap-beijing.myqcloud.com/%E5%9B%BD%E5%8C%BB%E5%B0%91%E5%B9%B4/6.png"/></center><center style="display: flex;width:60%;flex-wrap: warp;"><img alt="" style="width: 300px;height: 160px;" src="https://mygame-1256223694.cos.ap-beijing.myqcloud.com/%E5%9B%BD%E5%8C%BB%E5%B0%91%E5%B9%B4/7.png"/><img alt="" style="width: 300px;height: 160px;" src="https://mygame-1256223694.cos.ap-beijing.myqcloud.com/%E5%9B%BD%E5%8C%BB%E5%B0%91%E5%B9%B4/8.png"/><img alt="" style="width: 300px;height: 160px;" src="https://mygame-1256223694.cos.ap-beijing.myqcloud.com/%E5%9B%BD%E5%8C%BB%E5%B0%91%E5%B9%B4/9.png"/></center><h2 id="游戏展示-1"><a href="#游戏展示-1" class="headerlink" title="游戏展示"></a>游戏展示</h2><video width="800" height="300" controls>  <source src="https://mygame-1256223694.cos.ap-beijing.myqcloud.com/%E5%9B%BD%E5%8C%BB%E5%B0%91%E5%B9%B4/video.mp4" type="video/mp4"></video></details><details> <summary>音悦熊</summary><h2 id="标签-2"><a href="#标签-2" class="headerlink" title="标签"></a>标签</h2><pre><code>音乐教育、安卓、IOS</code></pre><h2 id="游戏介绍-3"><a href="#游戏介绍-3" class="headerlink" title="游戏介绍"></a>游戏介绍</h2><pre><code>音悦熊教学共享平台是全球首创的开放式架子鼓共享平台，该平台为开放模式，结合了目前最热门的“互联网”+“物联网”的概念，通过自主研发的真电结合系统,智能架子鼓使传统架子鼓与PC电脑，智能手机，PAD实现通信，任何乐器教育机构，老师，学生可注册使用并且相互管理。通过音悦熊智能艺术教育平台实现了架子鼓教学 的标准化，数据化，娱乐化，共享化，打造成为集管理，教育，学习，娱乐为一体的生态平台。</code></pre><h2 id="游戏功能-3"><a href="#游戏功能-3" class="headerlink" title="游戏功能"></a>游戏功能</h2><pre><code>积分商城、教程购买、教程搜索、各种乐器、</code></pre><h2 id="游戏截图-3"><a href="#游戏截图-3" class="headerlink" title="游戏截图"></a>游戏截图</h2><center style="display: flex;width:60%;flex-wrap: warp;"><img alt="" style="width: 350px;height: 180px;" src="https://mygame-1256223694.cos.ap-beijing.myqcloud.com/%E9%9F%B3%E6%82%A6%E7%86%8A/1.jpg"/><img alt="" style="width: 350px;height: 180px;" src="https://mygame-1256223694.cos.ap-beijing.myqcloud.com/%E9%9F%B3%E6%82%A6%E7%86%8A/2.png"/></center><center style="display: flex;width:60%;flex-wrap: warp;"><img alt="" style="width: 350px;height: 180px;" src="https://mygame-1256223694.cos.ap-beijing.myqcloud.com/%E9%9F%B3%E6%82%A6%E7%86%8A/3.png"/><img alt="" style="width: 350px;height: 180px;" src="https://mygame-1256223694.cos.ap-beijing.myqcloud.com/%E9%9F%B3%E6%82%A6%E7%86%8A/4.png"/></center><center style="display: flex;width:60%;flex-wrap: warp;"><img alt="" style="width: 350px;height: 180px;" src="https://mygame-1256223694.cos.ap-beijing.myqcloud.com/%E9%9F%B3%E6%82%A6%E7%86%8A/5.png"/><img alt="" style="width: 350px;height: 180px;" src="https://mygame-1256223694.cos.ap-beijing.myqcloud.com/%E9%9F%B3%E6%82%A6%E7%86%8A/6.png"/></center><center style="display: flex;width:60%;flex-wrap: warp;"><img alt="" style="width: 350px;height: 180px;" src="https://mygame-1256223694.cos.ap-beijing.myqcloud.com/%E9%9F%B3%E6%82%A6%E7%86%8A/7.png"/><img alt="" style="width: 350px;height: 180px;" src="https://mygame-1256223694.cos.ap-beijing.myqcloud.com/%E9%9F%B3%E6%82%A6%E7%86%8A/8.png"/></center><h2 id="游戏展示-2"><a href="#游戏展示-2" class="headerlink" title="游戏展示"></a>游戏展示</h2><video width="800" height="300" controls>  <source src="https://mygame-1256223694.cos.ap-beijing.myqcloud.com/%E9%9F%B3%E6%82%A6%E7%86%8A/video.mp4" type="video/mp4"></video></details><details> <summary>女王驾到H5</summary><h2 id="标签-3"><a href="#标签-3" class="headerlink" title="标签"></a>标签</h2><pre><code>品牌营销、H5、跳一跳</code></pre><h2 id="游戏介绍-4"><a href="#游戏介绍-4" class="headerlink" title="游戏介绍"></a>游戏介绍</h2><pre><code>《女王驾到》是一款为了双11活动设计的一款品牌营销H5小游戏，整体的美术画风明亮缤纷而且有质感。玩法非常简单，通过点击屏幕的左右两边控制角色的方向，一级一级的跳上阶梯，不过，需要注意的是，跳过的阶梯会被销毁，所以，加快速度跳上更高的层数吧！</code></pre><h2 id="游戏功能-4"><a href="#游戏功能-4" class="headerlink" title="游戏功能"></a>游戏功能</h2><pre><code>跳一跳、排行榜、游戏分享</code></pre><h2 id="游戏截图-4"><a href="#游戏截图-4" class="headerlink" title="游戏截图"></a>游戏截图</h2><center style="display: flex;width:60%;flex-wrap: warp;"><img alt="" style="width: 200px;height: 250px;" src="https://mygame-1256223694.cos.ap-beijing.myqcloud.com/%E5%A5%B3%E7%8E%8B%E9%A9%BE%E5%88%B0/1.jpg"/><img alt="" style="width: 200px;height: 250px;" src="https://mygame-1256223694.cos.ap-beijing.myqcloud.com/%E5%A5%B3%E7%8E%8B%E9%A9%BE%E5%88%B0/2.jpg"/><img alt="" style="width: 200px;height: 250px;" src="https://mygame-1256223694.cos.ap-beijing.myqcloud.com/%E5%A5%B3%E7%8E%8B%E9%A9%BE%E5%88%B0/3.jpg"/></center><center style="display: flex;width:60%;flex-wrap: warp;"><img alt="" style="width: 200px;height: 250px;" src="https://mygame-1256223694.cos.ap-beijing.myqcloud.com/%E5%A5%B3%E7%8E%8B%E9%A9%BE%E5%88%B0/4.jpg"/><img alt="" style="width: 200px;height: 250px;" src="https://mygame-1256223694.cos.ap-beijing.myqcloud.com/%E5%A5%B3%E7%8E%8B%E9%A9%BE%E5%88%B0/5.jpg"/><img alt="" style="width: 200px;height: 250px;" src="https://mygame-1256223694.cos.ap-beijing.myqcloud.com/%E5%A5%B3%E7%8E%8B%E9%A9%BE%E5%88%B0/6.jpg"/></center><h2 id="游戏展示-3"><a href="#游戏展示-3" class="headerlink" title="游戏展示"></a>游戏展示</h2><video width="800" height="600" controls>  <source src="https://mygame-1256223694.cos.ap-beijing.myqcloud.com/%E5%A5%B3%E7%8E%8B%E9%A9%BE%E5%88%B0/video.mp4" type="video/mp4"></video></details><details> <summary>旺旺双十一H5</summary><h2 id="标签-4"><a href="#标签-4" class="headerlink" title="标签"></a>标签</h2><pre><code>品牌营销、H5、小游戏</code></pre><h2 id="游戏介绍-5"><a href="#游戏介绍-5" class="headerlink" title="游戏介绍"></a>游戏介绍</h2><pre><code>《旺旺双11》游戏是和旺旺双线上活动配套的小游戏，游戏参考当时大热的飞行小鸟小游戏，并将小鸟替换为浪味仙，场景内的障碍物改为古希腊式的石柱。</code></pre><p>小游戏整体的美术画风非常的‘旺旺’，明亮缤纷而且有质感，配合旺旺公众号的推送，以周期性持续活动的形式为品牌沉淀粉丝，利用参与用户进行品牌信息的扩散，从而带动线下实体店的活动参与度，并在用户原有互动的社交平台引起话题热潮。</p><h2 id="游戏功能-5"><a href="#游戏功能-5" class="headerlink" title="游戏功能"></a>游戏功能</h2><pre><code>H5、游戏飞行、找不同、</code></pre><h2 id="游戏截图-5"><a href="#游戏截图-5" class="headerlink" title="游戏截图"></a>游戏截图</h2><center style="display: flex;width:60%;flex-wrap: warp;"><img alt="" style="width: 200px;height: 300px;" src="https://mygame-1256223694.cos.ap-beijing.myqcloud.com/%E6%97%BA%E6%97%BA%E5%8F%8C11/1.png"/><img alt="" style="width: 200px;height: 300px;" src="https://mygame-1256223694.cos.ap-beijing.myqcloud.com/%E6%97%BA%E6%97%BA%E5%8F%8C11/2.png"/></center><center style="display: flex;width:60%;flex-wrap: warp;"><img alt="" style="width: 200px;height: 300px;" src="https://mygame-1256223694.cos.ap-beijing.myqcloud.com/%E6%97%BA%E6%97%BA%E5%8F%8C11/3.png"/><img alt="" style="width: 200px;height: 300px;" src="https://mygame-1256223694.cos.ap-beijing.myqcloud.com/%E6%97%BA%E6%97%BA%E5%8F%8C11/4.png"/></center><center style="display: flex;width:60%;flex-wrap: warp;"><img alt="" style="width: 200px;height: 300px;" src="https://mygame-1256223694.cos.ap-beijing.myqcloud.com/%E6%97%BA%E6%97%BA%E5%8F%8C11/5.png"/><img alt="" style="width: 200px;height: 300px;" src="https://mygame-1256223694.cos.ap-beijing.myqcloud.com/%E6%97%BA%E6%97%BA%E5%8F%8C11/6.png"/></center><center style="display: flex;width:60%;flex-wrap: warp;"><img alt="" style="width: 200px;height: 300px;" src="https://mygame-1256223694.cos.ap-beijing.myqcloud.com/%E6%97%BA%E6%97%BA%E5%8F%8C11/7.png"/><img alt="" style="width: 200px;height: 300px;" src="https://mygame-1256223694.cos.ap-beijing.myqcloud.com/%E6%97%BA%E6%97%BA%E5%8F%8C11/8.png"/></center><center style="display: flex;width:60%;flex-wrap: warp;"><img alt="" style="width: 200px;height: 300px;" src="https://mygame-1256223694.cos.ap-beijing.myqcloud.com/%E6%97%BA%E6%97%BA%E5%8F%8C11/9.png"/><img alt="" style="width: 200px;height: 300px;" src="https://mygame-1256223694.cos.ap-beijing.myqcloud.com/%E6%97%BA%E6%97%BA%E5%8F%8C11/10.png"/></center><center style="display: flex;width:60%;flex-wrap: warp;"><img alt="" style="width: 200px;height: 300px;" src="https://mygame-1256223694.cos.ap-beijing.myqcloud.com/%E6%97%BA%E6%97%BA%E5%8F%8C11/11.png"/><img alt="" style="width: 200px;height: 300px;" src="https://mygame-1256223694.cos.ap-beijing.myqcloud.com/%E6%97%BA%E6%97%BA%E5%8F%8C11/12.png"/></center><center style="display: flex;width:60%;flex-wrap: warp;"><img alt="" style="width: 200px;height: 300px;" src="https://mygame-1256223694.cos.ap-beijing.myqcloud.com/%E6%97%BA%E6%97%BA%E5%8F%8C11/13.png"/><img alt="" style="width: 200px;height: 300px;" src="https://mygame-1256223694.cos.ap-beijing.myqcloud.com/%E6%97%BA%E6%97%BA%E5%8F%8C11/14.png"/><img alt="" style="width: 200px;height: 300px;" src="https://mygame-1256223694.cos.ap-beijing.myqcloud.com/%E6%97%BA%E6%97%BA%E5%8F%8C11/15.png"/></center><center style="display: flex;width:60%;flex-wrap: warp;"><img alt="" style="width: 200px;height: 300px;" src="https://mygame-1256223694.cos.ap-beijing.myqcloud.com/%E6%97%BA%E6%97%BA%E5%8F%8C11/16.png"/><img alt="" style="width: 200px;height: 300px;" src="https://mygame-1256223694.cos.ap-beijing.myqcloud.com/%E6%97%BA%E6%97%BA%E5%8F%8C11/17.png"/></center><h2 id="游戏展示-4"><a href="#游戏展示-4" class="headerlink" title="游戏展示"></a>游戏展示</h2><video width="800" height="600" controls>  <source src="https://mygame-1256223694.cos.ap-beijing.myqcloud.com/%E6%97%BA%E6%97%BA.mp4" type="video/mp4"></video></details><details> <summary>农银射击红包H5</summary><h2 id="标签-5"><a href="#标签-5" class="headerlink" title="标签"></a>标签</h2><pre><code>品牌营销、H5、小游戏</code></pre><h2 id="游戏功能-6"><a href="#游戏功能-6" class="headerlink" title="游戏功能"></a>游戏功能</h2><pre><code>射击、分享</code></pre><h2 id="游戏介绍-6"><a href="#游戏介绍-6" class="headerlink" title="游戏介绍"></a>游戏介绍</h2><pre><code>《农银射击红包》是九影为农业银行设计的一系列品牌营销小游戏之一，整体的美术画风非常的‘农银’，明亮缤纷而且有质感，配合农行公众号的推送，以周期性持续活动的形式为品牌沉淀粉丝，利用参与用户进行品牌信息的扩散，从而带动线下银行网点的活动参与度，并在用户原有互动的社交平台引起话题热潮。</code></pre><h2 id="游戏截图-6"><a href="#游戏截图-6" class="headerlink" title="游戏截图"></a>游戏截图</h2><center style="display: flex;width:60%;flex-wrap: warp;"><img alt="" style="width: 200px;height: 300px;" src="https://mygame-1256223694.cos.ap-beijing.myqcloud.com/%E5%86%9C%E9%93%B6%E5%B0%84%E5%87%BB/1.jpg"/><img alt="" style="width: 200px;height: 300px;" src="https://mygame-1256223694.cos.ap-beijing.myqcloud.com/%E5%86%9C%E9%93%B6%E5%B0%84%E5%87%BB/2.jpg"/></center><center style="display: flex;width:60%;flex-wrap: warp;"><img alt="" style="width: 200px;height: 300px;" src="https://mygame-1256223694.cos.ap-beijing.myqcloud.com/%E5%86%9C%E9%93%B6%E5%B0%84%E5%87%BB/3.jpg"/><img alt="" style="width: 200px;height: 300px;" src="https://mygame-1256223694.cos.ap-beijing.myqcloud.com/%E5%86%9C%E9%93%B6%E5%B0%84%E5%87%BB/4.jpg"/></center><h2 id="游戏展示-5"><a href="#游戏展示-5" class="headerlink" title="游戏展示"></a>游戏展示</h2><video width="800" height="600" controls>  <source src="https://mygame-1256223694.cos.ap-beijing.myqcloud.com/%E5%86%9C%E9%93%B6%E5%B0%84%E5%87%BB%E7%BA%A2%E5%8C%85.mp4" type="video/mp4"></video></details><details> <summary>灯火玩乐</summary><h2 id="标签-6"><a href="#标签-6" class="headerlink" title="标签"></a>标签</h2><pre><code>H5、种植、模拟经营、家园</code></pre><h2 id="游戏功能-7"><a href="#游戏功能-7" class="headerlink" title="游戏功能"></a>游戏功能</h2><pre><code>模拟经营、家园、种植、商店兑换</code></pre><h2 id="游戏介绍-7"><a href="#游戏介绍-7" class="headerlink" title="游戏介绍"></a>游戏介绍</h2><pre><code>《灯火玩乐》是一款模拟经营类游戏，通过种植茶树卖茶叶进行收益。游戏中可以拜访好友或帮助好友打扫进行加速。</code></pre><h2 id="游戏截图-7"><a href="#游戏截图-7" class="headerlink" title="游戏截图"></a>游戏截图</h2><center style="display: flex;width:60%;flex-wrap: warp;"><img alt="" style="width: 200px;height: 300px;" src="https://mygame-1256223694.cos.ap-beijing.myqcloud.com/%E7%81%AF%E7%81%AB%E7%8E%A9%E4%B9%90/1.png"/><img alt="" style="width: 200px;height: 300px;" src="https://mygame-1256223694.cos.ap-beijing.myqcloud.com/%E7%81%AF%E7%81%AB%E7%8E%A9%E4%B9%90/2.png"/><img alt="" style="width: 200px;height: 300px;" src="https://mygame-1256223694.cos.ap-beijing.myqcloud.com/%E7%81%AF%E7%81%AB%E7%8E%A9%E4%B9%90/3.png"/></center><center style="display: flex;width:60%;flex-wrap: warp;"><img alt="" style="width: 200px;height: 300px;" src="https://mygame-1256223694.cos.ap-beijing.myqcloud.com/%E7%81%AF%E7%81%AB%E7%8E%A9%E4%B9%90/4.png"/><img alt="" style="width: 200px;height: 300px;" src="https://mygame-1256223694.cos.ap-beijing.myqcloud.com/%E7%81%AF%E7%81%AB%E7%8E%A9%E4%B9%90/5.png"/><img alt="" style="width: 200px;height: 300px;" src="https://mygame-1256223694.cos.ap-beijing.myqcloud.com/%E7%81%AF%E7%81%AB%E7%8E%A9%E4%B9%90/6.png"/></center><center style="display: flex;width:60%;flex-wrap: warp;"><img alt="" style="width: 200px;height: 300px;" src="https://mygame-1256223694.cos.ap-beijing.myqcloud.com/%E7%81%AF%E7%81%AB%E7%8E%A9%E4%B9%90/7.png"/><img alt="" style="width: 200px;height: 300px;" src="https://mygame-1256223694.cos.ap-beijing.myqcloud.com/%E7%81%AF%E7%81%AB%E7%8E%A9%E4%B9%90/8.png"/><img alt="" style="width: 200px;height: 300px;" src="https://mygame-1256223694.cos.ap-beijing.myqcloud.com/%E7%81%AF%E7%81%AB%E7%8E%A9%E4%B9%90/9.png"/></center><img alt="" style="width: 200px;height: 300px;" src="https://mygame-1256223694.cos.ap-beijing.myqcloud.com/%E7%81%AF%E7%81%AB%E7%8E%A9%E4%B9%90/10.png"/><h2 id="游戏展示-6"><a href="#游戏展示-6" class="headerlink" title="游戏展示"></a>游戏展示</h2><video width="800" height="600" controls>  <source src="https://mygame-1256223694.cos.ap-beijing.myqcloud.com/%E7%81%AF%E7%81%AB%E7%8E%A9%E4%B9%90.mp4" type="video/mp4"></video></details><details> <summary>英语教育小游戏</summary><h2 id="标签-7"><a href="#标签-7" class="headerlink" title="标签"></a>标签</h2><pre><code>教育、英语学习、小游戏</code></pre><h2 id="游戏功能-8"><a href="#游戏功能-8" class="headerlink" title="游戏功能"></a>游戏功能</h2><pre><code>小游戏、学英语、英语听力、单词识别</code></pre><h2 id="游戏介绍-8"><a href="#游戏介绍-8" class="headerlink" title="游戏介绍"></a>游戏介绍</h2><pre><code>《英语教育小游戏》通过一些小游戏认识单词或句子，在玩耍中学习。</code></pre><h2 id="游戏截图-8"><a href="#游戏截图-8" class="headerlink" title="游戏截图"></a>游戏截图</h2><center style="display: flex;width:60%;flex-wrap: warp;"><img alt="" style="width: 200px;height: 300px;" src="https://mygame-1256223694.cos.ap-beijing.myqcloud.com/%E8%8B%B1%E8%AF%AD%E5%9F%B9%E8%AE%AD%E5%B0%8F%E6%B8%B8%E6%88%8F/0.png"/><img alt="" style="width: 200px;height: 300px;" src="https://mygame-1256223694.cos.ap-beijing.myqcloud.com/%E8%8B%B1%E8%AF%AD%E5%9F%B9%E8%AE%AD%E5%B0%8F%E6%B8%B8%E6%88%8F/1.png"/><img alt="" style="width: 200px;height: 300px;" src="https://mygame-1256223694.cos.ap-beijing.myqcloud.com/%E8%8B%B1%E8%AF%AD%E5%9F%B9%E8%AE%AD%E5%B0%8F%E6%B8%B8%E6%88%8F/2.png"/></center><center style="display: flex;width:60%;flex-wrap: warp;"><img alt="" style="width: 200px;height: 300px;" src="https://mygame-1256223694.cos.ap-beijing.myqcloud.com/%E8%8B%B1%E8%AF%AD%E5%9F%B9%E8%AE%AD%E5%B0%8F%E6%B8%B8%E6%88%8F/3.png"/><img alt="" style="width: 200px;height: 300px;" src="https://mygame-1256223694.cos.ap-beijing.myqcloud.com/%E8%8B%B1%E8%AF%AD%E5%9F%B9%E8%AE%AD%E5%B0%8F%E6%B8%B8%E6%88%8F/4.png"/><img alt="" style="width: 200px;height: 300px;" src="https://mygame-1256223694.cos.ap-beijing.myqcloud.com/%E8%8B%B1%E8%AF%AD%E5%9F%B9%E8%AE%AD%E5%B0%8F%E6%B8%B8%E6%88%8F/5.png"/></center><center style="display: flex;width:60%;flex-wrap: warp;"><img alt="" style="width: 200px;height: 300px;" src="https://mygame-1256223694.cos.ap-beijing.myqcloud.com/%E8%8B%B1%E8%AF%AD%E5%9F%B9%E8%AE%AD%E5%B0%8F%E6%B8%B8%E6%88%8F/6.png"/><img alt="" style="width: 200px;height: 300px;" src="https://mygame-1256223694.cos.ap-beijing.myqcloud.com/%E8%8B%B1%E8%AF%AD%E5%9F%B9%E8%AE%AD%E5%B0%8F%E6%B8%B8%E6%88%8F/7.png"/><img alt="" style="width: 200px;height: 300px;" src="https://mygame-1256223694.cos.ap-beijing.myqcloud.com/%E8%8B%B1%E8%AF%AD%E5%9F%B9%E8%AE%AD%E5%B0%8F%E6%B8%B8%E6%88%8F/8.png"/></center><center style="display: flex;width:60%;flex-wrap: warp;"><img alt="" style="width: 200px;height: 300px;" src="https://mygame-1256223694.cos.ap-beijing.myqcloud.com/%E8%8B%B1%E8%AF%AD%E5%9F%B9%E8%AE%AD%E5%B0%8F%E6%B8%B8%E6%88%8F/9.png"/><img alt="" style="width: 200px;height: 300px;" src="https://mygame-1256223694.cos.ap-beijing.myqcloud.com/%E8%8B%B1%E8%AF%AD%E5%9F%B9%E8%AE%AD%E5%B0%8F%E6%B8%B8%E6%88%8F/10.png"/><img alt="" style="width: 200px;height: 300px;" src="https://mygame-1256223694.cos.ap-beijing.myqcloud.com/%E8%8B%B1%E8%AF%AD%E5%9F%B9%E8%AE%AD%E5%B0%8F%E6%B8%B8%E6%88%8F/11.png"/></center><center style="display: flex;width:60%;flex-wrap: warp;"><img alt="" style="width: 200px;height: 300px;" src="https://mygame-1256223694.cos.ap-beijing.myqcloud.com/%E8%8B%B1%E8%AF%AD%E5%9F%B9%E8%AE%AD%E5%B0%8F%E6%B8%B8%E6%88%8F/12.png"/><img alt="" style="width: 200px;height: 300px;" src="https://mygame-1256223694.cos.ap-beijing.myqcloud.com/%E8%8B%B1%E8%AF%AD%E5%9F%B9%E8%AE%AD%E5%B0%8F%E6%B8%B8%E6%88%8F/13.png"/><img alt="" style="width: 200px;height: 300px;" src="https://mygame-1256223694.cos.ap-beijing.myqcloud.com/%E8%8B%B1%E8%AF%AD%E5%9F%B9%E8%AE%AD%E5%B0%8F%E6%B8%B8%E6%88%8F/14.png"/></center><center style="display: flex;width:60%;flex-wrap: warp;"><img alt="" style="width: 200px;height: 300px;" src="https://mygame-1256223694.cos.ap-beijing.myqcloud.com/%E8%8B%B1%E8%AF%AD%E5%9F%B9%E8%AE%AD%E5%B0%8F%E6%B8%B8%E6%88%8F/15.png"/><img alt="" style="width: 200px;height: 300px;" src="https://mygame-1256223694.cos.ap-beijing.myqcloud.com/%E8%8B%B1%E8%AF%AD%E5%9F%B9%E8%AE%AD%E5%B0%8F%E6%B8%B8%E6%88%8F/16.png"/><img alt="" style="width: 200px;height: 300px;" src="https://mygame-1256223694.cos.ap-beijing.myqcloud.com/%E8%8B%B1%E8%AF%AD%E5%9F%B9%E8%AE%AD%E5%B0%8F%E6%B8%B8%E6%88%8F/17.png"/></center><center style="display: flex;width:60%;flex-wrap: warp;"><img alt="" style="width: 200px;height: 300px;" src="https://mygame-1256223694.cos.ap-beijing.myqcloud.com/%E8%8B%B1%E8%AF%AD%E5%9F%B9%E8%AE%AD%E5%B0%8F%E6%B8%B8%E6%88%8F/18.png"/><img alt="" style="width: 200px;height: 300px;" src="https://mygame-1256223694.cos.ap-beijing.myqcloud.com/%E8%8B%B1%E8%AF%AD%E5%9F%B9%E8%AE%AD%E5%B0%8F%E6%B8%B8%E6%88%8F/19.png"/><img alt="" style="width: 200px;height: 300px;" src="https://mygame-1256223694.cos.ap-beijing.myqcloud.com/%E8%8B%B1%E8%AF%AD%E5%9F%B9%E8%AE%AD%E5%B0%8F%E6%B8%B8%E6%88%8F/20.png"/></center><img alt="" style="width: 200px;height: 300px;" src="https://mygame-1256223694.cos.ap-beijing.myqcloud.com/%E8%8B%B1%E8%AF%AD%E5%9F%B9%E8%AE%AD%E5%B0%8F%E6%B8%B8%E6%88%8F/21.png"/><h2 id="游戏展示-7"><a href="#游戏展示-7" class="headerlink" title="游戏展示"></a>游戏展示</h2><video width="800" height="300" controls>  <source src="https://mygame-1256223694.cos.ap-beijing.myqcloud.com/%E8%8B%B1%E8%AF%AD%E5%9F%B9%E8%AE%AD%E5%B0%8F%E6%B8%B8%E6%88%8F.mp4" type="video/mp4"></video></details><details> <summary>TT棋牌</summary><h2 id="标签-8"><a href="#标签-8" class="headerlink" title="标签"></a>标签</h2><pre><code>棋牌、多类型游戏模式、H5</code></pre><h2 id="游戏展示-8"><a href="#游戏展示-8" class="headerlink" title="游戏展示"></a>游戏展示</h2><video width="800" height="300" controls>  <source src="https://mygame-1256223694.cos.ap-beijing.myqcloud.com/TT%E6%A3%8B%E7%89%8C.mp4" type="video/mp4"></video></details><details> <summary>养老机构巡检</summary><h2 id="标签-9"><a href="#标签-9" class="headerlink" title="标签"></a>标签</h2><pre><code>微信原生、小程序</code></pre><h2 id="项目介绍"><a href="#项目介绍" class="headerlink" title="项目介绍"></a>项目介绍</h2><pre><code>《养老机构检查程序》是为上海市养老机构监察提供的一系列解决方案中的一部分。前端微信小程序端用于巡检员录入巡检记录，后端管理端用于维护巡检程序，包括：查看巡检统计数据、导出巡检结果、配置巡检任务、配置巡检内容。</code></pre><h2 id="项目截图"><a href="#项目截图" class="headerlink" title="项目截图"></a>项目截图</h2><center style="display: flex;width:60%;flex-wrap: warp;"><img alt="" style="width: 200px;height: 300px;" src="https://mygame-1256223694.cos.ap-beijing.myqcloud.com/%E5%85%BB%E8%80%81%E6%9C%BA%E6%9E%84%E5%B7%A1%E6%A3%80%E5%B0%8F%E7%A8%8B%E5%BA%8F/1.jpg"/><img alt="" style="width: 200px;height: 300px;" src="https://mygame-1256223694.cos.ap-beijing.myqcloud.com/%E5%85%BB%E8%80%81%E6%9C%BA%E6%9E%84%E5%B7%A1%E6%A3%80%E5%B0%8F%E7%A8%8B%E5%BA%8F/2.jpg"/><img alt="" style="width: 200px;height: 300px;" src="https://mygame-1256223694.cos.ap-beijing.myqcloud.com/%E5%85%BB%E8%80%81%E6%9C%BA%E6%9E%84%E5%B7%A1%E6%A3%80%E5%B0%8F%E7%A8%8B%E5%BA%8F/3.jpg"/></center>  <center style="display: flex;width:60%;flex-wrap: warp;"><img alt="" style="width: 200px;height: 300px;" src="https://mygame-1256223694.cos.ap-beijing.myqcloud.com/%E5%85%BB%E8%80%81%E6%9C%BA%E6%9E%84%E5%B7%A1%E6%A3%80%E5%B0%8F%E7%A8%8B%E5%BA%8F/4.jpg"/><img alt="" style="width: 200px;height: 300px;" src="https://mygame-1256223694.cos.ap-beijing.myqcloud.com/%E5%85%BB%E8%80%81%E6%9C%BA%E6%9E%84%E5%B7%A1%E6%A3%80%E5%B0%8F%E7%A8%8B%E5%BA%8F/5.jpg"/><img alt="" style="width: 200px;height: 300px;" src="https://mygame-1256223694.cos.ap-beijing.myqcloud.com/%E5%85%BB%E8%80%81%E6%9C%BA%E6%9E%84%E5%B7%A1%E6%A3%80%E5%B0%8F%E7%A8%8B%E5%BA%8F/6.jpg"/></center>  <h2 id="项目展示"><a href="#项目展示" class="headerlink" title="项目展示"></a>项目展示</h2><video width="800" height="600" controls>  <source src="https://mygame-1256223694.cos.ap-beijing.myqcloud.com/%E5%85%BB%E8%80%81%E6%9C%BA%E6%9E%84%E5%B7%A1%E6%A3%80%E5%B0%8F%E7%A8%8B%E5%BA%8F/video.mp4"></video></details>]]></content>
+      
+      
+      <categories>
+          
+          <category> other </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>unity中AVProVideo的常用组件</title>
+      <link href="/2024/03/02/unity%E4%B8%ADAVProVideo%E7%9A%84%E5%B8%B8%E7%94%A8%E7%BB%84%E4%BB%B6/"/>
+      <url>/2024/03/02/unity%E4%B8%ADAVProVideo%E7%9A%84%E5%B8%B8%E7%94%A8%E7%BB%84%E4%BB%B6/</url>
+      
+        <content type="html"><![CDATA[<p>Unity插件AVPro video</p><span id="more"></span><p>主要使用到的组件：<br>MediaPlayer：负责视频的播放。<br>DisplayUGUI：负责将视频渲染到UGUI上。<br>Apply to Mesh：将视频渲染到网格上，常用来播放360度视频，也可以在3D空间内配合其它网格做出炫酷的舞台等等。<br>Apply to Metrail：用于渲染到材质。<br>PlayList Media Player：一个控制MediaPlayer播放列表的组件。<br>Display IMGUI：用来将视频渲染到IMGUI。<br>常用方法及属性：<br>MediaPlayer：<br>Play、Stop、OpenMedia</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> unity </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>unity插件及框架收集</title>
+      <link href="/2024/03/02/unity%E6%8F%92%E4%BB%B6%E6%94%B6%E9%9B%86/"/>
+      <url>/2024/03/02/unity%E6%8F%92%E4%BB%B6%E6%94%B6%E9%9B%86/</url>
+      
+        <content type="html"><![CDATA[<p>unity插件收集</p><span id="more"></span><p>1.AVPro Video：最常用的视频播放插件也可用于播放VR视频。<a href="https://blog-1256223694.cos.ap-shanghai.myqcloud.com/plugins/unity/AVPro%20Video%20-%20Ultra%20Edition%202.5.2.unitypackage">AVPro Video - Ultra Edition 2.5.2</a>   <a href="https://blog-1256223694.cos.ap-shanghai.myqcloud.com/plugins/unity/AVProVideo1.6.2.unitypackage">AVProVideo1.6.2</a><br>2.Behavior designer：可视化AI行为树。<a href="https://blog-1256223694.cos.ap-shanghai.myqcloud.com/plugins/unity/Behavior%2BDesigner%2B1.5.9.unitypackage">Behavior+Designer+1.5.9</a><br>3.Dotween：路径动画。<a href="https://blog-1256223694.cos.ap-shanghai.myqcloud.com/plugins/unity/DOTween%2BPro.unitypackage">DOTween+Pro</a><br>4.Easy Save：数据保存。<a href="https://blog-1256223694.cos.ap-shanghai.myqcloud.com/plugins/unity/Easy%20Save%20-%20The%20Complete%20Save%20Data%20Serialization%20Asset.unitypackage">Easy Save</a><br>5.HtmlAgilityPack：html源码解析（可用来写爬虫）<a href="https://blog-1256223694.cos.ap-shanghai.myqcloud.com/plugins/unity/HtmlAgilityPack.dll">HtmlAgilityPack</a><br>6.LitJson：json解析。<a href="https://blog-1256223694.cos.ap-shanghai.myqcloud.com/plugins/unity/LitJson.dll">LitJson</a><br>7.UniRx：响应式编程框架。<a href="https://assetstore.unity.com/packages/tools/integration/unirx-reactive-extensions-for-unity-17276">下载</a><br>8.Hybridclr：原生c#热更新解决方案。<a href="https://hybridclr.doc.code-philosophy.com/">官网</a></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> unity </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>unity运行平台判断</title>
+      <link href="/2024/02/29/unity%E8%BF%90%E8%A1%8C%E5%B9%B3%E5%8F%B0%E5%88%A4%E6%96%AD/"/>
+      <url>/2024/02/29/unity%E8%BF%90%E8%A1%8C%E5%B9%B3%E5%8F%B0%E5%88%A4%E6%96%AD/</url>
+      
+        <content type="html"><![CDATA[<p>unity运行平台判断</p><span id="more"></span><p>1.宏命令：</p><pre><code>#if UNITY_EDITOR//编辑器#elif UNITY_WINDOW//电脑平台#elif UNITY_ANDROID//安卓平台#elif UNITY_IOS//苹果平台#endif</code></pre><p>2.使用Application中API</p><pre><code>RuntimePlatform platform = Application.platform;</code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> unity </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>unity与安卓互相调用</title>
+      <link href="/2024/02/29/unity%E4%B8%8E%E5%AE%89%E5%8D%93%E4%BA%92%E7%9B%B8%E8%B0%83%E7%94%A8/"/>
+      <url>/2024/02/29/unity%E4%B8%8E%E5%AE%89%E5%8D%93%E4%BA%92%E7%9B%B8%E8%B0%83%E7%94%A8/</url>
+      
+        <content type="html"><![CDATA[<p>unity与安卓互相调用</p><span id="more"></span><p>2019.3版本之后unity的classes.jar不会有UnityPlayerActivity所以需要按照以下步骤加入后才能重写UnityPlayerActivity<br>1.使用Android Studio创建一个空安卓项目。<br>2.创建一个Android Library模块。<br><img src="https://blog-1256223694.cos.ap-shanghai.myqcloud.com/post/unity%E4%B8%8E%E5%AE%89%E5%8D%93%E4%BA%92%E7%9B%B8%E8%B0%83%E7%94%A8/0.png"><br>3.加入UnityPlayerActivity，并重写接口。<br>1）创建一个package<br><img src="https://blog-1256223694.cos.ap-shanghai.myqcloud.com/post/unity%E4%B8%8E%E5%AE%89%E5%8D%93%E4%BA%92%E7%9B%B8%E8%B0%83%E7%94%A8/1.png"><br>2）按照以下路径将把文件复制到libs文件夹下并应用成library<br><img src="https://blog-1256223694.cos.ap-shanghai.myqcloud.com/post/unity%E4%B8%8E%E5%AE%89%E5%8D%93%E4%BA%92%E7%9B%B8%E8%B0%83%E7%94%A8/2.png"><br><img src="https://blog-1256223694.cos.ap-shanghai.myqcloud.com/post/unity%E4%B8%8E%E5%AE%89%E5%8D%93%E4%BA%92%E7%9B%B8%E8%B0%83%E7%94%A8/3.png"><br><img src="https://blog-1256223694.cos.ap-shanghai.myqcloud.com/post/unity%E4%B8%8E%E5%AE%89%E5%8D%93%E4%BA%92%E7%9B%B8%E8%B0%83%E7%94%A8/4.png"></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> unity </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>unity标签</title>
+      <link href="/2024/02/28/unity%E6%A0%87%E7%AD%BE/"/>
+      <url>/2024/02/28/unity%E6%A0%87%E7%AD%BE/</url>
+      
+        <content type="html"><![CDATA[<p>unity标签</p><span id="more"></span><p>【Obsolete】–弃用标签<br>【NonSerialized】–无需序列化标签<br>【SerializeField】–序列化标签<br>【ExecuteAlways】–运行时&#x2F;编辑器模式下均加载<br>【AddComponentMenu】–右键Component面板添加标签 （路径，层级）<br>【RequireComponent】–添加组件&#x2F;脚本标签（typeof（脚本类））<br>【DisallowMultipleComponent】–不允许重复添加，编译时只存在一个<br>MenuItem的使用：在工具栏上增加新的一列<br>ContextMenu的使用：属性允许你去添加命令给上下文菜单<br>HideInInspector的使用；在Inspector面板中隐藏public变量</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> unity </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>unity调用安卓剪切板</title>
+      <link href="/2024/02/28/unity%E8%B0%83%E7%94%A8%E5%AE%89%E5%8D%93%E5%89%AA%E5%88%87%E6%9D%BF/"/>
+      <url>/2024/02/28/unity%E8%B0%83%E7%94%A8%E5%AE%89%E5%8D%93%E5%89%AA%E5%88%87%E6%9D%BF/</url>
+      
+        <content type="html"><![CDATA[<p>unity调用安卓剪切板</p><span id="more"></span>]]></content>
+      
+      
+      <categories>
+          
+          <category> unity </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Egret白鹭安卓IOS原生发布步骤及配置</title>
+      <link href="/2024/02/24/Egret%E7%99%BD%E9%B9%AD%E5%AE%89%E5%8D%93IOS%E5%8E%9F%E7%94%9F%E5%8F%91%E5%B8%83%E6%AD%A5%E9%AA%A4%E5%8F%8A%E9%85%8D%E7%BD%AE/"/>
+      <url>/2024/02/24/Egret%E7%99%BD%E9%B9%AD%E5%AE%89%E5%8D%93IOS%E5%8E%9F%E7%94%9F%E5%8F%91%E5%B8%83%E6%AD%A5%E9%AA%A4%E5%8F%8A%E9%85%8D%E7%BD%AE/</url>
+      
+        <content type="html"><![CDATA[<p>Egret白鹭安卓IOS原生发布步骤及配置</p><span id="more"></span><p>egret全部资源下载：<a href="https://pan.baidu.com/s/1wW0Jb0QKVf9OUz-PqUJj7g?pwd=egre">百度网盘</a></p><p>在Egret 发布Android和IOS时会提示“Error: 打包失败，无法下载原生支持包，请检查您的网络是否正常”是因为Egret官网服务不在提供下载，所以需要再本地配置一个提供下载的服务</p><p>一,先解决EgretLauncher登录问题 （如果已经配置了可以跳过这一步）<br>需要修改的subpage.js文件路径</p><p>windows:</p><pre><code>C:\Program Files (x86)\Egret\EgretLauncher\resources\app\out\app\electron-browser\subpage.jsJSON</code></pre><p>macos :</p><pre><code>/Applications/EgretLauncher.app/Contents/Resources/app/out/app/electron-browser/subpage.js</code></pre><p>JSON<br>可以使用HBuilderX格式化代码,用vscode效果不佳</p><p>修改subpage.js大概 4564 行的 get isLogin()函数，直接return true<br><img src=https://blog-1256223694.cos.ap-shanghai.myqcloud.com/post/Egret%E7%99%BD%E9%B9%AD%E5%AE%89%E5%8D%93IOS%E5%8E%9F%E7%94%9F%E5%8F%91%E5%B8%83%E6%AD%A5%E9%AA%A4%E5%8F%8A%E9%85%8D%E7%BD%AE/1.webp><br>如果是Mac版本可以直接从小游戏支持包下载的 Mac版本的_subpage.js&#x2F;subpage.js，替换前请将 subpage.js 中 &#x2F;Users&#x2F;rontian 批量搜索替换成你本机的账户</p><p>二,配置原生(native)发布环境<br>1.根据系统找到EgretLauncher在本地的缓存目录位置<br>windows:</p><pre><code>C:\Users\当前用户\AppData\Roaming\EgretLauncher\download</code></pre><p>macos :</p><pre><code>/Users/当前用户/Library/Application Support/EgretLauncher/download</code></pre><p>安卓支持包(小游戏支持包)下载地址：<a href="https://www.egret.uk/download/">https://www.egret.uk/download/</a> </p><p>将下载的supports_download.zip解压内容到 download 目录 下即可</p><img src=https://blog-1256223694.cos.ap-shanghai.myqcloud.com/post/Egret%E7%99%BD%E9%B9%AD%E5%AE%89%E5%8D%93IOS%E5%8E%9F%E7%94%9F%E5%8F%91%E5%B8%83%E6%AD%A5%E9%AA%A4%E5%8F%8A%E9%85%8D%E7%BD%AE/2.webp><p>2.添加target.json文件</p><pre><code>C:\Users\Administrator\AppData\Roaming\EgretLauncher\tools</code></pre><p>该目录目录添加target.json文件，从下载的小游戏支持包中的tools文件中拷贝进来</p><img src=https://blog-1256223694.cos.ap-shanghai.myqcloud.com/post/Egret%E7%99%BD%E9%B9%AD%E5%AE%89%E5%8D%93IOS%E5%8E%9F%E7%94%9F%E5%8F%91%E5%B8%83%E6%AD%A5%E9%AA%A4%E5%8F%8A%E9%85%8D%E7%BD%AE/3.webp>并且打开target.json修改target.json文件android地址<p>windows:</p><pre><code>  &quot;android&quot;: &#123;    &quot;path&quot;: &quot;C:\\Users\\Administrator\\AppData\\Roaming\\EgretLauncher\\download\\EgretNativeSupport\\native\\android&quot;  &#125;,</code></pre><p>macos :</p><pre><code>  &quot;android&quot;: &#123;    &quot;path&quot;: &quot;/Users/当前用户/AppData/Roaming/EgretLauncher/download/EgretNativeSupport/1.1.2/android&quot;  &#125;,</code></pre><p>3.搭建Web服务器提供Egret发布原生支持包下载<br>由于Egret官网服务已经不提供下载，所以需要本地配置一个web服务器来提供下载，也可以使用云服务器自行搭建。</p><p>推荐本地搭建方式，教程在另一篇帖子：</p><p>在 <a href="https://www.egret.uk/download/">https://www.egret.uk/download/</a> 中下载小游戏支持包后，解压后把</p><p>native.json </p><p>android_1443523c87b1552163490a89d901451d.zip</p><p>ios_4a449a853ff59e2b3c8cd2bc5d474a13.zip</p><p> 三个文件拷贝进去配置的Web服务器静态资源存放目录</p><p>并配置native.json，Web服务器提供Egret发布原生支持包地址；<a href="http://localhost:8869/">http://localhost:8869/</a> 为我的本地web服务地址 修改你的配置地址即可</p><pre><code>&#123;    &quot;engines&quot;: &#123;        &quot;5.2.33&quot;: &#123;            &quot;supports&quot;: [                &quot;native&quot;            ]        &#125;    &#125;,    &quot;supports&quot;: &#123;        &quot;native&quot;: &#123;            &quot;android&quot;: &quot;http://localhost:8869/android_1443523c87b1552163490a89d901451d.zip&quot;,            &quot;ios&quot;: &quot;http://localhost:8869/ios_4a449a853ff59e2b3c8cd2bc5d474a13.zip&quot;        &#125;    &#125;&#125;</code></pre><p>4.原生游戏发布包配置<br>本地或者云服务搭建好了原生支持包下载环境</p><p>需要在subpage.js文件中的 const It  修改成自己搭建好的native.json配置地址如图：</p><img src=https://blog-1256223694.cos.ap-shanghai.myqcloud.com/post/Egret%E7%99%BD%E9%B9%AD%E5%AE%89%E5%8D%93IOS%E5%8E%9F%E7%94%9F%E5%8F%91%E5%B8%83%E6%AD%A5%E9%AA%A4%E5%8F%8A%E9%85%8D%E7%BD%AE/4.webp>至此就配置好了Egret白鹭安卓(Android)&IOS,Native 发布问题<p>二,总结<br>*** 在配置完后需要重启 Egret Launcher</p><p>*** 配置完第一次发布会提示 “没有登录，发布失败” 重新再发布一次就行了</p><p>文章转自： <a href="https://bbs.egret.uk/9.html">https://bbs.egret.uk/9.html</a></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> egret </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>站点项目</title>
+      <link href="/2024/02/24/%E7%AB%99%E7%82%B9%E9%A1%B9%E7%9B%AE/"/>
+      <url>/2024/02/24/%E7%AB%99%E7%82%B9%E9%A1%B9%E7%9B%AE/</url>
+      
+        <content type="html"><![CDATA[<p>站点项目</p><span id="more"></span><p><a href="/home/mikutap/index.html">mikutap</a>  <a href="/home/win12/desktop.html">win12</a>  <a href="/home/vpn/index.html">一键搭建VPN</a><br><a href="/home/linuxrepo/index.html">linux仓库</a>  <a href="/home/learning/index.html">编程学习</a>    <a href="/home/jx/index.html">vip视频解析</a><br><a href="/home/github/index.html">github下载加速</a>    <a href="/home/drawio/index.html">UML绘图</a>   <a href="/home/ctdown/index.html">诚通网盘直链</a></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> other </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>windows创建ssh密匙</title>
+      <link href="/2024/02/23/windows%E5%88%9B%E5%BB%BAssh%E5%AF%86%E5%8C%99/"/>
+      <url>/2024/02/23/windows%E5%88%9B%E5%BB%BAssh%E5%AF%86%E5%8C%99/</url>
+      
+        <content type="html"><![CDATA[<p>windows创建ssh密匙</p><span id="more"></span><pre><code class="cmd">ssh-keygen -t rsa -C &quot;1540956703@qq.com&quot;</code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> other </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>linux挂载webdav到本地</title>
+      <link href="/2024/02/22/linux%E6%8C%82%E8%BD%BDwebdav%E5%88%B0%E6%9C%AC%E5%9C%B0/"/>
+      <url>/2024/02/22/linux%E6%8C%82%E8%BD%BDwebdav%E5%88%B0%E6%9C%AC%E5%9C%B0/</url>
+      
+        <content type="html"><![CDATA[<p>linux挂载webdav到本地</p><span id="more"></span><h1 id="1-安装所需程序："><a href="#1-安装所需程序：" class="headerlink" title="1.安装所需程序："></a>1.安装所需程序：</h1><p>Ubuntu：</p><pre><code class="bash">sudo apt-get install davfs2 -y</code></pre><p>CentOS：</p><pre><code class="bash">sudo yum install davfs2 -y</code></pre><h1 id="2-创建挂载目录："><a href="#2-创建挂载目录：" class="headerlink" title="2.创建挂载目录："></a>2.创建挂载目录：</h1><pre><code class="bash">sudo mkdir /mnt/WebDAV</code></pre><h1 id="3-挂载WebDAV服务到本地目录"><a href="#3-挂载WebDAV服务到本地目录" class="headerlink" title="3.挂载WebDAV服务到本地目录"></a>3.挂载WebDAV服务到本地目录</h1><pre><code class="bash">sudo mount -t davfs -o noexec https://example.com/webdav/ /mnt/WebDAV/</code></pre><p>之后会要求输入账户和密码登信息。挂载成功后，即可当正常磁盘一样访问WebDAV服务了。速度快慢取决于你自身和服务商的网速。</p><h1 id="4-解除挂载方法："><a href="#4-解除挂载方法：" class="headerlink" title="4.解除挂载方法："></a>4.解除挂载方法：</h1><pre><code class="bash">sudo umount /mnt/WebDAV</code></pre><h1 id="5-使用fstab挂载WebDAV："><a href="#5-使用fstab挂载WebDAV：" class="headerlink" title="5.使用fstab挂载WebDAV："></a>5.使用fstab挂载WebDAV：</h1><pre><code class="bash">$ cat &lt;&lt; EOF | sudo tee -a /etc/fstab# personal webdavhttps://example.com/webdav/ /mnt/WebDAV  davfs _netdev,noauto,user,uid=nobody,gid=nobody 0 0EOF</code></pre><h1 id="6-保存账户密码："><a href="#6-保存账户密码：" class="headerlink" title="6.保存账户密码："></a>6.保存账户密码：</h1><pre><code class="bash">cat &lt;&lt; EOF | sudo tee -a /etc/davfs2/secrets/mnt/dav account passwordEOF</code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> other </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>windows虚拟硬盘的高级用法</title>
+      <link href="/2024/02/22/windows%E8%99%9A%E6%8B%9F%E7%A1%AC%E7%9B%98%E7%9A%84%E9%AB%98%E7%BA%A7%E7%94%A8%E6%B3%95/"/>
+      <url>/2024/02/22/windows%E8%99%9A%E6%8B%9F%E7%A1%AC%E7%9B%98%E7%9A%84%E9%AB%98%E7%BA%A7%E7%94%A8%E6%B3%95/</url>
+      
+        <content type="html"><![CDATA[<p>windows虚拟硬盘的高级用法</p><span id="more"></span><p>在磁盘管理中创建vhd或vhdx虚拟磁盘，此盘相当于一个外挂U盘.<br>可以把软件及环境变量安装进去，更换电脑或系统只需复制磁盘配置环境变量。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> other </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>linux更换清华源</title>
+      <link href="/2024/02/09/centos%E6%9B%B4%E6%8D%A2%E6%B8%85%E5%8D%8E%E6%BA%90/"/>
+      <url>/2024/02/09/centos%E6%9B%B4%E6%8D%A2%E6%B8%85%E5%8D%8E%E6%BA%90/</url>
+      
+        <content type="html"><![CDATA[<p>Centos更换清华源</p><span id="more"></span><p>下载对应系统的源：</p><iframe src="http://keli.shenzhuo.vip:24066/home/linuxrepo/" style="width:100%;height:500px"></iframe><p>centos把文件替换掉对应的库文件：</p><pre><code>cp /下载的文件 /etc/yum.repos.d/CentOS-Linux-BaseOS.repo</code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> other </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>游戏下载器使用说明</title>
+      <link href="/2024/02/06/%E6%B8%B8%E6%88%8F%E4%B8%8B%E8%BD%BD%E5%99%A8%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E/"/>
+      <url>/2024/02/06/%E6%B8%B8%E6%88%8F%E4%B8%8B%E8%BD%BD%E5%99%A8%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E/</url>
+      
+        <content type="html"><![CDATA[<p>游戏下载器使用说明</p><span id="more"></span><p>软件下载：<br>官方下载：<a href="/files/%E6%B8%B8%E6%88%8F%E4%B8%8B%E8%BD%BD%E5%99%A8%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E/%E6%B8%B8%E6%88%8F%E4%B8%8B%E8%BD%BD%E5%99%A8.exe">下载</a><br>备用地址1：<a href="https://blog-1256223694.cos.ap-shanghai.myqcloud.com/post/%E6%B8%B8%E6%88%8F%E4%B8%8B%E8%BD%BD%E5%99%A8%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E/%E6%B8%B8%E6%88%8F%E4%B8%8B%E8%BD%BD%E5%99%A8.exe">下载</a></p><p>1.打开软件。<br><img src="https://blog-1256223694.cos.ap-shanghai.myqcloud.com/post/%E6%B8%B8%E6%88%8F%E4%B8%8B%E8%BD%BD%E5%99%A8%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E/1.png"></p><p>2.双击自己想要下载的游戏，点击复制下载链接。<br><img src="https://blog-1256223694.cos.ap-shanghai.myqcloud.com/post/%E6%B8%B8%E6%88%8F%E4%B8%8B%E8%BD%BD%E5%99%A8%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E/2.png"></p><p>3.打开一个下载器（迅雷、Motrix等等）粘贴地址下载。<br><img src="https://blog-1256223694.cos.ap-shanghai.myqcloud.com/post/%E6%B8%B8%E6%88%8F%E4%B8%8B%E8%BD%BD%E5%99%A8%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E/3.png"></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> other </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>csharp好用的开源项目</title>
+      <link href="/2024/02/05/csharp%E5%A5%BD%E7%94%A8%E7%9A%84%E5%BC%80%E6%BA%90%E9%A1%B9%E7%9B%AE/"/>
+      <url>/2024/02/05/csharp%E5%A5%BD%E7%94%A8%E7%9A%84%E5%BC%80%E6%BA%90%E9%A1%B9%E7%9B%AE/</url>
+      
+        <content type="html"><![CDATA[<p>好用的项目</p><span id="more"></span><p>1.Masuit.Tools<br><a href="https://github.com/ldqk/Masuit.Tools">下载</a><br>全龄段友好的C#.NET万能工具库，不管你是菜鸟新手还是骨灰级玩家都能轻松上手，这个库包含一些常用的操作类，大都是静态类，加密解密，反射操作，权重随机筛选算法，分布式短id，表达式树，linq扩展，文件压缩，多线程下载，硬件信息，字符串扩展方法，日期时间扩展操作，中国农历，大文件拷贝，图像裁剪，验证码，断点续传，集合扩展、Excel导出等常用封装。</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> other </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>csharp解析excel</title>
+      <link href="/2024/02/05/csharp%E8%A7%A3%E6%9E%90excel/"/>
+      <url>/2024/02/05/csharp%E8%A7%A3%E6%9E%90excel/</url>
+      
+        <content type="html"><![CDATA[<p>csharp解析excel</p><span id="more"></span><p>1.安装EPPlus包<br>2.</p><pre><code class="csharp"> public void ReadExcel(string filePath) &#123;     ExcelPackage.LicenseContext = LicenseContext.Commercial;     ExcelPackage.LicenseContext = LicenseContext.NonCommercial;     using (ExcelPackage package = new ExcelPackage(new FileInfo(filePath)))     &#123;         ExcelWorksheet worksheet = package.Workbook.Worksheets[0];         for (int row = worksheet.Dimension.Start.Row; row &lt;= worksheet.Dimension.End.Row; row++)         &#123;             for (int col = worksheet.Dimension.Start.Column; col &lt;= worksheet.Dimension.End.Column; col++)             &#123;                object cellValue = worksheet.Cells[row, col].Value;                if (cellValue != null)                &#123;                    Console.WriteLine(&quot;第&#123;0&#125;行第&#123;1&#125;列的值：&#123;2&#125;&quot;, row, col, cellValue.ToString());                &#125;             &#125;         &#125;     &#125; &#125;</code></pre>]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>nodejs爬虫</title>
+      <link href="/2024/02/05/nodejs%E7%88%AC%E8%99%AB/"/>
+      <url>/2024/02/05/nodejs%E7%88%AC%E8%99%AB/</url>
+      
+        <content type="html"><![CDATA[<p>nodejs爬虫</p><span id="more"></span><p>1.安装cheerio<br>npm install cheerio</p><p>2.加载网页源码</p><pre><code class="javascript">function LoadHtml(url,callback)&#123;    https.get(url, (res) =&gt; &#123;        var chunks = [];        var size = 0;        res.on(&#39;data&#39;, (chunk) =&gt; &#123;            chunks.push(chunk);            size += chunk.length;        &#125;);        res.on(&#39;end&#39;, () =&gt; &#123;            var data = Buffer.concat(chunks, size);            var html = data.toString();            if(callback)            &#123;                callback(html);            &#125;        &#125;);        res.on(&#39;error&#39;, () =&gt; &#123;            callback(&#39;&#39;);        &#125;);    &#125;);&#125;</code></pre><p>3.开始获取节点数据<br>let $ &#x3D; cheerio.load(html);<br>let node&#x3D; $(‘标签名.类名’);</p>]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>hexo可莉主题安装</title>
+      <link href="/2024/01/29/hexo%E5%8F%AF%E8%8E%89%E4%B8%BB%E9%A2%98%E5%AE%89%E8%A3%85/"/>
+      <url>/2024/01/29/hexo%E5%8F%AF%E8%8E%89%E4%B8%BB%E9%A2%98%E5%AE%89%E8%A3%85/</url>
+      
+        <content type="html"><![CDATA[<p>安装可莉主题</p><span id="more"></span><p>1.下载主题<br>git clone <a href="https://github.com/onlylovekeli/hexo_keli.git">https://github.com/onlylovekeli/hexo_keli.git</a><br>2.应用主题<br>把keli文件夹放到themes目录下<br>修改根目录的_config.yml修改 theme: keli<br>3.按照keli下的README.md进行配置.</p>]]></content>
+      
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>如何使微信小游戏突破8M以上的限制</title>
+      <link href="/2024/01/28/%E5%A6%82%E4%BD%95%E4%BD%BF%E5%BE%AE%E4%BF%A1%E5%B0%8F%E6%B8%B8%E6%88%8F%E7%AA%81%E7%A0%B48M%E4%BB%A5%E4%B8%8A%E7%9A%84%E9%99%90%E5%88%B6/"/>
+      <url>/2024/01/28/%E5%A6%82%E4%BD%95%E4%BD%BF%E5%BE%AE%E4%BF%A1%E5%B0%8F%E6%B8%B8%E6%88%8F%E7%AA%81%E7%A0%B48M%E4%BB%A5%E4%B8%8A%E7%9A%84%E9%99%90%E5%88%B6/</url>
+      
+        <content type="html"><![CDATA[<p>使用本地存储做一个类似版本更新</p><span id="more"></span><p>使用场景:</p><p>微信小游戏分包最高8M，大于8M的话只能放服务器进行远程加载，但是为了提高加载速度和减轻服务器压力。我们可以将资源从服务器上下载下来存到</p><p>本地。只有当游戏有更新时再去从服务器上下载资源(类似游戏的更新).</p><p>实现步骤:</p><p>1.将所需要的资源打成压缩包放到服务器</p><p>2.使用微信小游戏提供的api进行下载资源并解压保存到本地.将保存后的路径写入本地的永久缓存中供后面使用。</p><p>3.游戏内加载本地资源</p><p>主要方法有以下:</p><p>wx.downloadFile 文件下载</p><p><a href="https://developers.weixin.qq.com/minigame/dev/api/network/download/wx.downloadFile.html">https://developers.weixin.qq.com/minigame/dev/api/network/download/wx.downloadFile.html</a></p><pre><code class="javascript">fMgr=wx.getFileSystemManager() 获取文件管理器fMgr.unzip(zipFilePath,targetPath,success,fail,complete) 文件解压 文件建议解压到 wx.env.USER_DATA_PATH</code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> wxgame </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>解决Egret白鹭Native平台发布无法下载原生支持包问题</title>
+      <link href="/2024/01/28/%E8%A7%A3%E5%86%B3Egret%E7%99%BD%E9%B9%ADNative%E5%B9%B3%E5%8F%B0%E5%8F%91%E5%B8%83%E6%97%A0%E6%B3%95%E4%B8%8B%E8%BD%BD%E5%8E%9F%E7%94%9F%E6%94%AF%E6%8C%81%E5%8C%85%E9%97%AE%E9%A2%98/"/>
+      <url>/2024/01/28/%E8%A7%A3%E5%86%B3Egret%E7%99%BD%E9%B9%ADNative%E5%B9%B3%E5%8F%B0%E5%8F%91%E5%B8%83%E6%97%A0%E6%B3%95%E4%B8%8B%E8%BD%BD%E5%8E%9F%E7%94%9F%E6%94%AF%E6%8C%81%E5%8C%85%E9%97%AE%E9%A2%98/</url>
+      
+        <content type="html"><![CDATA[<p>windows本地搭建Nginx和Tomcat服务器给Egret白鹭Native平台发布无法下载原生支持包问题</p><span id="more"></span><p>egret全部资源下载：<a href="https://pan.baidu.com/s/1wW0Jb0QKVf9OUz-PqUJj7g?pwd=egre">百度网盘</a></p><h1 id="一-本地搭建Nginx提供Egret发布原生支持包下载"><a href="#一-本地搭建Nginx提供Egret发布原生支持包下载" class="headerlink" title="一 本地搭建Nginx提供Egret发布原生支持包下载"></a>一 本地搭建Nginx提供Egret发布原生支持包下载</h1><p>1.下载Nginx<br>下载地址：<a href="https://nginx.org/en/download.html">https://nginx.org/en/download.html</a>  </p><p>选择 Stable version 稳定版本<br><img src="https://blog-1256223694.cos.ap-shanghai.myqcloud.com/post/%E8%A7%A3%E5%86%B3Egret%E7%99%BD%E9%B9%ADNative%E5%B9%B3%E5%8F%B0%E5%8F%91%E5%B8%83%E6%97%A0%E6%B3%95%E4%B8%8B%E8%BD%BD%E5%8E%9F%E7%94%9F%E6%94%AF%E6%8C%81%E5%8C%85%E9%97%AE%E9%A2%98/1.webp"><br>2.配置Nginx环境<br><img src="https://blog-1256223694.cos.ap-shanghai.myqcloud.com/post/%E8%A7%A3%E5%86%B3Egret%E7%99%BD%E9%B9%ADNative%E5%B9%B3%E5%8F%B0%E5%8F%91%E5%B8%83%E6%97%A0%E6%B3%95%E4%B8%8B%E8%BD%BD%E5%8E%9F%E7%94%9F%E6%94%AF%E6%8C%81%E5%8C%85%E9%97%AE%E9%A2%98/2.webp"><br>3.修改nginx.conf 配置端口 和存放静态资源目录<br>nginx.comf 文件在</p><pre><code>D:\nginx-1.24.0\conf</code></pre><p>把80端口修改成8869防止端口和其他进程冲突，也可以把静态资源目录改成static<br><img src="https://blog-1256223694.cos.ap-shanghai.myqcloud.com/post/%E8%A7%A3%E5%86%B3Egret%E7%99%BD%E9%B9%ADNative%E5%B9%B3%E5%8F%B0%E5%8F%91%E5%B8%83%E6%97%A0%E6%B3%95%E4%B8%8B%E8%BD%BD%E5%8E%9F%E7%94%9F%E6%94%AF%E6%8C%81%E5%8C%85%E9%97%AE%E9%A2%98/3.webp"></p><p>4.启动Nginx 服务 </p><pre><code>##  进入CDM再cd到安装目录 cd D:\nginx-1.24.0## 启动nginx服务 也可以双击nginx.exestart nginx## 关闭nginx服务nginx -s stop## 强制关闭所有nginx服务taskkill /f /t /im nginx.exe</code></pre><p>启动服务后 在浏览器运行 <a href="http://localhost:8869/">http://localhost:8869/</a>  进行验证是否正常使用<br><img src="https://blog-1256223694.cos.ap-shanghai.myqcloud.com/post/%E8%A7%A3%E5%86%B3Egret%E7%99%BD%E9%B9%ADNative%E5%B9%B3%E5%8F%B0%E5%8F%91%E5%B8%83%E6%97%A0%E6%B3%95%E4%B8%8B%E8%BD%BD%E5%8E%9F%E7%94%9F%E6%94%AF%E6%8C%81%E5%8C%85%E9%97%AE%E9%A2%98/4.webp"><br>5.配置Egret白鹭原生包下载资源<br>在 <a href="https://www.egret.uk/download/">https://www.egret.uk/download/</a> 中下载小游戏支持包</p><p>解压后把</p><p>native.json </p><p>android_1443523c87b1552163490a89d901451d.zip</p><p>ios_4a449a853ff59e2b3c8cd2bc5d474a13.zip</p><p> 三个文件拷贝进去D:\nginx-1.24.0\html 目录<br><img src="https://blog-1256223694.cos.ap-shanghai.myqcloud.com/post/%E8%A7%A3%E5%86%B3Egret%E7%99%BD%E9%B9%ADNative%E5%B9%B3%E5%8F%B0%E5%8F%91%E5%B8%83%E6%97%A0%E6%B3%95%E4%B8%8B%E8%BD%BD%E5%8E%9F%E7%94%9F%E6%94%AF%E6%8C%81%E5%8C%85%E9%97%AE%E9%A2%98/5.webp"><br>配置native.json</p><pre><code>&#123;    &quot;engines&quot;: &#123;        &quot;5.2.33&quot;: &#123;            &quot;supports&quot;: [                &quot;native&quot;            ]        &#125;    &#125;,    &quot;supports&quot;: &#123;        &quot;native&quot;: &#123;            &quot;android&quot;: &quot;http://localhost:8869/android_1443523c87b1552163490a89d901451d.zip&quot;,            &quot;ios&quot;: &quot;http://localhost:8869/ios_4a449a853ff59e2b3c8cd2bc5d474a13.zip&quot;        &#125;    &#125;&#125;</code></pre><p>本地搭建Nginx提供Egret发布原生支持包下载问题就解决了</p><h1 id="二-本地搭建Tomcat提供Egret发布原生支持包下载"><a href="#二-本地搭建Tomcat提供Egret发布原生支持包下载" class="headerlink" title="二 本地搭建Tomcat提供Egret发布原生支持包下载"></a>二 本地搭建Tomcat提供Egret发布原生支持包下载</h1><p>Tomcat 配置环境虽然相对复杂些，但是提供下载原理是一样的，这里就不详细说明了。</p><p>首先下载JDK，国内镜像下载地址：<a href="https://repo.huaweicloud.com/java/jdk/">https://repo.huaweicloud.com/java/jdk/</a></p><p>然后配置JDK环境也可以所示JAVA环境：可以参考菜鸟教程：<a href="https://www.runoob.com/java/java-environment-setup.html">https://www.runoob.com/java/java-environment-setup.html</a></p><p>配置完最后是下载Tomcat，为了方便大家配置和下载，这里提供配置好了的Tomcat，已经配置了跨域和静态资源还有Egret原生支持包，直接下载就可以用。</p><p>下载地址：<a href="https://pan.baidu.com/s/1BjVMDgsRdvvk3b27Bu8v2w?pwd=6690">https://pan.baidu.com/s/1BjVMDgsRdvvk3b27Bu8v2w?pwd=6690</a><br><img src="https://blog-1256223694.cos.ap-shanghai.myqcloud.com/post/%E8%A7%A3%E5%86%B3Egret%E7%99%BD%E9%B9%ADNative%E5%B9%B3%E5%8F%B0%E5%8F%91%E5%B8%83%E6%97%A0%E6%B3%95%E4%B8%8B%E8%BD%BD%E5%8E%9F%E7%94%9F%E6%94%AF%E6%8C%81%E5%8C%85%E9%97%AE%E9%A2%98/6.webp"></p><p>启动和关闭Tomcat</p><p>进入 D:\apache-tomcat-9.0.83\bin</p><p>启动：双击startup.bat</p><p>关闭：双击shutdown.bat</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> egret </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>图文混排</title>
+      <link href="/2024/01/28/%E5%9B%BE%E6%96%87%E6%B7%B7%E6%8E%92/"/>
+      <url>/2024/01/28/%E5%9B%BE%E6%96%87%E6%B7%B7%E6%8E%92/</url>
+      
+        <content type="html"><![CDATA[<p>图文混排</p><span id="more"></span><pre><code class="typescript">class TextImage extends eui.Group &#123;       public templet: egret.TextField       constructor(protected _TextImageData: Array&lt;any&gt; = []) &#123;           super();           this.init()       &#125;       set TextImageData(val: Array&lt;any&gt;) &#123; this._TextImageData = val; this.init(); &#125;       get TextImageData() &#123; return this._TextImageData &#125;       _size = 36       /**设置文字字体大小 */       set size(val: number) &#123;           this._size = val       &#125;       get size(): number &#123;           return this._size       &#125;       private _width: number;       /**设置宽度 */       set width(val) &#123; this._width = val; this.invalidate(); &#125;       get width() &#123; return this._width &#125;;       private _verticalAlign = egret.VerticalAlign.MIDDLE;       /**设置vercatical */       set verticalAlign(val) &#123; this._verticalAlign = val; this.invalidate(); &#125;       get verticalAlign() &#123; return this._verticalAlign &#125;;       _maxWidth: number       /**设置组件的最大宽度 */       set maxWidth(val: number) &#123;           this._maxWidth = val           if (this.templet.width &gt; val) &#123;               this.width = val               this.invalidate()           &#125;       &#125;       get maxWidth(): number &#123;           return this._maxWidth       &#125;       private _lineSpacing = 0       /**设置组件的行间距 */       set lineSpacing(val: number) &#123;           if (this._lineSpacing === val) return           this._lineSpacing = val           this.invalidate()       &#125;       get lineSpacing(): number &#123;           return this._lineSpacing       &#125;       /**立即计算布局 */       validateNow() &#123;           this.init()           this.invalidate_Flag = false       &#125;       /**组件的每行高度 */       lineHeightArray: Array&lt;number&gt; = []       components: any[] = []       protected init() &#123;           this.removeChildren()           if (this._TextImageData.length == 0) &#123;               this.width = this.height = 0               return           &#125;           // 保存组件,清除事件绑定           this.components = []           this._TextImageData.forEach(component =&gt; &#123;               if (typeof component == &#39;object&#39;) &#123;                   this.components.push(component)                   if (!component[&#39;watch&#39;]) &#123;                       egret.is(component, &#39;eui.Image&#39;) &amp;&amp; component.once(egret.Event.COMPLETE, this.invalidate, this)                       eui.Watcher.watch(component, [&#39;width&#39;], this.invalidate, this)                       eui.Watcher.watch(component, [&#39;height&#39;], this.invalidate, this)                       component[&#39;watch&#39;] = true                   &#125;               &#125;           &#125;)           let textFlow = this._TextImageData.map(text =&gt;               typeof text === &quot;string&quot; || egret.is(text, &#39;eui.Label&#39;)                   ? &#123; text: egret.is(text, &#39;eui.Label&#39;) ? text.text : text &#125;                   : &#123; text: &#39;樂&#39;, style: &#123; size: text.width &#125; &#125;           )           let TextField: egret.TextField = this.templet = new egret.TextField();           TextField.size = this.size;           TextField.lineSpacing = 0;           TextField.width = this.width           TextField.textFlow = textFlow           TextField.height = TextField.height           this.height = 0           this.lineHeightArray = []           let componentTestIndex = 0 //测量高度的组件序号           let componentIndex = 0 //布局的组件序号           TextField[&#39;linesArr&#39;].forEach((item,lines) =&gt; &#123;               console.log(&#39;item=&gt;&#39;, item)               //获取最大高度               let maxheight = this.size               //组件序号               item.elements.forEach((element) =&gt; &#123;                   if (element.text == &#39;樂&#39;) &#123;                       let c = this.components[componentTestIndex++]                       maxheight = Math.max(maxheight, c.height)                   &#125;               &#125;)               maxheight = this._lineSpacing + maxheight               this.lineHeightArray.push(maxheight)               //开始布局               let x = 0               item.elements.forEach(element =&gt; &#123;                   let component                   if (element.text !== &#39;樂&#39;) &#123;                       component = new egret.TextField()                       component.x = x                       component.size = this.size                       component.text = element.text                       component.width = element.width                       component.textColor = this._textColor                       component.height = maxheight                       component.y = this.height                       component.verticalAlign = this._verticalAlign;                   &#125; else &#123;                       component = this.components[componentIndex++]                       component.x = x                       component.y = this.height + (maxheight - component.height) / 2                   &#125;                   x += component.width                   this.addChild(component)               &#125;)               this.height += maxheight           &#125;)           this._width = this.templet.width       &#125;       _textColor: number = 0x000000       set textColor(val) &#123;           this._textColor = val           this.invalidate()       &#125;       get textColor() &#123;           return this._textColor       &#125;       /**失效验证 */       private invalidate_Flag: boolean = false       private invalidate(e?: egret.Event): void &#123;           if (this.invalidate_Flag) &#123;               return           &#125;           this.invalidate_Flag = true           this.once(egret.Event.ENTER_FRAME, () =&gt; &#123;               this.init()               this.invalidate_Flag = false           &#125;, this);       &#125;   &#125;</code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> egret </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Json解析</title>
+      <link href="/2024/01/28/Json%E8%A7%A3%E6%9E%90/"/>
+      <url>/2024/01/28/Json%E8%A7%A3%E6%9E%90/</url>
+      
+        <content type="html"><![CDATA[<p>Json解析</p><span id="more"></span><pre><code class="csharp">JObject obj=(JObject)JsonConvert.DeserializeObject(jsonstr); //解析string jsonstr=JsonConvert.SerializeObject(obj); //序列化</code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> csharp </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>自定义网页下载ipa包</title>
+      <link href="/2024/01/28/%E8%87%AA%E5%AE%9A%E4%B9%89%E7%BD%91%E9%A1%B5%E4%B8%8B%E8%BD%BDipa%E5%8C%85/"/>
+      <url>/2024/01/28/%E8%87%AA%E5%AE%9A%E4%B9%89%E7%BD%91%E9%A1%B5%E4%B8%8B%E8%BD%BDipa%E5%8C%85/</url>
+      
+        <content type="html"><![CDATA[<p>自定义网页下载ipa包</p><span id="more"></span><p>1.打包项目，生成ipa包</p><p>2.将ipa包放在服务器上，提供一个下载链接</p><p>3.配置plist文件。模板如下：（保存的名字为：ipa文件名+”.plist”）</p><pre><code class="javascript">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;!DOCTYPE plist PUBLIC &quot;-//Apple//DTD PLIST 1.0//EN&quot; &quot;http://www.apple.com/DTDs/PropertyList-1.0.dtd&quot;&gt;&lt;plist version=&quot;1.0&quot;&gt;&lt;dict&gt;    &lt;key&gt;items&lt;/key&gt;    &lt;array&gt;        &lt;dict&gt;            &lt;key&gt;assets&lt;/key&gt;            &lt;array&gt;                &lt;dict&gt;                    &lt;key&gt;kind&lt;/key&gt;                    &lt;string&gt;software-package&lt;/string&gt;                    &lt;key&gt;url&lt;/key&gt;                    &lt;string&gt;http://h5.9shadow.com/ly/test/xx.ipa&lt;/string&gt;                &lt;/dict&gt;            &lt;/array&gt;            &lt;key&gt;metadata&lt;/key&gt;            &lt;dict&gt;                &lt;key&gt;bundle-identifier&lt;/key&gt;                &lt;string&gt;com.jiuying.xyzl&lt;/string&gt;                &lt;key&gt;bundle-version&lt;/key&gt;                &lt;string&gt;1.0&lt;/string&gt;                &lt;key&gt;kind&lt;/key&gt;                &lt;string&gt;software&lt;/string&gt;                &lt;key&gt;title&lt;/key&gt;                &lt;string&gt;zhongleapp&lt;/string&gt;            &lt;/dict&gt;        &lt;/dict&gt;    &lt;/array&gt;&lt;/dict&gt;&lt;/plist&gt;</code></pre><p>3.1 代码的配置说明:</p><pre><code class="javascript">&lt;string&gt;./xx.ipa&lt;/string&gt; 用来配置ipa文件路径&lt;string&gt;com.app.com&lt;/string&gt;   用来配置包名&lt;string&gt;zhongleapp&lt;/string&gt; 随意</code></pre><p>下载时访问路径为: “itms-services:&#x2F;&#x2F;?action&#x3D;download-manifest&amp;url&#x3D;”+plist文件路径</p><p>4.将plist文件放到服务器，有ssl证书，链接必须是https。plist文件名和ipa名要一致</p><p>5.生成html页面，点击下载到下载plist文件的链接</p><pre><code class="javascript">&lt;a href=&quot;itms-services://?action=download-manifest&amp;url=http://www.114390.com/ceshi/info2.plist&quot;&gt;点这儿一键安装iOS应用&lt;/a&gt;</code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> other </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>自定义头像</title>
+      <link href="/2024/01/28/%E8%87%AA%E5%AE%9A%E4%B9%89%E5%A4%B4%E5%83%8F/"/>
+      <url>/2024/01/28/%E8%87%AA%E5%AE%9A%E4%B9%89%E5%A4%B4%E5%83%8F/</url>
+      
+        <content type="html"><![CDATA[<p>unity自定义头像</p><span id="more"></span><pre><code class="csharp">public class CustomHeadImage : Image&#123;   [SerializeField]    private float showPercent = 1f;   [SerializeField]    private int segments = 100;   protected override void OnPopulateMesh(VertexHelper vh)   &#123;        vh.Clear();              float width = rectTransform.rect.width;       float height = rectTransform.rect.height;       Vector2 uv = GetUV(overrideSprite);       Vector2 convertRatio = GetConvetRatio(uv.x, uv.y, width, height);       Vector2 uvCenter = GetUvCenter(uv.x, uv.y);       Vector2 originPos = GetOriginPos(width, height);       UIVertex origin = new UIVertex();       //设置原点颜色渐变       byte c = (byte)(showPercent * 255);        origin.color = new Color32(c, c, c, 255);        origin.position = originPos;        origin.uv0 = new Vector2(Vector2.zero.x * convertRatio.x + uvCenter.x, Vector2.zero.y * convertRatio.y + uvCenter.y);        vh.AddVert(origin);       float radian = Mathf.PI * 2 / segments;       float curRadian = 0;       float radius = width * 0.5f;       int realSegment = (int)(showPercent * segments);       for (int i = 0; i &lt; segments + 1; i++)       &#123;           float x = Mathf.Cos(curRadian) * radius;           float y = Mathf.Sin(curRadian) * radius;            curRadian += radian;           Vector2 xy = new Vector2(x, y);           UIVertex uvTemp = new UIVertex();           if (i &lt; realSegment)           &#123;                uvTemp.color = color;           &#125;           else           &#123;               if (realSegment == segments)               &#123;                    uvTemp.color = color;               &#125;               else               &#123;                    uvTemp.color = new Color32(60, 60, 60, 255);               &#125;           &#125;            uvTemp.position = xy + originPos;            uvTemp.uv0 = new Vector2(xy.x * convertRatio.x + uvCenter.x, xy.y * convertRatio.y + uvCenter.y);            vh.AddVert(uvTemp);       &#125;       int id = 1;       for (int i = 0; i &lt; segments; i++)       &#123;            vh.AddTriangle(id, 0, id + 1);            id++;       &#125;   &#125;   private Vector2 GetConvetRatio(float uvWidth, float uvHeight, float width, float height)   &#123;       Vector2 convertRatio = new Vector2(uvWidth / width, uvHeight / height);       return convertRatio;   &#125;   private Vector2 GetUvCenter(float uvWidth, float uvHeight)   &#123;       Vector2 center = new Vector2(uvWidth * 0.5f, uvHeight * 0.5f);       return center;   &#125;   private Vector2 GetOriginPos(float width, float height)   &#123;       Vector2 originPos = new Vector2((0.5f - rectTransform.pivot.x) * width, ((0.5f - rectTransform.pivot.y) * height));       return originPos;   &#125;   private Vector2 GetUV(Sprite sprite)   &#123;       Vector4 temp = sprite != null ? DataUtility.GetOuterUV(sprite) : Vector4.zero;       float uvHeight = temp.w - temp.y;       float uvWidth = temp.z - temp.x;       Vector2 uv = new Vector2(uvWidth, uvHeight);       return uv;   &#125;&#125;</code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> unity </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>Unity中的输入事件总结与数字电视遥控器键值映射</title>
+      <link href="/2024/01/28/Unity%E4%B8%AD%E7%9A%84%E8%BE%93%E5%85%A5%E4%BA%8B%E4%BB%B6%E6%80%BB%E7%BB%93%E4%B8%8E%E6%95%B0%E5%AD%97%E7%94%B5%E8%A7%86%E9%81%A5%E6%8E%A7%E5%99%A8%E9%94%AE%E5%80%BC%E6%98%A0%E5%B0%84/"/>
+      <url>/2024/01/28/Unity%E4%B8%AD%E7%9A%84%E8%BE%93%E5%85%A5%E4%BA%8B%E4%BB%B6%E6%80%BB%E7%BB%93%E4%B8%8E%E6%95%B0%E5%AD%97%E7%94%B5%E8%A7%86%E9%81%A5%E6%8E%A7%E5%99%A8%E9%94%AE%E5%80%BC%E6%98%A0%E5%B0%84/</url>
+      
+        <content type="html"><![CDATA[<p>Unity中的输入事件总结与数字电视遥控器键值映射</p><span id="more"></span><p>一、Unity的基本输入事件（最常用）：<br>鼠标键盘事件靠在Update事件周期中不断检测触发：<br>鼠标点击：</p><ul><li><p>Input.GetMouseButtonDown(0) &#x2F;&#x2F;鼠标左键按下</p></li><li><p>Input.GetMouseButtonDown(1) &#x2F;&#x2F;鼠标右键按下</p></li><li><p>Input.GetMouseButtonUp(0) &#x2F;&#x2F;鼠标左键抬起</p></li><li><p>Input.GetMouseButtonUp(1) &#x2F;&#x2F;鼠标右键抬起</p></li></ul><p>键盘事件：</p><ul><li><p>Input.GetKeyDown(KeyCode.键值) &#x2F;&#x2F;键盘按下</p></li><li><p>Input.GetKeyUp(KeyCode.键值) &#x2F;&#x2F;键盘抬起</p></li></ul><p>常用的键值：</p><ul><li><p>KeyCode.大写字母 &#x2F;&#x2F;字母键</p></li><li><p>KeyCode.UpArrow</p></li><li><p>KeyCode.DownArrow</p></li><li><p>KeyCode.LeftArrow</p></li><li><p>KeyCode.RightArrow</p></li><li><p>KeyCode.Return &#x2F;&#x2F;回车</p></li><li><p>KeyCode.Escape &#x2F;&#x2F;Esc返回</p></li><li><p>KeyCode.Space &#x2F;&#x2F;空格</p></li><li><p>KeyCode.LeftControl</p></li><li><p>KeyCode.RightControl</p></li><li><p>KeyCode.LeftShift</p></li><li><p>KeyCode.RightShift</p></li><li><p>KeyCode.Tab</p></li><li><p>KeyCode.Delete</p></li><li><p>KeyCode.Backspace</p></li></ul><p>文章末尾有详细键值表！</p><p>二、数字电视遥控器输入事件的映射：<br>小米盒子遥控器的按键除了OK确认选定键其他基本跟unity的键盘相对应（数字电视中小米盒子比较特殊，跟其他数字电视不一样，键值映射要特殊考虑）：</p><p>上下左右对应箭头，KeyCode.Escape是返回键（对应键盘的Esc），KeyCode.Menu是遥控器的菜单键（对应键盘的右contrl）<br>其中的确认键官方给出了说明方法是定义： KeyCode DPAD_CENTER &#x3D; (KeyCode)10; 然后跟其他KeyCode一样检测DPAD_CENTER就可以了；</p><p>&#x2F;&#x2F;测试获得数字电视的键值映射：</p><p>方向键：</p><p>上：      KeyCode.UpArrow</p><p>下：      KeyCode.DownArrow</p><p>左：      KeyCode.LeftArrow</p><p>右：      KeyCode.RightArrow</p><p>功能键：</p><p>OK键：    KeyCode.JoystickButton0(小米盒子比较特殊，键值为：KeyCode MIOkKeyCode &#x3D; (KeyCode)10;)</p><p>返回键：  KeyCode.Escape</p><p>菜单键：  KeyCode.Menu</p><p>三、NGUI中的冲突问题：<br>关于KeyCode的回车键有一个注意问题：在NGUI中回车键会自动触发，（可以到NGUI脚本序列化面板设置关掉），因此可能出现检测KeyCode的回车键，用户点击回车键会触发两次回车键事件，最好换成其他键代替回车避免冲突；</p><p>四、乐视39按键键值对照表：<br>图片来源：<a href="http://bbs.le.com/thread-187950-1.html">http://bbs.le.com/thread-187950-1.html</a></p><p>五、Unity键值表：</p><p>&#x2F;** 鼠标键值 **&#x2F;</p><p>Mouse0  鼠标左键</p><p>Mouse1  鼠标右键</p><p>Mouse2  鼠标中键</p><p>Mouse3  鼠标第3个按键</p><p>Mouse4  鼠标第4个按键</p><p>Mouse5  鼠标第5个按键</p><p>Mouse6  鼠标第6个按键</p><p>&#x2F;** 键盘键值 **&#x2F;</p><p>&#x2F;&#x2F;方向键</p><p>UpArrow    方向键上</p><p>DownArrow  方向键下</p><p>RightArrow  方向键右</p><p>LeftArrow  方向键左</p><p>&#x2F;&#x2F;F功能键</p><p>F1  功能键F1</p><p>F2  功能键F2</p><p>F3  功能键F3</p><p>F4  功能键F4</p><p>F5  功能键F5</p><p>F6  功能键F6</p><p>F7  功能键F7</p><p>F8  功能键F8</p><p>F9  功能键F9</p><p>F10  功能键F10</p><p>F11  功能键F11</p><p>F12  功能键F12</p><p>F13  功能键F13</p><p>F14  功能键F14</p><p>F15  功能键F15</p><p>&#x2F;&#x2F;数字键</p><p>Alpha0 按键0</p><p>Alpha1 按键1</p><p>Alpha2 按键2</p><p>Alpha3 按键3</p><p>Alpha4 按键4</p><p>Alpha5 按键5</p><p>Alpha6 按键6</p><p>Alpha7 按键7</p><p>Alpha8 按键7</p><p>Alpha9 按键9</p><p>&#x2F;&#x2F;字母键</p><p>A  ‘a’键</p><p>B  ‘b’键</p><p>C  ‘c’键</p><p>D  ‘d’键</p><p>E  ‘e’键</p><p>F  ‘f’键</p><p>G  ‘g’键</p><p>H  ‘h’键</p><p>I  ‘i’键</p><p>J  ‘j’键</p><p>K  ‘k’键</p><p>L  ‘l’键</p><p>M  ‘m’键</p><p>N  ‘n’键</p><p>O  ‘o’键</p><p>P  ‘p’键</p><p>Q  ‘q’键</p><p>R  ‘r’键</p><p>S  ‘s’键</p><p>T  ‘t’键</p><p>U  ‘u’键</p><p>V  ‘v’键</p><p>W  ‘w’键</p><p>X  ‘x’键</p><p>Y  ‘y’键</p><p>Z  ‘z’键</p><p>&#x2F;&#x2F;功能键</p><p>Backspace        退格键</p><p>Delete          Delete键</p><p>Tab              Tab键</p><p>Clear            Clear键</p><p>Return          回车键</p><p>Pause            暂停键</p><p>Escape          ESC键</p><p>Space            空格键</p><p>Numlock          Numlock键</p><p>Capslock        大小写锁定键</p><p>ScrollLockScroll Lock键</p><p>RightShift      右上档键</p><p>LeftShift        左上档键</p><p>RightControl    右Ctrl键</p><p>LeftControl      左Ctrl键</p><p>RightAlt        右Alt键</p><p>LeftAlt          左Alt键</p><p>LeftApple        左Apple键</p><p>LeftWindows      左Windows键</p><p>RightApple      右Apple键</p><p>RightWindows    右Windows键</p><p>AltGr            Alt Gr键</p><p>Help            Help键</p><p>Print            Print键</p><p>SysReq          Sys Req键</p><p>Break            Break键</p><p>Insert          Insert键</p><p>Home            Home键</p><p>End              End键</p><p>PageUp          PageUp键</p><p>PageDown        PageDown键</p><p>&#x2F;&#x2F;符号键</p><p>Exclaim        ‘!’键</p><p>DoubleQuote      双引号键</p><p>Hash            Hash键</p><p>Dollar          ‘$’键</p><p>Ampersand        Ampersand键</p><p>Quote            单引号键</p><p>LeftParen        左括号键</p><p>RightParen      右括号键</p><p>Asterisk        ‘ * ’键</p><p>Plus            ‘ + ’键</p><p>Comma          ‘ , ’键</p><p>Minus          ‘ - ’键</p><p>Period          ‘ . ’键</p><p>Slash          ‘ &#x2F; ’键</p><p>Colon          ‘ : ’键</p><p>Semicolon      ‘ ; ’键</p><p>Less            ‘ &lt; ‘键</p><p>Equals          ‘ &#x3D; ‘键</p><p>Greater        ‘ &gt; ‘键</p><p>Question        ‘ ? ’键</p><p>At              ‘@’键</p><p>LeftBracket    ‘ [ ‘键</p><p>Backslash      ‘ \ ’键</p><p>RightBracket    ‘ ] ’键</p><p>Caret          ‘ ^ ’键</p><p>Underscore      ‘ _ ’键</p><p>BackQuote      ‘ &#96; ’键</p><p>&#x2F;&#x2F;小键盘</p><p>Keypad0  小键盘0</p><p>Keypad1  小键盘1</p><p>Keypad2  小键盘2</p><p>Keypad3  小键盘3</p><p>Keypad4  小键盘4</p><p>Keypad5  小键盘5</p><p>Keypad6  小键盘6</p><p>Keypad7  小键盘7</p><p>Keypad8  小键盘8</p><p>Keypad9  小键盘9</p><p>KeypadPeriod      小键盘“.”</p><p>KeypadDivide      小键盘“&#x2F;”</p><p>KeypadMultiply    小键盘“*”</p><p>KeypadMinus      小键盘“-”</p><p>KeypadPlus        小键盘“+”</p><p>KeypadEnter      小键盘“Enter”</p><p>KeypadEquals      小键盘“&#x3D;”</p><p>&#x2F;** 游戏手柄键值 **&#x2F;</p><p>JoystickButton0    手柄按键0</p><p>JoystickButton1    手柄按键1</p><p>JoystickButton2    手柄按键2</p><p>JoystickButton3    手柄按键3</p><p>JoystickButton4    手柄按键4</p><p>JoystickButton5    手柄按键5</p><p>JoystickButton6    手柄按键6</p><p>JoystickButton7    手柄按键7</p><p>JoystickButton8    手柄按键8</p><p>JoystickButton9    手柄按键9</p><p>JoystickButton10    手柄按键10</p><p>JoystickButton11    手柄按键11</p><p>JoystickButton12    手柄按键12</p><p>JoystickButton13    手柄按键13</p><p>JoystickButton14    手柄按键14</p><p>JoystickButton15    手柄按键15</p><p>JoystickButton16    手柄按键16</p><p>JoystickButton17    手柄按键17</p><p>JoystickButton18    手柄按键18</p><p>JoystickButton19    手柄按键19</p><p>Joystick1Button0    第一个手柄按键0</p><p>Joystick1Button1    第一个手柄按键1</p><p>Joystick1Button2    第一个手柄按键2</p><p>Joystick1Button3    第一个手柄按键3</p><p>Joystick1Button4    第一个手柄按键4</p><p>Joystick1Button5    第一个手柄按键5</p><p>Joystick1Button6    第一个手柄按键6</p><p>Joystick1Button7    第一个手柄按键7</p><p>Joystick1Button8    第一个手柄按键8</p><p>Joystick1Button9    第一个手柄按键9 </p><p>Joystick1Button10    第一个手柄按键10</p><p>Joystick1Button11    第一个手柄按键11</p><p>Joystick1Button12    第一个手柄按键12</p><p>Joystick1Button13    第一个手柄按键13</p><p>Joystick1Button14    第一个手柄按键14</p><p>Joystick1Button15    第一个手柄按键15</p><p>Joystick1Button16    第一个手柄按键16</p><p>Joystick1Button17    第一个手柄按键17</p><p>Joystick1Button18    第一个手柄按键18</p><p>Joystick1Button19    第一个手柄按键19</p><p>Joystick2Button0    第二个手柄按键0</p><p>Joystick2Button1    第二个手柄按键1</p><p>Joystick2Button2    第二个手柄按键2</p><p>Joystick2Button3    第二个手柄按键3</p><p>Joystick2Button4    第二个手柄按键4</p><p>Joystick2Button5    第二个手柄按键5</p><p>Joystick2Button6    第二个手柄按键6</p><p>Joystick2Button7    第二个手柄按键7</p><p>Joystick2Button8    第二个手柄按键8</p><p>Joystick2Button9    第二个手柄按键9</p><p>Joystick2Button10    第二个手柄按键10</p><p>Joystick2Button11    第二个手柄按键11</p><p>Joystick2Button12    第二个手柄按键12</p><p>Joystick2Button13    第二个手柄按键13</p><p>Joystick2Button14    第二个手柄按键14</p><p>Joystick2Button15    第二个手柄按键15</p><p>Joystick2Button16    第二个手柄按键16</p><p>Joystick2Button17    第二个手柄按键17</p><p>Joystick2Button18    第二个手柄按键18</p><p>Joystick2Button19    第二个手柄按键19</p><p>Joystick3Button0    第三个手柄按键0</p><p>Joystick3Button1    第三个手柄按键1</p><p>Joystick3Button2    第三个手柄按键2</p><p>Joystick3Button3    第三个手柄按键3</p><p>Joystick3Button4    第三个手柄按键4</p><p>Joystick3Button5    第三个手柄按键5</p><p>Joystick3Button6    第三个手柄按键6</p><p>Joystick3Button7    第三个手柄按键7</p><p>Joystick3Button8    第三个手柄按键8</p><p>Joystick3Button9    第三个手柄按键9</p><p>Joystick3Button10    第三个手柄按键10</p><p>Joystick3Button11    第三个手柄按键11</p><p>Joystick3Button12    第三个手柄按键12</p><p>Joystick3Button13    第三个手柄按键13</p><p>Joystick3Button14    第三个手柄按键14</p><p>Joystick3Button15    第三个手柄按键15</p><p>Joystick3Button16    第三个手柄按键16</p><p>Joystick3Button17    第三个手柄按键17</p><p>Joystick3Button18    第三个手柄按键18</p><p>Joystick3Button19    第三个手柄按键19</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> unity </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>生成随机数</title>
+      <link href="/2024/01/28/%E7%94%9F%E6%88%90%E9%9A%8F%E6%9C%BA%E6%95%B0/"/>
+      <url>/2024/01/28/%E7%94%9F%E6%88%90%E9%9A%8F%E6%9C%BA%E6%95%B0/</url>
+      
+        <content type="html"><![CDATA[<p>C# 生成随机数</p><span id="more"></span><p>拿到全局Guid生成一个获取它的hash值 作为随机种子</p><pre><code class="csharp">var Seed = Guid.NewGuid().GetHashCode();var value = new Random(Seed);i =value.Next(1,100);</code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> csharp </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>微信小游戏实时语音</title>
+      <link href="/2024/01/28/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E6%B8%B8%E6%88%8F%E5%AE%9E%E6%97%B6%E8%AF%AD%E9%9F%B3/"/>
+      <url>/2024/01/28/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E6%B8%B8%E6%88%8F%E5%AE%9E%E6%97%B6%E8%AF%AD%E9%9F%B3/</url>
+      
+        <content type="html"><![CDATA[<p>微信小游戏实时语音</p><span id="more"></span><p>1.开通实时语音服务。(开通条件:注册用户大于 1000)</p><p>打开微信小游戏后台(微信公众平台)，依次打开设置-&gt;游戏设置→开通语音服务</p><p>2.关于里面的几个重要api:</p><p>创建&#x2F;加入房间：wx.joinVoIPChat</p><p>离开房间：wx.exitVoIPChat</p><p>更新房间麦克风&#x2F;耳机静音设置：wx.updateVoIPChatMuteConfig</p><p>监听房间成员变化：wx.onVoIPChatMembersChanged</p><p>监听房间成员通话状态变化：wx.onVoIPChatSpeakersChanged</p><p>监听通话中断：wx.onVoIPChatInterrupted</p><p>3.下面是要用到的一些方法:</p><p>1)获取code：</p><p>调用wx.login</p><p>2)获取session_key、openid</p><pre><code class="javascript"> wx.request(&#123;            url: &#39;https://api.weixin.qq.com/sns/jscode2session?appid=&#39; + APPID + &#39;&amp;secret=&#39; + SECRET + &#39;&amp;js_code=&#39; + res.code,            method: &#39;GET&#39;,            success: (res) =&gt; &#123;              let session_key = res.data[&#39;session_key&#39;].toString();              let openid = res.data[&#39;openid&#39;].toString();            &#125;&#125;</code></pre><p>3)语音房间加密算法Has256:</p><pre><code class="javascript">/*CryptoJScode.google.com/p/crypto-js(c) 2009-2012 by Jeff Mott. All rights reserved.code.google.com/p/crypto-js/wiki/License*/var CryptoJS=CryptoJS||function(h,i)&#123;var e=&#123;&#125;,f=e.lib=&#123;&#125;,l=f.Base=function()&#123;function a()&#123;&#125;return&#123;extend:function(j)&#123;a.prototype=this;var d=new a;j&amp;&amp;d.mixIn(j);d.$super=this;return d&#125;,create:function()&#123;var a=this.extend();a.init.apply(a,arguments);return a&#125;,init:function()&#123;&#125;,mixIn:function(a)&#123;for(var d in a)a.hasOwnProperty(d)&amp;&amp;(this[d]=a[d]);a.hasOwnProperty(&quot;toString&quot;)&amp;&amp;(this.toString=a.toString)&#125;,clone:function()&#123;return this.$super.extend(this)&#125;&#125;&#125;(),k=f.WordArray=l.extend(&#123;init:function(a,j)&#123;a=  this.words=a||[];this.sigBytes=j!=i?j:4*a.length&#125;,toString:function(a)&#123;return(a||m).stringify(this)&#125;,concat:function(a)&#123;var j=this.words,d=a.words,c=this.sigBytes,a=a.sigBytes;this.clamp();if(c%4)for(var b=0;b&lt;a;b++)j[c+b&gt;&gt;&gt;2]|=(d[b&gt;&gt;&gt;2]&gt;&gt;&gt;24-8*(b%4)&amp;255)&lt;&lt;24-8*((c+b)%4);else if(65535&lt;d.length)for(b=0;b&lt;a;b+=4)j[c+b&gt;&gt;&gt;2]=d[b&gt;&gt;&gt;2];else j.push.apply(j,d);this.sigBytes+=a;return this&#125;,clamp:function()&#123;var a=this.words,b=this.sigBytes;a[b&gt;&gt;&gt;2]&amp;=4294967295&lt;&lt;32-8*(b%4);a.length=h.ceil(b/4)&#125;,clone:function()&#123;var a=  l.clone.call(this);a.words=this.words.slice(0);return a&#125;,random:function(a)&#123;for(var b=[],d=0;d&lt;a;d+=4)b.push(4294967296*h.random()|0);return k.create(b,a)&#125;&#125;),o=e.enc=&#123;&#125;,m=o.Hex=&#123;stringify:function(a)&#123;for(var b=a.words,a=a.sigBytes,d=[],c=0;c&lt;a;c++)&#123;var e=b[c&gt;&gt;&gt;2]&gt;&gt;&gt;24-8*(c%4)&amp;255;d.push((e&gt;&gt;&gt;4).toString(16));d.push((e&amp;15).toString(16))&#125;return d.join(&quot;&quot;)&#125;,parse:function(a)&#123;for(var b=a.length,d=[],c=0;c&lt;b;c+=2)d[c&gt;&gt;&gt;3]|=parseInt(a.substr(c,2),16)&lt;&lt;24-4*(c%8);return k.create(d,b/2)&#125;&#125;,q=o.Latin1=&#123;stringify:function(a)&#123;for(var b=  a.words,a=a.sigBytes,d=[],c=0;c&lt;a;c++)d.push(String.fromCharCode(b[c&gt;&gt;&gt;2]&gt;&gt;&gt;24-8*(c%4)&amp;255));return d.join(&quot;&quot;)&#125;,parse:function(a)&#123;for(var b=a.length,d=[],c=0;c&lt;b;c++)d[c&gt;&gt;&gt;2]|=(a.charCodeAt(c)&amp;255)&lt;&lt;24-8*(c%4);return k.create(d,b)&#125;&#125;,r=o.Utf8=&#123;stringify:function(a)&#123;try&#123;return decodeURIComponent(escape(q.stringify(a)))&#125;catch(b)&#123;throw Error(&quot;Malformed UTF-8 data&quot;);&#125;&#125;,parse:function(a)&#123;return q.parse(unescape(encodeURIComponent(a)))&#125;&#125;,b=f.BufferedBlockAlgorithm=l.extend(&#123;reset:function()&#123;this._data=k.create();  this._nDataBytes=0&#125;,_append:function(a)&#123;&quot;string&quot;==typeof a&amp;&amp;(a=r.parse(a));this._data.concat(a);this._nDataBytes+=a.sigBytes&#125;,_process:function(a)&#123;var b=this._data,d=b.words,c=b.sigBytes,e=this.blockSize,g=c/(4*e),g=a?h.ceil(g):h.max((g|0)-this._minBufferSize,0),a=g*e,c=h.min(4*a,c);if(a)&#123;for(var f=0;f&lt;a;f+=e)this._doProcessBlock(d,f);f=d.splice(0,a);b.sigBytes-=c&#125;return k.create(f,c)&#125;,clone:function()&#123;var a=l.clone.call(this);a._data=this._data.clone();return a&#125;,_minBufferSize:0&#125;);f.Hasher=b.extend(&#123;init:function()&#123;this.reset()&#125;,  reset:function()&#123;b.reset.call(this);this._doReset()&#125;,update:function(a)&#123;this._append(a);this._process();return this&#125;,finalize:function(a)&#123;a&amp;&amp;this._append(a);this._doFinalize();return this._hash&#125;,clone:function()&#123;var a=b.clone.call(this);a._hash=this._hash.clone();return a&#125;,blockSize:16,_createHelper:function(a)&#123;return function(b,d)&#123;return a.create(d).finalize(b)&#125;&#125;,_createHmacHelper:function(a)&#123;return function(b,d)&#123;return g.HMAC.create(a,d).finalize(b)&#125;&#125;&#125;);var g=e.algo=&#123;&#125;;return e&#125;(Math);  (function(h)&#123;var i=CryptoJS,e=i.lib,f=e.WordArray,e=e.Hasher,l=i.algo,k=[],o=[];(function()&#123;function e(a)&#123;for(var b=h.sqrt(a),d=2;d&lt;=b;d++)if(!(a%d))return!1;return!0&#125;function f(a)&#123;return 4294967296*(a-(a|0))|0&#125;for(var b=2,g=0;64&gt;g;)e(b)&amp;&amp;(8&gt;g&amp;&amp;(k[g]=f(h.pow(b,0.5))),o[g]=f(h.pow(b,1/3)),g++),b++&#125;)();var m=[],l=l.SHA256=e.extend(&#123;_doReset:function()&#123;this._hash=f.create(k.slice(0))&#125;,_doProcessBlock:function(e,f)&#123;for(var b=this._hash.words,g=b[0],a=b[1],j=b[2],d=b[3],c=b[4],h=b[5],l=b[6],k=b[7],n=0;64&gt;  n;n++)&#123;if(16&gt;n)m[n]=e[f+n]|0;else&#123;var i=m[n-15],p=m[n-2];m[n]=((i&lt;&lt;25|i&gt;&gt;&gt;7)^(i&lt;&lt;14|i&gt;&gt;&gt;18)^i&gt;&gt;&gt;3)+m[n-7]+((p&lt;&lt;15|p&gt;&gt;&gt;17)^(p&lt;&lt;13|p&gt;&gt;&gt;19)^p&gt;&gt;&gt;10)+m[n-16]&#125;i=k+((c&lt;&lt;26|c&gt;&gt;&gt;6)^(c&lt;&lt;21|c&gt;&gt;&gt;11)^(c&lt;&lt;7|c&gt;&gt;&gt;25))+(c&amp;h^~c&amp;l)+o[n]+m[n];p=((g&lt;&lt;30|g&gt;&gt;&gt;2)^(g&lt;&lt;19|g&gt;&gt;&gt;13)^(g&lt;&lt;10|g&gt;&gt;&gt;22))+(g&amp;a^g&amp;j^a&amp;j);k=l;l=h;h=c;c=d+i|0;d=j;j=a;a=g;g=i+p|0&#125;b[0]=b[0]+g|0;b[1]=b[1]+a|0;b[2]=b[2]+j|0;b[3]=b[3]+d|0;b[4]=b[4]+c|0;b[5]=b[5]+h|0;b[6]=b[6]+l|0;b[7]=b[7]+k|0&#125;,_doFinalize:function()&#123;var e=this._data,f=e.words,b=8*this._nDataBytes,  g=8*e.sigBytes;f[g&gt;&gt;&gt;5]|=128&lt;&lt;24-g%32;f[(g+64&gt;&gt;&gt;9&lt;&lt;4)+15]=b;e.sigBytes=4*f.length;this._process()&#125;&#125;);i.SHA256=e._createHelper(l);i.HmacSHA256=e._createHmacHelper(l)&#125;)(Math);  (function()&#123;var h=CryptoJS,i=h.enc.Utf8;h.algo.HMAC=h.lib.Base.extend(&#123;init:function(e,f)&#123;e=this._hasher=e.create();&quot;string&quot;==typeof f&amp;&amp;(f=i.parse(f));var h=e.blockSize,k=4*h;f.sigBytes&gt;k&amp;&amp;(f=e.finalize(f));for(var o=this._oKey=f.clone(),m=this._iKey=f.clone(),q=o.words,r=m.words,b=0;b&lt;h;b++)q[b]^=1549556828,r[b]^=909522486;o.sigBytes=m.sigBytes=k;this.reset()&#125;,reset:function()&#123;var e=this._hasher;e.reset();e.update(this._iKey)&#125;,update:function(e)&#123;this._hasher.update(e);return this&#125;,finalize:function(e)&#123;var f=  this._hasher,e=f.finalize(e);f.reset();return f.finalize(this._oKey.clone().concat(e))&#125;&#125;)&#125;)(); module.exports = CryptoJS</code></pre><p>使用时创建CryptoJS.js 复制上面代码，在game.js中引用。</p><pre><code class="javascript">let str = [APPID, groupId, nonceStr, timeStamp.toString()].sort().join(&#39;&#39;);signature = CryptoJS.HmacSHA256(str, session_key).toString() 微信小游戏签名算法调用</code></pre><p>随机字符串方法:</p><pre><code class="javascript">createNonceStr() &#123;    return Math.random().toString(36).substr(2, 15)&#125;</code></pre><p>时间戳获取:</p><pre><code class="javascript">createTimeStamp() &#123;    return parseInt(new Date().getTime() / 1000)&#125;</code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> wxgame </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>novnc搭建(傻瓜式)</title>
+      <link href="/2024/01/28/novnc%E6%90%AD%E5%BB%BA-%E5%82%BB%E7%93%9C%E5%BC%8F/"/>
+      <url>/2024/01/28/novnc%E6%90%AD%E5%BB%BA-%E5%82%BB%E7%93%9C%E5%BC%8F/</url>
+      
+        <content type="html"><![CDATA[<p>novnc搭建</p><span id="more"></span><p>1.下载nodejs git<br>2.下载整合压缩包<br>novnc<br>3.解压后运行start.bat或者在解压后文件夹内运行下面命令：</p><p>node “\node_modules\websockify-js\websockify\websockify.js” –web “\node_modules\noVNC” 10000 localhost:5900</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> other </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+  
+  
+</search>
