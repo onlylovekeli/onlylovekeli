@@ -4,11 +4,36 @@
   
     
     <entry>
+      <title>unity贴花实现</title>
+      <link href="/2024/06/15/unity%E8%B4%B4%E8%8A%B1%E5%AE%9E%E7%8E%B0/"/>
+      <url>/2024/06/15/unity%E8%B4%B4%E8%8A%B1%E5%AE%9E%E7%8E%B0/</url>
+      
+        <content type="html"><![CDATA[<p>unity贴花shader</p><span id="more"></span><pre><code class="shader">Shader &quot;Decal&quot;&#123;    Properties    &#123;        _MainTex (&quot;Texture&quot;, 2D) = &quot;white&quot; &#123;&#125;        _MixedColor(&quot;MixedColor&quot;,Color)=(1,1,1,1) //颜色混合        _Alpha (&quot;Alpha&quot;,Range(0,1.0)) = 1 //透明度    &#125;    SubShader    &#123;        Tags &#123;             &quot;RenderType&quot;=&quot;Opaque&quot;            &quot;Queue&quot; = &quot;Geometry+1&quot;        &#125;        LOD 100                ZWrite Off         ZTest Off        Cull Front                         Blend SrcAlpha OneMinusSrcAlpha                Pass        &#123;            CGPROGRAM            #pragma vertex vert            #pragma fragment frag            #include &quot;UnityCG.cginc&quot;            struct appdata            &#123;                float4 vertex : POSITION;                float2 uv : TEXCOORD0;            &#125;;            struct v2f            &#123;                float2 uv : TEXCOORD0;                float4 vertex : SV_POSITION;                float4 screenPos : TEXCOORD1;            &#125;;            sampler2D _MainTex;            float _Alpha;            float4 _MainTex_ST;            float4 _MixedColor;            sampler2D _CameraDepthTexture;            v2f vert (appdata v)            &#123;                v2f o;                o.vertex = UnityObjectToClipPos(v.vertex);                o.uv = TRANSFORM_TEX(v.uv, _MainTex);                                o.screenPos = ComputeScreenPos(o.vertex);                return o;            &#125;            float3 DepthToWorldPosition(float4 screenPos)            &#123;                float depth = Linear01Depth(UNITY_SAMPLE_DEPTH(tex2Dproj(_CameraDepthTexture,screenPos)));                float4 ndcPos = (screenPos/screenPos.w) * 2 - 1;                float3 clipPos = float3(ndcPos.x,ndcPos.y,1) * _ProjectionParams.z;                float3 viewPos = mul(unity_CameraInvProjection,clipPos.xyzz).xyz * depth;                float3 worldPos = mul(UNITY_MATRIX_I_V,float4(viewPos,1)).xyz;                return worldPos;            &#125;             //颜色混合            float4 MixedColor(float4 a,float4 b)            &#123;                return float4(a.r*b.r,a.g*b.g,a.b*b.b,a.a*b.a);            &#125;            fixed4 frag (v2f i) : SV_Target            &#123;                float3 worldPos = DepthToWorldPosition(i.screenPos);                float4 localPos = mul(unity_WorldToObject,float4(worldPos,1.0));                clip(float3(0.5,0.5,0.5) - abs(localPos.xyz));                fixed2 decalUV = fixed2(localPos.x,localPos.z);                decalUV = decalUV + 0.5;                fixed4 color = tex2D(_MainTex,decalUV);                fixed4 c=fixed4(color.r,color.g,color.b,color.a*_Alpha);                return MixedColor(c,_MixedColor);            &#125;                       ENDCG        &#125;    &#125;&#125;</code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> unity </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> shader </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>UnityFrameDebugger连接Android真机调试</title>
       <link href="/2024/03/11/UnityFrameDebugger%E8%BF%9E%E6%8E%A5Android%E7%9C%9F%E6%9C%BA%E8%B0%83%E8%AF%95/"/>
       <url>/2024/03/11/UnityFrameDebugger%E8%BF%9E%E6%8E%A5Android%E7%9C%9F%E6%9C%BA%E8%B0%83%E8%AF%95/</url>
       
-        <content type="html"><![CDATA[<p>UnityFrameDebugger连接Android真机调试</p><span id="more"></span><p>当用Profiler分析到不是代码导致的性能问题，当前场景最大的性能瓶颈是渲染时，或者自己写的Shader要调试时，都可以用Frame Debugger进行调试。</p><p>按下列步骤设置打包，既可以用Profiler又可以用Frame Debugger连接Android真机：<br>1.手机开启开发者模式和USB调试<br>2. Building Setting勾选Development Build，Autoconnect Profiler，Script Debugging。勾选Player Setting中的Multithreaded Rendering。<br>点击Building And Run。打包成功后程序运行起来<br>3.Window-&gt;Profiler,选择AndroidPlayer(<a href="mailto:&#x41;&#68;&#x42;&#64;&#49;&#50;&#x37;&#46;&#x30;&#x2e;&#x30;&#46;&#x31;">&#x41;&#68;&#x42;&#64;&#49;&#50;&#x37;&#46;&#x30;&#x2e;&#x30;&#46;&#x31;</a>:34999),选中Record开始用Profiler监测。<br>4.Window-&gt;Frame Debugger，选择AndroidPlayer(<a href="mailto:&#65;&#x44;&#66;&#64;&#49;&#50;&#55;&#46;&#48;&#46;&#x30;&#46;&#49;">&#65;&#x44;&#66;&#64;&#49;&#50;&#55;&#46;&#48;&#46;&#x30;&#46;&#49;</a>:34999),选中Record开始用Frame Debugger监测。</p>]]></content>
+        <content type="html"><![CDATA[<p>UnityFrameDebugger连接Android真机调试</p><span id="more"></span><p>当用Profiler分析到不是代码导致的性能问题，当前场景最大的性能瓶颈是渲染时，或者自己写的Shader要调试时，都可以用Frame Debugger进行调试。</p><p>按下列步骤设置打包，既可以用Profiler又可以用Frame Debugger连接Android真机：<br>1.手机开启开发者模式和USB调试<br>2. Building Setting勾选Development Build，Autoconnect Profiler，Script Debugging。勾选Player Setting中的Multithreaded Rendering。<br>点击Building And Run。打包成功后程序运行起来<br>3.Window-&gt;Profiler,选择AndroidPlayer(<a href="mailto:&#x41;&#x44;&#66;&#64;&#x31;&#50;&#x37;&#x2e;&#x30;&#x2e;&#48;&#46;&#49;">&#x41;&#x44;&#66;&#64;&#x31;&#50;&#x37;&#x2e;&#x30;&#x2e;&#48;&#46;&#49;</a>:34999),选中Record开始用Profiler监测。<br>4.Window-&gt;Frame Debugger，选择AndroidPlayer(<a href="mailto:&#65;&#68;&#66;&#x40;&#x31;&#x32;&#x37;&#x2e;&#48;&#46;&#x30;&#46;&#49;">&#65;&#68;&#66;&#x40;&#x31;&#x32;&#x37;&#x2e;&#48;&#46;&#x30;&#46;&#49;</a>:34999),选中Record开始用Frame Debugger监测。</p>]]></content>
       
       
       <categories>
@@ -61,11 +86,11 @@
     
     
     <entry>
-      <title>hybridclr�ȸ���</title>
+      <title>hybridclr热更新</title>
       <link href="/2024/03/04/hybridclr%E7%83%AD%E6%9B%B4%E6%96%B0/"/>
       <url>/2024/03/04/hybridclr%E7%83%AD%E6%9B%B4%E6%96%B0/</url>
       
-        <content type="html"><![CDATA[<p>hybridclr�ȸ���</p><span id="more"></span>]]></content>
+        <content type="html"><![CDATA[<p>hybridclr热更新</p><span id="more"></span>]]></content>
       
       
       <categories>
