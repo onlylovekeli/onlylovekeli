@@ -2,7 +2,7 @@ var windowCount = 0;
 $(document).ready(function() {
     icons.map(function(value, index, array) {
         $("#icons").append('<div data-index="' + index + '" class="icon">' +
-                '<img src="' + value.image + '" onerror="this.src=\'images/error.png\';" /><br>' +
+                '<img src="' + value.image + '" onerror="this.src=\'/images/error.png\';" /><br>' +
                 '<span>' + value.name + '</span>' +
             '</div>' );
     });
@@ -32,7 +32,7 @@ $(document).ready(function() {
             width = $(window).width() - left;
         }
         $('body').append('<div class="panel" id="window' + windowCount + '">' +
-                '<div class="panel-heading"><img class="favicon" src="'+ icon.image +'" onerror="this.src=\'images/error.png\';" />' + 
+                '<div class="panel-heading"><img class="favicon" src="'+ icon.image +'" onerror="this.src=\'/images/error.png\';" />' + 
                 '<span class="title">' + icon.name + ' [' + icon.url + ']</span><a class="close-window"></a></div>' +
                 '<iframe src="' + icon.url + '"></iframe>' + 
             '</div>');

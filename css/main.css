@@ -2,7 +2,7 @@ body, html {
     height: 100%;
 }
 body { 
-    background: url(images/wallpaper.jpg) no-repeat center center fixed; 
+    background: url(/images/wallpaper.jpg) no-repeat center center fixed; 
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
@@ -79,7 +79,7 @@ iframe {
 }
 
 .close-window {
-    background: url(images/close.png) no-repeat center;
+    background: url(/images/close.png) no-repeat center;
     background-size: 22px 22px;
     display: inline-block;
     float: right;
@@ -88,7 +88,7 @@ iframe {
     padding: 5px 10px;
 }
 .close-window:hover {
-    background: url(images/close_hover.png) no-repeat center;
+    background: url(/images/close_hover.png) no-repeat center;
     background-size: 22px 22px;
     background-color: #E81123;
 }
