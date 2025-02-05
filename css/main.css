@@ -1,12 +1,14 @@
-body, html {
+body,html {
     height: 100%;
 }
-body { 
-    background: url(../images/wallpaper.jpg) no-repeat center center fixed; 
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    -o-background-size: cover;
-    background-size: cover;
+
+video {
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    right: 0px;
+    bottom: 0px;
+    z-index: -1;
 }
 
 #icons {
@@ -17,21 +19,25 @@ body {
     align-content: flex-start;
     flex-wrap: wrap;
 }
+
 .icon {
     width: 76px;
     margin: 10px 2px;
     text-align: center;
     user-select: none;
 }
+
 .icon:hover {
-    outline: 1px solid rgba(153,209,255, 0.5);
-    background: rgba(204,232,255, 0.2);
+    outline: 1px solid rgba(153, 209, 255, 0.5);
+    background: rgba(204, 232, 255, 0.2);
 }
+
 .icon img {
     width: 56px;
     height: 56px;
     padding: 4px;
 }
+
 .icon span {
     color: white;
     font-size: 12px;
@@ -44,13 +50,14 @@ body {
 
 .panel {
     border: 1px solid #26A6F2;
-    -webkit-box-shadow: 1px 1px 13px 0px rgba(87,87,87,1);
-    -moz-box-shadow: 1px 1px 13px 0px rgba(87,87,87,1);
-    box-shadow: 1px 1px 13px 0px rgba(87,87,87,1);
-    position:fixed !important;
+    -webkit-box-shadow: 1px 1px 13px 0px rgba(87, 87, 87, 1);
+    -moz-box-shadow: 1px 1px 13px 0px rgba(87, 87, 87, 1);
+    box-shadow: 1px 1px 13px 0px rgba(87, 87, 87, 1);
+    position: fixed !important;
     border-radius: 0;
-	overflow: hidden;
+    overflow: hidden;
 }
+
 .panel-heading {
     padding: 0;
     color: white;
@@ -61,10 +68,12 @@ body {
     user-select: none;
     border-radius: 0;
 }
+
 .panel-heading .title {
     padding: 10px 8px;
     display: inline-block;
 }
+
 .panel-heading .favicon {
     width: 16px;
     height: 16px;
@@ -87,10 +96,9 @@ iframe {
     width: 42px;
     padding: 5px 10px;
 }
+
 .close-window:hover {
     background: url(../images/close_hover.png) no-repeat center;
     background-size: 22px 22px;
     background-color: #E81123;
 }
-
-

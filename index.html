@@ -1,33 +1,37 @@
 <html>
+
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="author" content="renzhn">
-<title>极简导航</title>
-<link href="./css/bootstrap.min.css" rel="stylesheet">
-<link href="./css/jquery-ui.min.css" rel="stylesheet">
-<link href="./css/main.css" rel="stylesheet">
-<script>
-var icons = [
-    {
-        name: "itab",
-        url: "https://go.itab.link/",
-        image: "images/itab.ico",
-        openInNewWindow: false,
-    },{
-        name: "BiliBili",
-        url: "https://www.bilibili.com/",
-        image: "images/BiliBili.png",
-        openInNewWindow: false,
-    }
-];
-</script>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="author" content="renzhn">
+    <title>心悦导航</title>
+    <link href="./css/bootstrap.min.css" rel="stylesheet">
+    <link href="./css/jquery-ui.min.css" rel="stylesheet">
+    <link href="./css/main.css" rel="stylesheet">
+    <script>
+        var icons = [
+            {
+                name: "itab",
+                url: "https://go.itab.link/",
+                image: "images/itab.ico",
+                openInNewWindow: false,
+            }, {
+                name: "BiliBili",
+                url: "https://www.bilibili.com/",
+                image: "images/BiliBili.png",
+                openInNewWindow: false,
+            }
+        ];
+    </script>
 </head>
+
 <body>
-<div id="icons">
-</div>
-<script src="./js/jquery.min.js"></script>
-<script src="./js/jquery-ui.min.js"></script>
-<script src="./js/main.js"></script>
+    <video id="bg_video" src="https://gamepic.heitao.com/dal/website/8.0/p/img/pic/vdo1.mp4"
+        style="width: 100%;height: 100%;object-fit:cover;position:absolute;top: 0;left: 0;" autoplay="autoplay"
+        loop="loop" muted="muted"></video>
+    <div id="icons"></div>
+    <script src="./js/jquery.min.js"></script>
+    <script src="./js/jquery-ui.min.js"></script>
+    <script src="./js/main.js"></script>
 </body>
 </html>
