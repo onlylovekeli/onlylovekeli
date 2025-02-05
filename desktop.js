@@ -1743,6 +1743,7 @@ let icon = {
     bilibili: 'bilibili.png',
     vscode: 'vscode.png',
     // python: 'python.png',
+    photopea: 'photopea.png',
     winver: 'about.svg',
     // run: 'run.png',
     // whiteboard: 'whiteboard.png',
