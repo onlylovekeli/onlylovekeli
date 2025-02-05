@@ -19,14 +19,14 @@ $(document).ready(function() {
         var top = 50;
         var height = $(window).height() - top;
         var width = $(window).width() - left;
-        if (height >= 600) {
-            height = 600;
+        if (height >= 1080) {
+            height = 1080;
         } else {
             top = 25;
             height = $(window).height() - top;
         }
-        if (width >= 800) {
-            width = 800;
+        if (width >= 1920) {
+            width = 1920;
         } else {
             left = 100;
             width = $(window).width() - left;
