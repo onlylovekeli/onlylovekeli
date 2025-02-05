@@ -1,28 +1,26 @@
-> [!NOTE]
-> 无偿请求帮助我们翻译此项目！目前暂仅需英语。详见[此](lang/readme.md)。
-
 <p align="center">
-    <img src="./icon/windows12.svg" width="100" height="100">
+    <img src="./../icon/windows12.svg" width="100" height="100">
 </p>
 <h1 align="center">Windows 12 网页版</h1>
 <p align="center" class="shields">
-  <span href="https://github.com/tjy-gitnub/win12/issues" style="text-decoration:none">
+  <a href="https://github.com/tjy-gitnub/win12/issues" style="text-decoration:none">
     <img src="https://img.shields.io/github/issues/tjy-gitnub/win12.svg" alt="GitHub issues"/>
-  </span>
-  <span href="https://github.com/tjy-gitnub/win12/stargazers" style="text-decoration:none">
+  </a>
+  <a href="https://github.com/tjy-gitnub/win12/stargazers" style="text-decoration:none">
     <img src="https://img.shields.io/github/stars/tjy-gitnub/win12.svg" alt="GitHub stars"/>
-  </span>
-  <span href="https://github.com/tjy-gitnub/win12/network" style="text-decoration:none">
+  </a>
+  <a href="https://github.com/tjy-gitnub/win12/network" style="text-decoration:none">
     <img src="https://img.shields.io/github/forks/tjy-gitnub/win12.svg" alt="GitHub forks"/>
-  </span>
-  <span href="https://github.com/tjy-gitnub/win12/blob/master/LICENSE" style="text-decoration:none">
+  </a>
+  </a>
+  <a href="https://github.com/tjy-gitnub/win12/blob/master/LICENSE" style="text-decoration:none">
     <img src="https://img.shields.io/github/license/tjy-gitnub/win12" alt="GitHub License"/>
-  </pan>
+  </a>
 </p>
 <p align="center" class="language" title="Language selection 语言选择">
-  <a href="readme/README_en_us.md">English</a> | 
+  <a href="README_en_us.md">English</a> | 
   <b>简体中文</b> | 
-  <a href="readme/README_fr_fr.md">Français</a>
+  <a href="README_fr_fr.md">Français</a>
 </p>
 <details align="center">
   <summary>Star History</summary>
@@ -32,11 +30,11 @@
 </details>
 
 ## 公告
-
 ### 重要！
-
 无偿恳请各位有能力的用户为我们制作宣传片！
 详情请见[宣传片公告](https://github.com/tjy-gitnub/win12/wiki/%E5%AE%A3%E4%BC%A0%E7%89%87%E5%85%AC%E5%91%8A)
+
+---
 
 - [Windows 12 网页版](#windows-12-网页版)
   - [前前言](#前前言)
@@ -48,15 +46,12 @@
   - [前景规划](#前景规划)
   - [开源说明](#开源说明)
   - [贡献须知](#贡献须知)
-  - [AI Copilot 实现](#ai-copilot-实现)
-    
-    
 
 ## 前前言
 
 最近（不久之前）看到有一些冒充我们的，在此做个声明：
 
-我们项目的核心开发团队是由 tjy-gitnub（初三），NB-group（预备），782（初一），三位开发者组成的！
+我们项目是由 tjy-gitnub（初三），NB-group（预备），782（初一），三位开发者共同开发的！
 
 （如果你要为我们制作宣传视频，也请顺带把我们的b站账号挂一下
 
@@ -70,15 +65,15 @@ Bilibili：
 
 tjy-gitnub：
 
-[![image](https://github.com/tjy-gitnub/win12/assets/121747915/6b13f81a-2a33-4265-abee-44c3796c2817)](https://space.bilibili.com/2010692096/)
+![image](https://github.com/tjy-gitnub/win12/assets/121747915/6b13f81a-2a33-4265-abee-44c3796c2817)
 
 NB-group：
 
-[![image](https://github.com/tjy-gitnub/win12/assets/121747915/9dad6cac-e0e7-44b3-975e-41eaf33520dd)](https://space.bilibili.com/1570243738/)
+![image](https://github.com/tjy-gitnub/win12/assets/121747915/9dad6cac-e0e7-44b3-975e-41eaf33520dd)
 
 782：
 
-[![image](https://github.com/tjy-gitnub/win12/assets/121747915/e475890f-010d-4e47-9ac6-fd4abad26218)](https://space.bilibili.com/1046361194/)
+![image](https://github.com/tjy-gitnub/win12/assets/121747915/e475890f-010d-4e47-9ac6-fd4abad26218)
 
 爱发电：
 
@@ -88,7 +83,7 @@ NB-group：
 
 链接：<https://afdian.com/a/qstudio>
 
-**我们的项目及源代码绝对不进行强制收费！如果看到倒卖本项目且没有注明原项目链接的，或违反EPL-2.0开源协议及本项目开源说明的，欢迎举报！**
+**我们的项目及源代码绝对不进行强制收费！如果看到售卖本项目且没有注明原项目链接的，或违反EPL-2.0开源协议及本项目开源说明的，欢迎举报！**
 
 ## 前言
 
@@ -137,7 +132,7 @@ NB-group：
 
 ## 安装和使用
 
-下载代码，无需安装，打开 `desktop.html` 即可。
+下载代码，无需安装，打开 desktop.html 即可。
 
 ## 前景规划
 
@@ -191,22 +186,14 @@ NB-group：
 
 由于近期发现大量滥用行为，在此规定附加条例：
 
-- 任何使用或分享本项目者，必须在介绍里附上原作者及项目链接，不得故意隐瞒原项目中的署名信息、原作者或项目链接，不得限制查看原项目中的署名信息、原作者或项目链接，且不得修改原项目中的署名信息；
+- 任何使用本项目者，必须在介绍里附上原作者及项目链接，不得故意隐瞒原项目中的署名信息、原作者或项目链接，不得限制查看原项目中的署名信息、原作者或项目链接，且不得修改原项目中的署名信息；
 
-- 将本项目用于商业用途者，需要**标明原作者及项目链接**，且**必须**以 EPL-2.0 协议开源。未经修改的源代码**不得用于**商业用途；
+- 将本项目用于商业用途者，需要**标明原作者及项目链接**，且**必须**以 EPL 协议开源。未经修改的源代码**不得用于**商业用途；
 
-- 任何使用或分享本项目者，不得移除或故意隐藏、限制查看本声明；
+- 任何使用本项目者，不得移除或故意隐藏、限制查看本声明；
 
 - 请您遵守上述规定，我方有权通过法律手段进行合法维权。
 
 ## 贡献须知
 
 详情请见 [贡献指南](./CONTRIBUTING.md)。
-
-## AI Copilot 实现
-
-详情请见 [AI Copilot 实现](./scripts/AI%20Copilot%20service/README.md)
-
-
-
-
