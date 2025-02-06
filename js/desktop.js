@@ -5,10 +5,25 @@ var icons = [
         image: "images/icons/taskbar/wechat.png",
         openInNewWindow: false
     },{
+        name: "SearXNG",
+        url: "https://searx.bndkt.io/",
+        image: "images/icons/desktop/searxng.png",
+        openInNewWindow: true
+    },{
+        name: "VSCode",
+        url: "https://vscode.dev/?vscode-lang=zh-cn",
+        image: "images/icons/desktop/vscode.ico",
+        openInNewWindow: true
+    },{
+        name: "PS",
+        url: "https://www.photopea.com/",
+        image: "images/icons/desktop/photopea.png",
+        openInNewWindow: true
+    },{
         name: "DrawIo",
         url: "https://app.diagrams.net/",
         image: "images/icons/desktop/drawio.ico",
-        openInNewWindow: false
+        openInNewWindow: true
     },
     {
         name: "itab",
