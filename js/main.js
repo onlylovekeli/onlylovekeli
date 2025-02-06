@@ -1,13 +1,6 @@
 var windowCount = 0;
-$(document).ready(function() {
-    icons.map(function(value, index, array) {
-        $("#icons").append('<div data-index="' + index + '" class="icon">' +
-                '<img src="' + value.image + '" onerror="this.src=\'/images/icons/default/error.png\';" /><br>' +
-                '<span>' + value.name + '</span>' +
-            '</div>' );
-    });
-    $("#icons .icon").dblclick(function() {
-        var index = $(this).data('index');
+function openApp(){
+    var index = $(this).data('index');
         var icon = icons[index];
         if (icon.openInNewWindow) {
             window.open(icon.url);
@@ -61,6 +54,13 @@ $(document).ready(function() {
             windowCount--;
             $(this).parent().parent().remove();
         });
-
+}
+$(document).ready(function() {
+    icons.map(function(value, index, array) {
+        $("#icons").append('<div data-index="' + index + '" class="icon">' +
+                '<img src="' + value.image + '" onerror="this.src=\'/images/icons/default/error.png\';" /><br>' +
+                '<span>' + value.name + '</span>' +
+            '</div>' );
     });
+    $("#icons .icon").dblclick(openApp);
 });
