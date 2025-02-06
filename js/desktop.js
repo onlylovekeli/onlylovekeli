@@ -90,5 +90,15 @@ var icons = [
         url: "https://www.67tool.com/video/convert?to=mp4&type=all&sdk_from=itab&is_member=0",
         image: "images/icons/desktop/videochange.png",
         openInNewWindow: false
+    },{
+        name: "量芯云",
+        url: "https://idc.prolzy.com/",
+        image: "images/icons/desktop/idc.ico",
+        openInNewWindow: false
+    },{
+        name: "腾讯云",
+        url: "https://cloud.tencent.com/",
+        image: "images/icons/desktop/txcloud.png",
+        openInNewWindow: false
     }
 ];
