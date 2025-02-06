@@ -4,6 +4,11 @@ var icons = [
         url: "https://web1.wechat.com/cgi-bin/mmwebwx-bin/webwxindex?t=v2/index",
         image: "images/icons/taskbar/wechat.png",
         openInNewWindow: false
+    },{
+        name: "DrawIo",
+        url: "/web/drawio/",
+        image: "images/icons/desktop/drawio.ico",
+        openInNewWindow: false
     },
     {
         name: "itab",
@@ -32,7 +37,7 @@ var icons = [
         openInNewWindow: false
     }, {
         name: "博客",
-        url: "/blog/",
+        url: "/web/blog/",
         image: "images/icons/desktop/blog.jpg",
         openInNewWindow: false
     }, {
