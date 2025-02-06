@@ -8,87 +8,33 @@
     <link href="./css/bootstrap.min.css" rel="stylesheet">
     <link href="./css/jquery-ui.min.css" rel="stylesheet">
     <link href="./css/main.css" rel="stylesheet">
+    <script src="./js/wallpaper.js"></script>
+    <script src="./js/desktop.js"></script>
+    <script src="./js/jquery.min.js"></script>
+    <script src="./js/jquery-ui.min.js"></script>
+    <script src="./js/main.js"></script>
+    <script src="./js/taskbar.js"></script>
     <script>
-        var icons = [
-            {
-                name: "itab",
-                url: "https://go.itab.link/",
-                image: "images/itab.ico",
-                openInNewWindow: false,
-            }, {
-                name: "BiliBili",
-                url: "https://www.bilibili.com/",
-                image: "images/BiliBili.png",
-                openInNewWindow: false,
-            }, {
-                name: "魔笔小说",
-                url: "https://mobinovels.com/",
-                image: "images/mobi.png",
-                openInNewWindow: false,
-            }, {
-                name: "老男人",
-                url: "https://www.oldmantvg.net/",
-                image: "images/oldman.jpg",
-                openInNewWindow: false,
-            }, {
-                name: "博客",
-                url: "/blog/",
-                image: "images/blog.jpg",
-                openInNewWindow: false,
-            }, {
-                name: "游戏资源",
-                url: "https://byrutgame.org/",
-                image: "images/byrutgame.png",
-                openInNewWindow: true,
-            },{
-                name: "砸壳包",
-                url: "https://macpa.cn/",
-                image: "images/macpa.png",
-                openInNewWindow: false,
-            },{
-                name: "工口实验室",
-                url: "https://game.erolabsshare.net/cn/",
-                image: "images/erolabs_app_icon.png",
-                openInNewWindow: false,
-            },{
-                name: "色资源",
-                url: "https://www.sezycj.com/",
-                image: "images/seziyuan.png",
-                openInNewWindow: false,
-            },{
-                name: "萌芽采集",
-                url: "https://www.mycj.pro/",
-                image: "images/mengya.png",
-                openInNewWindow: false,
-            }
-        ];
-       
+        function refreshWallpaper() {
+            let videoNode = document.getElementById('bg_video');
+            let randomVideoIdx = Math.ceil(Math.random() * wallpapers_videos.length);
+            videoNode.setAttribute('src', wallpapers_videos[randomVideoIdx - 1]);
+        }
     </script>
 </head>
 
 <body>
-    <video id="bg_video" autoplay="autoplay"
-        loop="loop" muted="muted"></video>
+    <video id="bg_video" autoplay="autoplay" loop="loop" muted="muted"></video>
     <div id="icons"></div>
-
-    <script src="./js/jquery.min.js"></script>
-    <script src="./js/jquery-ui.min.js"></script>
-    <script src="./js/main.js"></script>
+    <div class="task_bar">
+        <img class="task_bar_left" src="./images/icons/taskbar/windows.png" onclick="onClickWinBtn()"/>
+        <img class="task_bar_left" src="./images/icons/taskbar/qq.png" onclick="onClickWinBtn()"/>
+        <labelc id="systime" class="task_bar_time"></label>
+    </div>
+    <div id="startmenu" class="start_menu" hidden="true"></div>
     <script>
-        let wallpapers_videos=[
-            "https://img-baofun.zhhainiao.com/fs/scene/preview_video/a12b3e6a4b287b6a7f476b675b6265b1_preview.mp4",
-            "https://img-baofun.zhhainiao.com/pcwallpaper_ugc/preview/80477e49df9bf049a79f0dcd07caa3f1_preview.mp4",
-            "https://img-baofun.zhhainiao.com/fs/scene/preview_video/e08d7f125d2649c0d79db89c113b7bda_preview.mp4",
-            "https://img-baofun.zhhainiao.com/fs/scene/preview_video/990f574e543e2c8adddc10e353f7302c_preview.mp4",
-            "https://img-baofun.zhhainiao.com/fs/scene/preview_video/3dc9595f7d373c55cd62975a56326571_preview.mp4",
-            "https://img-baofun.zhhainiao.com/pcwallpaper_ugc/preview/03017b3429a4067c83bcedadb3f3e33a_preview.mp4",
-            "https://img-baofun.zhhainiao.com/pcwallpaper_ugc/scene/08b238fcf4b1365b453d44bb7d5063f1_preview.mp4",
-            "https://img-baofun.zhhainiao.com/pcwallpaper_ugc/preview/d8b5378e14c6d65d5a5741dfe0778e9d_preview.mp4",
-            "https://img-baofun.zhhainiao.com/pcwallpaper_ugc/scene/0e750a43cbad99045f3e749cc727e871_preview.mp4"
-        ];
-        let videoNode=document.getElementById('bg_video');
-        let randomVideoIdx=Math.ceil(Math.random()*wallpapers_videos.length);     
-        videoNode.setAttribute('src',wallpapers_videos[randomVideoIdx-1]);
+        this.refreshWallpaper();
+        this.updateTime();
     </script>
 </body>
 </html>

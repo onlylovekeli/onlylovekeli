@@ -88,7 +88,7 @@ iframe {
 }
 
 .close-window {
-    background: url(../images/close.png) no-repeat center;
+    background: url(../images/icons/default/close.png) no-repeat center;
     background-size: 22px 22px;
     display: inline-block;
     float: right;
@@ -98,7 +98,41 @@ iframe {
 }
 
 .close-window:hover {
-    background: url(../images/close_hover.png) no-repeat center;
+    background: url(../images/icons/default/close_hover.png) no-repeat center;
     background-size: 22px 22px;
     background-color: #E81123;
+}
+
+.task_bar{
+    position: absolute;
+    width: 100%;
+    height: 40px;
+    bottom: 0;
+    background-color: rgba(196, 220, 235, 0.753);
+    z-index: 2;
+    display: flex;
+    /* 使子元素在水平方向排列 */
+    flex-direction: row; 
+    /* 可根据需要调整子元素之间的间距 */
+    justify-content: flex-start; 
+}
+.task_bar_left{
+    float: left;
+    display: inline-block;
+    margin-left: 10px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+.task_bar_time{
+    position: absolute;
+    right: 80px;
+    bottom: 10px;
+}
+.start_menu{
+    position: absolute;
+    width: 30%;
+    height: 60%;
+    left: 0px;
+    bottom: 40px;
+    background-color: rgba(150, 163, 172, 0.753);
 }
