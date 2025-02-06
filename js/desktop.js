@@ -59,7 +59,7 @@ var icons = [
         name: "博客",
         url: "https://onlylovekeli.cn",
         image: "images/icons/desktop/blog.jpg",
-        openInNewWindow: false
+        openInNewWindow: true
     }, {
         name: "免费游戏",
         url: "https://byrutgame.org/",
