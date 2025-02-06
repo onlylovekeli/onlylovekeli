@@ -57,7 +57,7 @@ var icons = [
         openInNewWindow: false
     }, {
         name: "博客",
-        url: "/apps/blog/",
+        url: "https://onlylovekeli.cn",
         image: "images/icons/desktop/blog.jpg",
         openInNewWindow: false
     }, {
@@ -99,6 +99,11 @@ var icons = [
         name: "腾讯云",
         url: "https://cloud.tencent.com/",
         image: "images/icons/desktop/txcloud.png",
+        openInNewWindow: true
+    },{
+        name: "阿里云",
+        url: "https://www.aliyun.com/",
+        image: "images/icons/desktop/aliyun.ico",
         openInNewWindow: true
     }
 ];
