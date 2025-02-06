@@ -16,15 +16,15 @@
     <script src="./js/taskbar.js"></script>
     <script>
         function refreshWallpaper() {
-            let videoNode = document.getElementById('bg_video');
             let randomVideoIdx = Math.ceil(Math.random() * wallpapers_videos.length);
-            videoNode.setAttribute('src', wallpapers_videos[randomVideoIdx - 1]);
+            this.changeWallpaper(wallpapers_videos[randomVideoIdx - 1],true);
         }
     </script>
 </head>
 
 <body>
     <video id="bg_video" autoplay="autoplay" loop="loop" muted="muted"></video>
+    <img id="bg_img" class="wallpaper"/>
     <div id="icons"></div>
     <div class="task_bar">
         <img class="task_bar_left" src="./images/icons/taskbar/windows.png" onclick="onClickWinBtn()"/>

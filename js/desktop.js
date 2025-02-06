@@ -1,5 +1,15 @@
 var icons = [
     {
+        name: "itab",
+        url: "https://go.itab.link/",
+        image: "images/icons/desktop/itab.ico",
+        openInNewWindow: false
+    }, {
+        name: "壁纸商店",
+        url: "/web/wallpaper/",
+        image: "images/icons/desktop/wallpaper.png",
+        openInNewWindow: false
+    }, {
         name: "微信",
         url: "https://web1.wechat.com/cgi-bin/mmwebwx-bin/webwxindex?t=v2/index",
         image: "images/icons/taskbar/wechat.png",
@@ -26,11 +36,6 @@ var icons = [
         openInNewWindow: true
     },
     {
-        name: "itab",
-        url: "https://go.itab.link/",
-        image: "images/icons/desktop/itab.ico",
-        openInNewWindow: false
-    }, {
         name: "豆包",
         url: "https://www.doubao.com/chat/?open_from_ext=1",
         image: "images/icons/desktop/doubao.png",
