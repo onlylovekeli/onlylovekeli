@@ -94,11 +94,11 @@ var icons = [
         name: "量芯云",
         url: "https://idc.prolzy.com/",
         image: "images/icons/desktop/idc.ico",
-        openInNewWindow: false
+        openInNewWindow: true
     },{
         name: "腾讯云",
         url: "https://cloud.tencent.com/",
         image: "images/icons/desktop/txcloud.png",
-        openInNewWindow: false
+        openInNewWindow: true
     }
 ];
