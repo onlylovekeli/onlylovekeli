@@ -21,7 +21,7 @@ video {
 }
 
 .icon {
-    width: 76px;
+    width: 75px;
     margin: 10px 2px;
     text-align: center;
     user-select: none;
@@ -33,14 +33,14 @@ video {
 }
 
 .icon img {
-    width: 56px;
-    height: 56px;
+    width: 40x;
+    height: 40px;
     padding: 4px;
 }
 
 .icon span {
     color: white;
-    font-size: 18px;
+    font-size: 15px;
     height: 30px;
     display: block;
     overflow: hidden;
@@ -119,7 +119,7 @@ iframe {
 .task_bar_left{
     float: left;
     display: inline-block;
-    margin-left: 10px;
+    margin-left: 20px;
     margin-top: 10px;
     margin-bottom: 10px;
 }

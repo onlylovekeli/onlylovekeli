@@ -1,58 +1,64 @@
 var icons = [
     {
+        name: "微信",
+        url: "https://web1.wechat.com/cgi-bin/mmwebwx-bin/webwxindex?t=v2/index",
+        image: "images/icons/taskbar/wechat.png",
+        openInNewWindow: false
+    },
+    {
         name: "itab",
         url: "https://go.itab.link/",
         image: "images/icons/desktop/itab.ico",
-        openInNewWindow: false,
+        openInNewWindow: false
     }, {
         name: "豆包",
         url: "https://www.doubao.com/chat/?open_from_ext=1",
         image: "images/icons/desktop/doubao.png",
-        openInNewWindow: false,
+        openInNewWindow: false
     }, {
         name: "BiliBili",
         url: "https://www.bilibili.com/",
         image: "images/icons/desktop/BiliBili.png",
-        openInNewWindow: false,
+        openInNewWindow: false
     }, {
         name: "魔笔小说",
         url: "https://mobinovels.com/",
         image: "images/icons/desktop/mobi.png",
-        openInNewWindow: false,
+        openInNewWindow: false
     }, {
         name: "老男人",
         url: "https://www.oldmantvg.net/",
         image: "images/icons/desktop/oldman.jpg",
-        openInNewWindow: false,
+        openInNewWindow: false
     }, {
         name: "博客",
         url: "/blog/",
         image: "images/icons/desktop/blog.jpg",
-        openInNewWindow: false,
+        openInNewWindow: false
     }, {
         name: "免费游戏",
         url: "https://byrutgame.org/",
         image: "images/icons/desktop/byrutgame.png",
-        openInNewWindow: true,
+        openInNewWindow: true
     },{
         name: "砸壳包",
         url: "https://macpa.cn/",
         image: "images/icons/desktop/macpa.png",
-        openInNewWindow: false,
+        openInNewWindow: false
     },{
         name: "好游戏",
         url: "https://game.erolabsshare.net/cn/",
         image: "images/icons/desktop/erolabs_app_icon.png",
-        openInNewWindow: false,
+        openInNewWindow: false
     },{
         name: "好资源",
         url: "https://www.sezycj.com/",
         image: "images/icons/desktop/seziyuan.png",
-        openInNewWindow: false,
+        openInNewWindow: false
     },{
         name: "萌芽采集",
         url: "https://www.mycj.pro/",
         image: "images/icons/desktop/mengya.png",
-        openInNewWindow: false,
+        openInNewWindow: false
     }
 ];
