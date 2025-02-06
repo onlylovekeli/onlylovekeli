@@ -6,7 +6,7 @@ var icons = [
         openInNewWindow: false
     },{
         name: "DrawIo",
-        url: "/web/drawio/",
+        url: "https://app.diagrams.net/",
         image: "images/icons/desktop/drawio.ico",
         openInNewWindow: false
     },
