@@ -31,9 +31,9 @@ var icons = [
         openInNewWindow: true
     },{
         name: "DrawIo",
-        url: "https://app.diagrams.net/",
+        url: "/web/drawio/",
         image: "images/icons/desktop/drawio.ico",
-        openInNewWindow: true
+        openInNewWindow: false
     },
     {
         name: "豆包",
