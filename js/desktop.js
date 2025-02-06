@@ -6,7 +6,7 @@ var icons = [
         openInNewWindow: false
     }, {
         name: "壁纸商店",
-        url: "/web/wallpaper/",
+        url: "/apps/wallpaper/",
         image: "images/icons/desktop/wallpaper.png",
         openInNewWindow: false
     }, {
@@ -57,7 +57,7 @@ var icons = [
         openInNewWindow: false
     }, {
         name: "博客",
-        url: "/web/blog/",
+        url: "/apps/blog/",
         image: "images/icons/desktop/blog.jpg",
         openInNewWindow: false
     }, {
