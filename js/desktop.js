@@ -85,5 +85,10 @@ var icons = [
         url: "https://www.mycj.pro/",
         image: "images/icons/desktop/mengya.png",
         openInNewWindow: false
+    },{
+        name: "视频格式转换",
+        url: "https://www.67tool.com/video/convert?to=mp4&type=all&sdk_from=itab&is_member=0",
+        image: "images/icons/desktop/videochange.png",
+        openInNewWindow: false
     }
 ];
