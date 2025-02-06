@@ -16,8 +16,17 @@
     <script src="./js/taskbar.js"></script>
     <script>
         function refreshWallpaper() {
-            let randomVideoIdx = Math.ceil(Math.random() * wallpapers_videos.length);
-            this.changeWallpaper(wallpapers_videos[randomVideoIdx - 1],true);
+            let wallpaper=window.localStorage.getItem('wallpaper');
+            if(wallpaper==null||wallpaper=='[]'){
+                let wallpaper=[];
+                wallpaper['url']='/images/win10.png';
+                wallpaper['isVideo']=false;
+                console.log('默认壁纸')
+                this.changeWallpaper(wallpaper);
+                
+            }else{
+                this.changeWallpaper(JSON.parse(wallpaper));
+            }
         }
     </script>
 </head>
